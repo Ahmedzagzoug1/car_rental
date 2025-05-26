@@ -3,6 +3,7 @@
 import 'package:car_rental/core/resources/style_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'color_manager.dart';
 import 'font_manager.dart';
@@ -31,13 +32,13 @@ ThemeData getApplicationTheme() {
       // text theme
       textTheme: TextTheme(
           headlineLarge: getSemiBoldStyle(
-              color: ColorManager.black, fontSize: FontSize.s16),
+              color: ColorManager.black, fontSize: FontSize.s15.sp),
           headlineMedium: 
-              getRegularStyle(color: ColorManager.black, fontSize: FontSize.s14),
+              getRegularStyle(color: ColorManager.black, fontSize: FontSize.s15.sp),
           displayLarge:
-              getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12),
-          bodyLarge: getRegularStyle(color: ColorManager.black),
-          labelMedium: getRegularStyle(color: ColorManager.white)
+              getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12.sp),
+          bodyLarge: getRegularStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
+          labelMedium: getRegularStyle(color: ColorManager.white,fontSize: FontSize.s15.sp)
           ),
       // input decoration theme (text form field)
 inputDecorationTheme: InputDecorationTheme(
@@ -45,10 +46,10 @@ inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.all(AppPadding.p8),
         // hint style
         hintStyle:
-            getRegularStyle(color: ColorManager.Gray, fontSize: FontSize.s14),
+            getRegularStyle(color: ColorManager.Gray, fontSize: FontSize.s15),
         labelStyle:
-            getMediumStyle(color: ColorManager.black, fontSize: FontSize.s14),
-        errorStyle: getRegularStyle(color: ColorManager.error),
+            getMediumStyle(color: ColorManager.black, fontSize: FontSize.s15),
+        errorStyle: getRegularStyle(color: ColorManager.error,fontSize: FontSize.s15.sp),
 
         // enabled border style
         enabledBorder: OutlineInputBorder(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:car_rental/features/authentication/view/signup.dart';
+import 'package:car_rental/features/home/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,9 @@ void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(ScreenUtilInit(
-    designSize: const Size(375, 812), // Replace with your design dimensions
+    designSize: const Size(375, 812),
+minTextAdapt: true,
+    splitScreenMode: true,
     builder: (context, child) => const MyApp(),
   ));}
 
@@ -32,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: SignUpPage(),
+      home: HomePage(),
     );
   }
 }
