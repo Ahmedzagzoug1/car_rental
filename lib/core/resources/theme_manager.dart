@@ -18,32 +18,41 @@ ThemeData getApplicationTheme() {
       // button theme
       buttonTheme: ButtonThemeData(
           shape: const StadiumBorder(),
-          buttonColor: ColorManager.primary,
+
+        highlightColor: ColorManager.green,
+        focusColor: ColorManager.green,
+        buttonColor: ColorManager.primary,
           ),
       elevatedButtonTheme: ElevatedButtonThemeData(
+
           style: ElevatedButton.styleFrom(
               textStyle: getSemiBoldStyle(
                 color: ColorManager.white,
-                fontSize: FontSize.s17,
+                fontSize: FontSize.s13.sp,
 
               ),
+backgroundColor: ColorManager.green,
+              foregroundColor: ColorManager.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(FontSize.s12)))),
+                  borderRadius: BorderRadius.circular(AppSize.s16.sp)))),
+
       // text theme
       textTheme: TextTheme(
           headlineLarge: getSemiBoldStyle(
               color: ColorManager.black, fontSize: FontSize.s15.sp),
           headlineMedium: 
               getRegularStyle(color: ColorManager.black, fontSize: FontSize.s15.sp),
+displayMedium: getRegularStyle(fontSize: FontSize.s13.sp, color: ColorManager.Gray),
           displayLarge:
               getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12.sp),
-          bodyLarge: getRegularStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
-          labelMedium: getRegularStyle(color: ColorManager.white,fontSize: FontSize.s15.sp)
+          bodyLarge: getSemiBoldStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
+          labelMedium: getSemiBoldStyle(color: ColorManager.white,fontSize: FontSize.s15.sp)
           ),
       // input decoration theme (text form field)
 inputDecorationTheme: InputDecorationTheme(
         // content padding
         contentPadding: const EdgeInsets.all(AppPadding.p8),
+
         // hint style
         hintStyle:
             getRegularStyle(color: ColorManager.Gray, fontSize: FontSize.s15),

@@ -21,7 +21,7 @@ class CustomAppbar extends StatelessWidget {
             child: Row(
               children: [
 Icon(CupertinoIcons.location_solid),
-                Text('200',style: Theme.of(context).textTheme.headlineMedium,),
+                Text('Location',style: Theme.of(context).textTheme.headlineMedium,),
                 Icon(CupertinoIcons.arrow_down)
               ],
             ),
@@ -35,13 +35,13 @@ Icon(CupertinoIcons.location_solid),
                 width: 69.w,
                 height: 32.h,
                    decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(AppSize.s8.r),
-                     boxShadow:[
-                       BoxShadow(color: ColorManager.black,
-                           offset: Offset(0, 0))
-        ]
+                     border:Border.all(color: ColorManager.black,width: AppSize.s1_5.r,
+                     ),
+                     borderRadius: BorderRadius.circular(AppSize.s16.r),
+
                    ),
                    child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: [
                        Image.asset(ImageAssets.tree,height: 20.r,width: 20.r,
                        ),
