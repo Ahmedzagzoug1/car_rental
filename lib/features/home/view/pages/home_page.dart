@@ -1,6 +1,8 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/features/home/view/widgets/custom_appbar.dart';
+import 'package:car_rental/features/home/view/widgets/custom_cars_listview.dart';
+import 'package:car_rental/features/home/view/widgets/custom_top_brand_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,6 +60,20 @@ filled: true,
 
                 ],
               ),
+              AppSize.s14.verticalSpace,
+ const CustomTopBrandList(),
+              AppSize.s14.verticalSpace,
+//Top Rated Cars
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Top Rated Cars',style:Theme.of(context).textTheme.headlineLarge ,),
+                  Text('View all',style:Theme.of(context).textTheme.displayMedium ,),
+
+                ],
+              ),
+              AppSize.s14.verticalSpace,
+              const CustomCarsListview()
 
             ],
           ),
