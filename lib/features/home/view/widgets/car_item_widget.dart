@@ -11,11 +11,12 @@ class CarItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return     Container(
       margin: EdgeInsets.only(right: AppMargin.m20.r),
-    width: AppSize.s200.sp,
+    width: AppSize.s227.sp,
+    height: AppSize.s206.sp,
     decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(AppSize.s16),
+    borderRadius: BorderRadius.circular(AppSize.s16.sp),
     color: Colors.white,
-    boxShadow: [BoxShadow(color: ColorManager.black, blurRadius: 6)],
+    boxShadow: [BoxShadow(color: ColorManager.black, blurRadius: AppSize.s1_5.sp)],
     ),
     child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,46 +24,53 @@ class CarItemWidget extends StatelessWidget {
     Stack(
     children: [
     ClipRRect(
-    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+    borderRadius: const BorderRadius.vertical(top: Radius.circular(AppSize.s16)),
+    //TODO add car image and change the size to sp
     child: Image.network(
     car.image,
-    height: 120,
-    width: double.infinity,
-    fit: BoxFit.cover,
+    height: AppSize.s60.sp,
+    width:AppSize.s227.sp ,
+    fit: BoxFit.fill,
     ),
     ),
-    const Positioned(
-    right: 10,
-    top: 10,
-    child: Icon(Icons.favorite_border, color: Colors.white),
+     Positioned(
+    right: AppSize.s12.sp,
+    top: AppSize.s12.sp,
+    child: CircleAvatar(backgroundColor: ColorManager.Gray,
+        child : Center(child: Icon(Icons.favorite_border, color:ColorManager.white,))),
     )
     ],
     ),
-    Padding(
-    padding: const EdgeInsets.all(12),
+      RPadding(
+        padding:EdgeInsets.all( AppSize.s12.sp),
     child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
+
     children: [
-    Text(car.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-    const SizedBox(height: 4),
     Row(
-    children: [
-    Icon(Icons.star, color: Colors.green, size: 16),
-    const SizedBox(width: 4),
-    Text(car.rating.toString()),
-    ],
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(car.name, style: Theme.of(context).textTheme.bodyLarge),
+        Row(
+          children: [
+            Icon(Icons.star, color: ColorManager.green, size: AppSize.s16.sp),
+            Text(car.rating.toString()),
+          ],
+        ),
+
+      ],
     ),
-    const SizedBox(height: 4),
-    Text(car.availability, style: const TextStyle(fontSize: 12)),
-    const SizedBox(height: 8),
+  const RSizedBox.vertical(AppSize.s4),
+      Text(car.availability, style: Theme.of(context).textTheme.displayMedium),
+      const  RSizedBox.vertical(AppSize.s4),
     Row(
     children: [
-    const Icon(Icons.event_seat, size: 16, color: Colors.green),
-    const SizedBox(width: 4),
-    const Text("4 Seats", style: TextStyle(fontSize: 12)),
+     Icon(Icons.event_seat, size:AppSize.s14.sp, color: Colors.green),
+   const   RSizedBox.horizontal(AppSize.s4),
+     Text("4 Seats", style: Theme.of(context).textTheme.bodyLarge),
     const Spacer(),
-    const Icon(Icons.attach_money, color: Colors.green, size: 16),
-    Text("${car.price}/hour", style: const TextStyle(fontSize: 12)),
+     Icon(Icons.attach_money, color: Colors.green, size:AppSize.s14.sp),
+    Text("${car.price}/hour", style:  Theme.of(context).textTheme.bodyLarge),
     ],
     )
     ],

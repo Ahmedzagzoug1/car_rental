@@ -11,12 +11,15 @@ class Brandwidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        //TODO add card or shadow
+
         CircleAvatar(
           backgroundColor: ColorManager.white,
           radius: AppSize.s35.sp,
-    child: RPadding(padding: const EdgeInsets.all( AppPadding.p8)
-    ,child: Image.asset(topBrandModel!.imageSrc)),
-        ),
+       child: RPadding(padding: const EdgeInsets.all( AppPadding.p8)
+
+             ,  child: Image.asset(topBrandModel!.imageSrc))),
+
         const RSizedBox.vertical(AppSize.s4),
      Text(topBrandModel!.brandName, style: Theme.of(context).textTheme.bodyMedium,),
       ],
