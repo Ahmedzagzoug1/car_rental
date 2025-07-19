@@ -1,4 +1,3 @@
-import 'dart:ui_web';
 
 import 'package:car_rental/core/resources/assets_manager.dart';
 
