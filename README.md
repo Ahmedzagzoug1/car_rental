@@ -1,16 +1,58 @@
-# car_rental
+# car_rental application
 
-A new Flutter project.
+An application used to help people to rent cars.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+## Folder Structure
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+### ✅ Correct version for README.md:
+
+```bash
+lib/
+├── core/
+│   └── resources/               # Shared assets, constants, etc.
+│   └── shared_widgets/
+│   └── services/
+│   └── router/
+│   └── theme/ 
+│
+├── features/                    # Feature-based structure
+│   ├── booking/
+│   │   ├── model/               # Booking data models
+│   │   ├── model_view/          # ViewModels or business logic
+│   │   └── view/                # UI Screens for booking
+│   │
+│   ├── car_details/             # Car detail feature
+│   │   ├── model/               # Car detail  models
+│   │   ├── model_view/          # ViewModels or business logic
+│   │   └── view/                # UI Screens for Car detail 
+│   │
+│   ├── driver_information/      # Driver details input/view
+│   │   ├── model/               # Driver details data models
+│   │   ├── model_view/          # ViewModels or business logic
+│   │   └── view/                # UI Screens for Driver details
+│   │
+│   ├── home/                    # Home screen
+│   │   ├── model/               # Home data models
+│   │   ├── model_view/          # ViewModels or business logic
+│   │   └── view/                # UI Screens for Home
+│   │
+│   ├── host_car/                # Host car listing feature
+│   │   ├── model/               # Host data models
+│   │   ├── model_view/          # ViewModels or business logic
+│   │   └── view/                # UI Screens for Host
+│   │
+│   └── payment_process/         # Payment logic and UI
+│       ├── model/               # Payment data models
+│       ├── model_view/          # ViewModels or business logic
+│       └── view/                # UI Screens for Payment
+│   
+│
+└── main.dart                    # App entry point
+
+
