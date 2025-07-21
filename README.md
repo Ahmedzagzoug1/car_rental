@@ -10,8 +10,6 @@ An application used to help people to rent cars.
 
 
 
-### ✅ Correct version for README.md:
-
 ```bash
 lib/
 ├── core/
