@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../model/pickup_location.dart';
 class PickupMenu extends StatefulWidget {
@@ -18,11 +19,15 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: List.generate(locations.length, (index) {
+    return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          height: 316.h,
+          child: ListView.builder(
+              itemCount: locations.length,
+
+              itemBuilder: (context,index){
+
               final loc = locations[index];
               return Card(
                 margin: const EdgeInsets.symmetric(vertical: 6),
@@ -40,10 +45,11 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
                   secondary: Text(loc.price, style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               );
+
             }),
           ),
 
-      ),
+
     );
   }
 }

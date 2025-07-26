@@ -32,111 +32,117 @@ class HostDetails extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
             children: [
-              // Host Profile Picture
-              Container(
-                width: AppSize.s60.w,
-                height: AppSize.s60.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      hostModel!.imageUrl, // Placeholder image
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              // Host Details (Name, All-Star, Trips, Joined, Response Time)
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                     Text(
-                      hostModel!.name,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        // All-Star Host Badge (using a star icon as a placeholder)
-                        const Icon(Icons.star, color: Colors.orange, size: 16),
-                        const SizedBox(width: 4),
-                        Text(
-                          hostModel!.starHost,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                          ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Host Profile Picture
+                  Container(
+                    width: AppSize.s60.w,
+                    height: AppSize.s60.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          hostModel!.imageUrl, // Placeholder image
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${hostModel!.trips} Trips • Joined ${hostModel!.joinTime}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[700],
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Row(
+                  ),
+                  const SizedBox(width: 16),
+                  // Host Details (Name, All-Star, Trips, Joined, Response Time)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.star, color: Colors.green, size: 16),
-                        const SizedBox(width: 4),
-                        Text(
-                          '${hostModel!.rate}',
+                         Text(
+                          hostModel!.name,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            // All-Star Host Badge (using a star icon as a placeholder)
+                            const Icon(Icons.star, color: Colors.orange, size: 16),
+                            const SizedBox(width: 4),
+                            Text(
+                              hostModel!.starHost,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
                         Text(
-                          'Typically responds in ${hostModel!.responseTime}',
+                          '${hostModel!.trips} Trips • Joined ${hostModel!.joinTime}',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[700],
                           ),
                         ),
+                        const SizedBox(height: 4),
+
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  // Call and Message Icons
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green.shade100, // Light green background for icons
+                        ),
+                        padding:  EdgeInsets.all(AppPadding.p8.r),
+                        child:  Icon(Icons.phone, color: Colors.green, size: AppSize.s24.r),
+                      ),
+                       SizedBox(width: AppSize.s8.w),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green.shade100,
+                        ),
+                        padding:  EdgeInsets.all(AppPadding.p8.r),
+                        child:  Icon(Icons.chat_bubble_outline, color: Colors.green, size: AppSize.s40),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              // Call and Message Icons
               Row(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.green.shade100, // Light green background for icons
+                  const Icon(Icons.star, color: Colors.green, size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${hostModel!.rate}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    padding:  EdgeInsets.all(AppPadding.p8.r),
-                    child:  Icon(Icons.phone, color: Colors.green, size: AppSize.s24.r),
                   ),
-                   SizedBox(width: AppSize.s8.w),
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.green.shade100,
+                  const SizedBox(width: 8),
+                  Text(
+                    'Typically responds in ${hostModel!.responseTime}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
                     ),
-                    padding:  EdgeInsets.all(AppPadding.p8.r),
-                    child:  Icon(Icons.chat_bubble_outline, color: Colors.green, size: AppSize.s40),
                   ),
                 ],
               ),
             ],
           ),
         ),
+
       ],
     );;
   }

@@ -1,14 +1,19 @@
+import 'package:car_rental/core/shared_widgets/display_time_and_date.dart';
+import 'package:car_rental/features/booking/model/time_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TimeAndData extends StatefulWidget {
-  const TimeAndData({super.key});
+import '../../../../core/resources/color_manager.dart';
+import '../../../../core/routes/app_router.dart';
+
+class SelectTime extends StatefulWidget {
+  const SelectTime({super.key});
 
   @override
-  State<TimeAndData> createState() => _TimeAndDataState();
+  State<SelectTime> createState() => _SelectTimeState();
 }
 
-class _TimeAndDataState extends State<TimeAndData> {
+class _SelectTimeState extends State<SelectTime> {
   DateTime? _pickupDate;
   TimeOfDay? _pickupTime;
   DateTime? _returnDate;
@@ -31,13 +36,16 @@ class _TimeAndDataState extends State<TimeAndData> {
   return Scaffold(
   appBar: AppBar(
     title: Text('Select Trip Date & Time'),
-      leading: Icon(Icons.arrow_back_ios),
-      actions: [
-        InkWell(onTap: (){},child: Text('Reset',style: Theme.of(context).textTheme.displayMedium,), )
+      leading: InkWell(child:  Icon(Icons.arrow_back_ios),
+          onTap: (){Navigator.pop(context);}),
+    actions: [
+        InkWell(onTap: (){},
+          child: Text('Reset',style: Theme.of(context).textTheme.displayMedium,), )
       ],
+    backgroundColor: ColorManager.white,
+    elevation: 0,
 
-  backgroundColor: Colors.green.shade700,
-  elevation: 0,
+
   ),
   body: SingleChildScrollView(
   padding: const EdgeInsets.all(16.0),
@@ -45,7 +53,7 @@ class _TimeAndDataState extends State<TimeAndData> {
   crossAxisAlignment: CrossAxisAlignment.stretch,
   children: [
   // Top Date and Time Display
-  _buildTopDateTimeDisplay(),
+  DisplayTimeAndDate(timeModel: TimeModel.specificTimeObject),
   SizedBox(height: 20),
   Divider(color: Colors.grey.shade300, thickness: 1),
   SizedBox(height: 20),
@@ -80,52 +88,18 @@ class _TimeAndDataState extends State<TimeAndData> {
   });
   },
   ),
+    ElevatedButton(onPressed: (){
+      Navigator.pushNamed(context, AppRouter.carDetailsRoute);
+
+    },
+    style: Theme.of(context).elevatedButtonTheme.style,
+        child: Text('Save'))
   ],
   ),
   ),
   );
   }
 
-  Widget _buildTopDateTimeDisplay() {
-  String pickupDateStr = _pickupDate != null ? DateFormat('dd MMM, EEE').format(_pickupDate!) : 'Select Date';
-  String pickupTimeStr = _pickupTime != null ? _pickupTime!.format(context) : 'Select Time';
-  String returnDateStr = _returnDate != null ? DateFormat('dd MMM, EEE').format(_returnDate!) : 'Select Date';
-  String returnTimeStr = _returnTime != null ? _returnTime!.format(context) : 'Select Time';
-
-  return Row(
-  mainAxisAlignment: MainAxisAlignment.spaceAround,
-  children: [
-  _buildDateTimeColumn(pickupDateStr, pickupTimeStr),
-  Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-  child: Icon(Icons.arrow_forward, color: Colors.grey.shade600),
-  ),
-  _buildDateTimeColumn(returnDateStr, returnTimeStr),
-  ],
-  );
-  }
-
-  Widget _buildDateTimeColumn(String date, String time) {
-  return Column(
-  children: [
-  Text(
-  date,
-  style: TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.bold,
-  color: Colors.green.shade700,
-  ),
-  ),
-  Text(
-  time,
-  style: TextStyle(
-  fontSize: 14,
-  color: Colors.black87,
-  ),
-  ),
-  ],
-  );
-  }
 
   Widget _buildMonthNavigation() {
   return Row(

@@ -32,6 +32,7 @@ ThemeData getApplicationTheme() {
 
               ),
 backgroundColor: ColorManager.green,
+
               foregroundColor: ColorManager.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(AppSize.s16.sp)))),
@@ -46,7 +47,8 @@ displayMedium: getRegularStyle(fontSize: FontSize.s13.sp, color: ColorManager.Gr
           displayLarge:
               getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12.sp),
           bodyLarge: getSemiBoldStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
-          labelMedium: getSemiBoldStyle(color: ColorManager.white,fontSize: FontSize.s15.sp)
+          labelMedium: getSemiBoldStyle(color: ColorManager.white,fontSize: FontSize.s15.sp),
+        labelLarge: getMediumStyle(fontSize:  FontSize.s13.sp, color: ColorManager.white)
           ),
       // input decoration theme (text form field)
 inputDecorationTheme: InputDecorationTheme(

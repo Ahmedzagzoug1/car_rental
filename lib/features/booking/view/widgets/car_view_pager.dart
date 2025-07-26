@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,27 +26,24 @@ class _CarViewPagerState extends State<CarViewPager> {
       return const Center(child: Text('No images to display'));
     }
     return Scaffold(
-      body: Stack(
+      body:  SizedBox(
+        //height: 251.h,
+        child:Stack(
         children: [
           // PageView for the main content
           PageView.builder(
             controller: _pageController,
+
             itemCount: widget.imagesUrl?.length ,
             itemBuilder: (context, index) {
               // For demonstration, using colored containers.
               // You can replace this with your actual image widgets or content.
-              return SizedBox(
-              height: 251.h,
-                child: Center(
-                  child: Text(
-                    'Page ${index + 1}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+              return CachedNetworkImage(
+                fit: BoxFit.fill,
+                imageUrl: widget.imagesUrl![index],
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               );
             },
           ),
@@ -70,6 +68,6 @@ class _CarViewPagerState extends State<CarViewPager> {
           ),
         ],
       ),
-    );
+      )  );
   }
 }

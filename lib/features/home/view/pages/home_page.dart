@@ -26,55 +26,55 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return  SafeArea(
-      child:  RPadding(
-        padding:const EdgeInsets.all(AppPadding.p20),
-        child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.green,
-            child: Image.asset(ImageAssets.floatingIcon, color: Colors.white), // Leaf icon
-            onPressed: () => _onItemTapped(2),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomAppBar(
-            color: Colors.black,
-            shape: CircularNotchedRectangle(),
-            notchMargin: 8,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Left side icons
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Image.asset(ImageAssets.messageIcon, color: Colors.white),
-                        onPressed: () => _onItemTapped(0),
-                      ),
-                      IconButton(
-                        icon: Image.asset(ImageAssets.tripIcon, color: Colors.white),
-                        onPressed: () => _onItemTapped(1),
-                      ),
-                    ],
-                  ),
-                  // Right side icons
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.favorite_border, color: Colors.white),
-                        onPressed: () => _onItemTapped(3),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.person_outline, color: Colors.white),
-                        onPressed: () => _onItemTapped(4),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.green,
+          child: Image.asset(ImageAssets.floatingIcon, color: Colors.white), // Leaf icon
+          onPressed: () => _onItemTapped(2),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.black,
+          shape: CircularNotchedRectangle(),
+          notchMargin: 8,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Left side icons
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Image.asset(ImageAssets.messageIcon, color: Colors.white),
+                      onPressed: () => _onItemTapped(0),
+                    ),
+                    IconButton(
+                      icon: Image.asset(ImageAssets.tripIcon, color: Colors.white),
+                      onPressed: () => _onItemTapped(1),
+                    ),
+                  ],
+                ),
+                // Right side icons
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.favorite_border, color: Colors.white),
+                      onPressed: () => _onItemTapped(3),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.person_outline, color: Colors.white),
+                      onPressed: () => _onItemTapped(4),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          body: SingleChildScrollView(
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 const  CustomAppbar(),
