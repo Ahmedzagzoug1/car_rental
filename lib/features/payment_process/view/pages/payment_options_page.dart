@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 class PaymentOptionsPage extends StatefulWidget {
   const PaymentOptionsPage({super.key});
 
@@ -20,10 +22,13 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
           // Existing Card Section
           _buildPaymentOptionTile(
             title: '****0258',
-            leading: Image.network(
-              'https://placehold.co/30x20/FF5733/FFFFFF?text=MC', // Placeholder for Mastercard icon
-              errorBuilder: (context, error, stackTrace) => const Icon(Icons.credit_card),
-            ),
+            leading:  CachedNetworkImage(
+        fit: BoxFit.fill,
+        imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.logo.wine%2Flogo%2FVisa_Inc.&psig=AOvVaw2AHYxt9GDw8nB6itTGiZ4A&ust=1753611063307000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPjagrmk2o4DFQAAAAAdAAAAABAE.png' ,
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            Center(child: CircularProgressIndicator()),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
             onTap: () {
               // Handle selection of existing card
             },
@@ -52,7 +57,8 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: _buildCardInputField(hintText: 'Valid Thru (mm/yy)'),
+                      child:
+                          _buildCardInputField(hintText: 'Valid Thru (mm/yy)'),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
@@ -70,30 +76,41 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Image.network(
-                      'https://placehold.co/40x25/0066CC/FFFFFF?text=VISA', // Placeholder for VISA
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.payment),
+                 CachedNetworkImage(
+                fit: BoxFit.fill,
+                  imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.logo.wine%2Flogo%2FVisa_Inc.&psig=AOvVaw2AHYxt9GDw8nB6itTGiZ4A&ust=1753611063307000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPjagrmk2o4DFQAAAAAdAAAAABAE.png' ,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+                    const SizedBox(width: 8),
+                /*    Image.network(
+                      'https://placehold.co/40x25/FF5733/FFFFFF?text=MC',
+                      // Placeholder for Mastercard
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.payment),
                     ),
                     const SizedBox(width: 8),
                     Image.network(
-                      'https://placehold.co/40x25/FF5733/FFFFFF?text=MC', // Placeholder for Mastercard
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.payment),
+                      'https://placehold.co/40x25/663399/FFFFFF?text=RuPay',
+                      // Placeholder for RuPay
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.payment),
                     ),
                     const SizedBox(width: 8),
                     Image.network(
-                      'https://placehold.co/40x25/663399/FFFFFF?text=RuPay', // Placeholder for RuPay
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.payment),
+                      'https://placehold.co/40x25/CC3300/FFFFFF?text=Disc',
+                      // Placeholder for Discover
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.payment),
                     ),
                     const SizedBox(width: 8),
                     Image.network(
-                      'https://placehold.co/40x25/CC3300/FFFFFF?text=Disc', // Placeholder for Discover
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.payment),
-                    ),
-                    const SizedBox(width: 8),
-                    Image.network(
-                      'https://placehold.co/40x25/0078D4/FFFFFF?text=AMEX', // Placeholder for AMEX
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.payment),
-                    ),
+                      'https://placehold.co/40x25/0078D4/FFFFFF?text=AMEX',
+                      // Placeholder for AMEX
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.payment),
+                    ),*/
                   ],
                 ),
               ],
@@ -104,9 +121,12 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
           // Apple Pay Section
           _buildPaymentOptionTile(
             title: 'Apple Pay',
-            leading: Image.network(
-              'https://placehold.co/30x20/000000/FFFFFF?text=Pay', // Placeholder for Apple Pay icon
-              errorBuilder: (context, error, stackTrace) => const Icon(Icons.apple),
+            leading:  CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.logo.wine%2Flogo%2FVisa_Inc.&psig=AOvVaw2AHYxt9GDw8nB6itTGiZ4A&ust=1753611063307000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPjagrmk2o4DFQAAAAAdAAAAABAE.png' ,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             onTap: () {
               // Handle Apple Pay
@@ -118,9 +138,12 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
           // PayPal Section
           _buildPaymentOptionTile(
             title: 'PayPal',
-            leading: Image.network(
-              'https://placehold.co/30x20/003087/FFFFFF?text=PayPal', // Placeholder for PayPal icon
-              errorBuilder: (context, error, stackTrace) => const Icon(Icons.paypal),
+            leading:  CachedNetworkImage(
+              fit: BoxFit.fill,
+              imageUrl:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.logo.wine%2Flogo%2FVisa_Inc.&psig=AOvVaw2AHYxt9GDw8nB6itTGiZ4A&ust=1753611063307000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPjagrmk2o4DFQAAAAAdAAAAABAE.png' ,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             onTap: () {
               // Handle PayPal
@@ -187,7 +210,8 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
         ),
         if (isExpanded)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: expandedContent,
           ),
       ],
@@ -204,8 +228,10 @@ class _PaymentOptionsPageState extends State<PaymentOptionsPage> {
           borderSide: BorderSide.none, // No border line
         ),
         filled: true,
-        fillColor: Colors.grey[200], // Light grey background for input fields
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        fillColor: Colors.grey[200],
+        // Light grey background for input fields
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       keyboardType: hintText.contains('Card Number') || hintText.contains('CVV')
           ? TextInputType.number

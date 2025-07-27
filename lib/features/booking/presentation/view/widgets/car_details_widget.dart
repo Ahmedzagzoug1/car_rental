@@ -1,5 +1,5 @@
 import 'package:car_rental/core/resources/color_manager.dart';
-import 'package:car_rental/features/booking/model/car_model.dart';
+import 'package:car_rental/features/booking/data/model/car_model.dart';
 import 'package:flutter/material.dart';
 class CarDetailsWidget extends StatelessWidget {
   final CarModel? carModel;

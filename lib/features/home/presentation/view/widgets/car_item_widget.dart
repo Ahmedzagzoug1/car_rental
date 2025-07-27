@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
-import 'package:car_rental/features/booking/view/pages/car_details.dart';
+import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
 import 'package:car_rental/features/home/models/car_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

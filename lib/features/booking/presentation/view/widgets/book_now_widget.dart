@@ -4,7 +4,6 @@ import 'package:car_rental/core/shared_widgets/bottom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/resources/value_manager.dart';
 
 class BookNowWidget extends StatelessWidget {
   final double pricePerHour;
@@ -20,10 +19,10 @@ class BookNowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // The main container for the widget, styled to match the image's rounded corners and dark background.
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         color: Colors.grey[900], // Dark background for the widget itself
-        borderRadius: BorderRadius.circular(25.0), // Rounded corners
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16)), // Rounded corners
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.3),

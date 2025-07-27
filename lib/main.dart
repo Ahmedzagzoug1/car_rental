@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:car_rental/app/app.dart';
-import 'package:car_rental/features/booking/view/widgets/map_widget.dart';
-import 'package:car_rental/features/home/view/pages/home_page.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/map_widget.dart';
+import 'package:car_rental/features/home/presentation/view/pages/home_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -11,9 +12,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'core/resources/theme_manager.dart';
+import 'firebase_options.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await EasyLocalization.ensureInitialized();
   await initializeDateFormatting('en_US', null);
   // For all available locales (can be heavy):

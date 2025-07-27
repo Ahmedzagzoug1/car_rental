@@ -44,6 +44,7 @@ backgroundColor: ColorManager.green,
           headlineMedium: 
               getRegularStyle(color: ColorManager.black, fontSize: FontSize.s15.sp),
 displayMedium: getRegularStyle(fontSize: FontSize.s13.sp, color: ColorManager.Gray),
+          titleMedium: getMediumStyle(fontSize: FontSize.s13.sp, color: ColorManager.green),
           displayLarge:
               getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12.sp),
           bodyLarge: getSemiBoldStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),

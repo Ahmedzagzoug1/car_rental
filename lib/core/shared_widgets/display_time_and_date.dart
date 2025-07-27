@@ -1,4 +1,4 @@
-import 'package:car_rental/features/booking/model/time_model.dart';
+import 'package:car_rental/features/booking/data/model/time_model.dart';
 import 'package:flutter/material.dart';
 class DisplayTimeAndDate extends StatelessWidget {
   final TimeModel timeModel;

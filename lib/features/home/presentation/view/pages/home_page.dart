@@ -1,9 +1,9 @@
 import 'package:car_rental/core/resources/assets_manager.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
-import 'package:car_rental/features/home/view/widgets/custom_appbar.dart';
-import 'package:car_rental/features/home/view/widgets/custom_cars_listview.dart';
-import 'package:car_rental/features/home/view/widgets/custom_top_brand_list.dart';
+import 'package:car_rental/features/home/presentation/view/widgets/custom_appbar.dart';
+import 'package:car_rental/features/home/presentation/view/widgets/custom_cars_listview.dart';
+import 'package:car_rental/features/home/presentation/view/widgets/custom_top_brand_list.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                     },
 
                       style: Theme.of(context).elevatedButtonTheme.style,
-                    child: Text(tr('host_earn_btn')??'earn' ,),
+                    child: Text('Host & Earn' ,),
                     ),
 
                   ],

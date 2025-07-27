@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/core/shared_widgets/display_time_and_date.dart';
-import 'package:car_rental/features/booking/model/host_model.dart';
-import 'package:car_rental/features/booking/model/time_model.dart';
+import 'package:car_rental/features/booking/data/model/host_model.dart';
+import 'package:car_rental/features/booking/data/model/time_model.dart';
 import 'package:car_rental/features/payment_process/view/widgets/car_information_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../booking/model/car_model.dart';
+import '../../../booking/data/model/car_model.dart';
 import '../widgets/payment_detail_row.dart';
 class RequestBook extends StatefulWidget {
   final CarModel carModel;

@@ -1,12 +1,12 @@
 import 'package:car_rental/core/resources/color_manager.dart';
-import 'package:car_rental/features/booking/model/car_model.dart';
-import 'package:car_rental/features/booking/model/host_model.dart';
-import 'package:car_rental/features/booking/view/widgets/book_now_widget.dart';
-import 'package:car_rental/features/booking/view/widgets/car_details_widget.dart';
-import 'package:car_rental/features/booking/view/widgets/car_view_pager.dart';
-import 'package:car_rental/features/booking/view/widgets/date_details.dart';
-import 'package:car_rental/features/booking/view/widgets/distance_details.dart';
-import 'package:car_rental/features/booking/view/widgets/host_details.dart';
+import 'package:car_rental/features/booking/data/model/car_model.dart';
+import 'package:car_rental/features/booking/data/model/host_model.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/book_now_widget.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/car_details_widget.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/car_view_pager.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/date_details.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/distance_details.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/host_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CarDetails extends StatelessWidget {
