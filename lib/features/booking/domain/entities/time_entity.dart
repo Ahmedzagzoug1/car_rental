@@ -1,19 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
 
-class TimeModel {
+class TimeEntity extends Equatable {
  final String pickupDate;
  final String pickupTime;
  final String returnDate;
  final String returnTime;
-        TimeModel({  required this.pickupDate,required this.pickupTime,
+        TimeEntity({  required this.pickupDate,required this.pickupTime,
           required this.returnDate,required this.returnTime });
 
-static  TimeModel specificTimeObject = TimeModel(
-    pickupDate: "2025-08-15",
-    pickupTime: "09:00",
-    returnDate: "2025-08-17",
-    returnTime: "17:30",
-  );          }
+  @override
+  // TODO: implement props
+  List<Object?> get props => [pickupDate,pickupTime,returnTime,returnDate];
+
+         }
 
 
