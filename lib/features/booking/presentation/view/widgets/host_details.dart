@@ -1,11 +1,15 @@
-import 'package:car_rental/app/app.dart';
+import 'package:car_rental/app/my_app.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
-import 'package:car_rental/features/booking/data/model/host_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HostDetails extends StatelessWidget {
-  final HostModel? hostModel;
-  const HostDetails({super.key,this.hostModel});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+   return Container();
+  }
+ /* final HostEntity? hostEntity;
+  const HostDetails({super.key,this.hostEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class HostDetails extends StatelessWidget {
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         image: NetworkImage(
-                          hostModel!.imageUrl, // Placeholder image
+                          hostEntity!.imageUrl, // Placeholder image
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -58,7 +62,7 @@ class HostDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                          Text(
-                          hostModel!.name,
+                          hostEntity!.name,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -72,7 +76,7 @@ class HostDetails extends StatelessWidget {
                             const Icon(Icons.star, color: Colors.orange, size: 16),
                             const SizedBox(width: 4),
                             Text(
-                              hostModel!.starHost,
+                              hostEntity!.starHost,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[700],
@@ -82,7 +86,7 @@ class HostDetails extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '${hostModel!.trips} Trips • Joined ${hostModel!.joinTime}',
+                          '${hostEntity!.trips} Trips • Joined ${hostEntity!.joinTime}',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[700],
@@ -122,7 +126,7 @@ class HostDetails extends StatelessWidget {
                   const Icon(Icons.star, color: Colors.green, size: 16),
                   const SizedBox(width: 4),
                   Text(
-                    '${hostModel!.rate}',
+                    '${hostEntity!.rate}',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -131,7 +135,7 @@ class HostDetails extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Typically responds in ${hostModel!.responseTime}',
+                    'Typically responds in ${hostEntity!.responseTime}',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[700],
@@ -145,5 +149,5 @@ class HostDetails extends StatelessWidget {
 
       ],
     );;
-  }
+  }*/
 }

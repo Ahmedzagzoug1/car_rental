@@ -1,11 +1,9 @@
 import 'package:car_rental/core/resources/assets_manager.dart';
 import 'package:car_rental/features/home/domain/entities/brand_entity.dart';
 
-class BrandModel {
-  final String brandName;
-final  String imageSrc;
+class BrandModel extends BrandEntity {
 
-  BrandModel({required this.brandName,required this.imageSrc});
+  BrandModel({required super.brandName,required super.imageSrc});
 factory BrandModel.formJson(Map<String,dynamic> json){
   return BrandModel(
     brandName: json['brand_name'],

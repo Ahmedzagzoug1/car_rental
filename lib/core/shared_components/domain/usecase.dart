@@ -10,7 +10,10 @@ abstract class UseCase<R, P> {
 }
 
 // Use case for when no parameters are needed
-class NoParams extends Equatable {
+class Params extends Equatable {
   @override
   List<Object?> get props => [];
+}
+class NoParams extends Params{
+
 }

@@ -1,6 +1,10 @@
-import 'package:car_rental/core/shared_widgets/display_time_and_date.dart';
+import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
 import 'package:car_rental/features/booking/data/model/time_model.dart';
+import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import 'package:car_rental/core/resources/color_manager.dart';
@@ -19,7 +23,7 @@ class _SelectTimeState extends State<SelectTime> {
   DateTime? _returnDate;
   TimeOfDay? _returnTime;
   DateTime _focusedDay = DateTime.now(); // Current month for calendar view
-  DateTime _selectedDay = DateTime.now(); // Currently selected day in calendar
+  TimeEntity?  _selectedTimeEntity ; // Currently selected day in calendar
 
   @override
   void initState() {
@@ -29,74 +33,90 @@ class _SelectTimeState extends State<SelectTime> {
   _pickupTime = TimeOfDay.now();
   _returnDate = DateTime.now().add(Duration(days: 7));
   _returnTime = TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 1)));
+  final formattedDate = DateFormat('yyyy-MM-dd').format(_pickupDate!);
+  _selectedTimeEntity=TimeEntity(pickupDate:formatDate(_pickupDate),
+      pickupTime:formatTimeOfDay(_pickupTime!),
+      returnDate: formatDate(_returnDate), returnTime: formatTimeOfDay(_returnTime!));
+
   }
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-  appBar: AppBar(
-    title: Text('Select Trip Date & Time'),
-      leading: InkWell(child:  Icon(Icons.arrow_back_ios),
-          onTap: (){Navigator.pop(context);}),
-    actions: [
-        InkWell(onTap: (){},
-          child: Text('Reset',style: Theme.of(context).textTheme.displayMedium,), )
-      ],
-    backgroundColor: ColorManager.white,
-    elevation: 0,
+  return SafeArea(
+    child: Scaffold(
+    appBar: AppBar(
+      title: Text('Select Trip Date & Time'),
+        leading: InkWell(child:  Icon(Icons.arrow_back_ios),
+            onTap: (){Navigator.pop(context);}),
+      actions: [
+          InkWell(onTap: (){
+            _pickupDate = DateTime.now();
+            _pickupTime = TimeOfDay.now();
+            _returnDate = DateTime.now().add(Duration(days: 7));
+            _returnTime = TimeOfDay.fromDateTime(DateTime.now().add(Duration(hours: 1)));
+setState(() {
+
+});
+          },
+            child: Text('Reset',style: Theme.of(context).textTheme.displayMedium,), )
+        ],
+      backgroundColor: ColorManager.white,
+      elevation: 0,
 
 
-  ),
-  body: SingleChildScrollView(
-  padding: const EdgeInsets.all(16.0),
-  child: Column(
-  crossAxisAlignment: CrossAxisAlignment.stretch,
-  children: [
-  // Top Date and Time Display
-  DisplayTimeAndDate(timeModel: TimeModel.specificTimeObject),
-  SizedBox(height: 20),
-  Divider(color: Colors.grey.shade300, thickness: 1),
-  SizedBox(height: 20),
+    ),
+    body: SingleChildScrollView(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+    // Top Date and Time Display
+    DisplayTimeAndDate(
+        timeEntity: getSelectedTimeEntity()),
+    SizedBox(height: 20.h),
+    Divider(color: ColorManager.Gray, thickness: 1),
+    SizedBox(height: 20.h),
 
-  // Calendar Month Navigation
-  _buildMonthNavigation(),
-  SizedBox(height: 10),
+    // Calendar Month Navigation
+    _buildMonthNavigation(),
+    SizedBox(height: 10.h),
 
-  // Calendar Grid
-  _buildCalendarGrid(), // Replace with TableCalendar if using the package
-  SizedBox(height: 30),
+    // Calendar Grid
+    _buildCalendarGrid(), // Replace with TableCalendar if using the package
+    SizedBox(height: 30),
 
-  // Pickup Time Slider
-  _buildTimePickerSlider(
-  "Pickup",
-  _pickupTime,
-  (newTime) {
-  setState(() {
-  _pickupTime = newTime;
-  });
-  },
-  ),
-  SizedBox(height: 20),
-
-  // Return Time Slider
-  _buildTimePickerSlider(
-  "Return",
-  _returnTime,
-  (newTime) {
-  setState(() {
-  _returnTime = newTime;
-  });
-  },
-  ),
-    ElevatedButton(onPressed: (){
-      Navigator.pushNamed(context, AppRouter.carDetailsRoute);
-
+    // Pickup Time Slider
+    _buildTimePickerSlider(
+    "Pickup",
+    _pickupTime,
+    (newTime) {
+    setState(() {
+    _pickupTime = newTime;
+    });
     },
-    style: Theme.of(context).elevatedButtonTheme.style,
-        child: Text('Save'))
-  ],
-  ),
-  ),
+    ),
+    SizedBox(height: 20.h),
+
+    // Return Time Slider
+    _buildTimePickerSlider(
+    "Return",
+    _returnTime,
+    (newTime) {
+    setState(() {
+    _returnTime = newTime;
+    });
+    },
+    ),
+      ElevatedButton(onPressed: (){
+BlocProvider.of<TimeCubit>(context).saveTime(_selectedTimeEntity!);
+Navigator.pop(context);
+      },
+      style: Theme.of(context).elevatedButtonTheme.style,
+          child: Text('Save'))
+    ],
+    ),
+    ),
+    ),
   );
   }
 
@@ -141,9 +161,7 @@ class _SelectTimeState extends State<SelectTime> {
   final int daysInMonth = DateTime(_focusedDay.year, _focusedDay.month + 1, 0).day;
   final int firstWeekday = firstDayOfMonth.weekday; // 1 for Monday, 7 for Sunday
 
-  // Flutter's weekday starts from Monday (1). Calendar starts from Sunday.
-  // Adjust so Sunday is 0, Monday is 1, etc.
-  final int initialPadding = (firstWeekday % 7 == 0) ? 6 : (firstWeekday % 7) -1 ; // Number of empty cells before day 1.
+  final int initialPadding = firstWeekday % 7; // Monday->1, Sunday->0
 
   List<String> weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sat'];
 
@@ -292,10 +310,36 @@ class _SelectTimeState extends State<SelectTime> {
   },
   ),
   ),
-  // The floating tooltip "2:30 AM Pickup Time" shown in the image is more complex
-  // and usually involves custom painter or positioning within a Stack.
-  // For simplicity, we just use the slider's built-in label.
   ],
   );
   }
+  String formatTimeOfDay(TimeOfDay? time) {
+if(time ==null){
+  return '12:00';
+}
+    final now = DateTime.now();
+    final dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);
+    return DateFormat('hh:mm a').format(dt);
   }
+
+ String formatDate(DateTime? date) {
+
+   if (date ==null) {
+     return 'Please Select Date';
+   }
+    else {
+   return  DateFormat('yyyy-MM-dd').format(date);
+   }
+  }
+
+   getSelectedTimeEntity() {
+     setState(() {
+
+     });
+    return TimeEntity(pickupDate:formatDate(_pickupDate),
+    pickupTime:formatTimeOfDay(_pickupTime!),
+    returnDate: formatDate(_returnDate), returnTime: formatTimeOfDay(_returnTime!));
+
+  }
+
+}

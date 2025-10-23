@@ -1,23 +1,14 @@
 
+import 'package:car_rental/core/error/failures.dart';
 import 'package:car_rental/features/home/domain/entities/car_entity.dart';
 import 'package:car_rental/features/home/domain/repositories/cars_repository.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dartz/dartz.dart';
 
 class FindCarUsecase{
   CarsRepository carsRepository;
   FindCarUsecase(this.carsRepository);
-  /*Future<CarEntity> execute() async {
-    // Here you can add any specific business rules before or after fetching
-    // For example, caching logic, validation, or combining data from multiple sources
-    return await carsRepository.findCar();
-  }*/
-}
-// Parameters for the GetUser use case
-class GetUserParams extends Equatable {
-  final String userId;
+  Future<Either<Failure, CarHomeEntity>> call(String car) async {
 
-  const GetUserParams({required this.userId});
-
-  @override
-  List<Object?> get props => [userId];
+    return await carsRepository.findCar(car);
+  }
 }

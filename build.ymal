@@ -1,0 +1,12 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - test/**.dart
+    builders:
+      json_serializable:
+        generate_for:
+          - lib/**.dart
+      hive_generator:
+        generate_for:
+          - lib/**.dart

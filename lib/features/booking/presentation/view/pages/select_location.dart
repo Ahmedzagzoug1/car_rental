@@ -1,10 +1,11 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/map_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/pickup_menu.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 class SelectLocation extends StatelessWidget {
   const SelectLocation({super.key});
 
@@ -23,7 +24,11 @@ class SelectLocation extends StatelessWidget {
           SizedBox(
               height: 204.h,
       
-              child: MapWidget()),
+              child:const MapWidget( pickupLocationEntity:
+              PickupLocationEntity(title: 'Miami International Airport',
+                  subtitle: "Airport", price: '\$120',
+              latLng:LatLng(51.509364, -0.128928)),
+              )),
            PickupMenu(),
           SizedBox(
             width: double.infinity,

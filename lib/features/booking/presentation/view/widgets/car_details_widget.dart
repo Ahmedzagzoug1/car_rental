@@ -1,9 +1,9 @@
 import 'package:car_rental/core/resources/color_manager.dart';
-import 'package:car_rental/features/booking/data/model/car_model.dart';
+import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:flutter/material.dart';
 class CarDetailsWidget extends StatelessWidget {
-  final CarModel? carModel;
-  const CarDetailsWidget({super.key,this.carModel});
+  final CarDetailsEntity? car;
+  const CarDetailsWidget({super.key,this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +12,18 @@ class CarDetailsWidget extends StatelessWidget {
       children: [
         Column(
           children: [
-            Text(carModel!.name,style: Theme.of(context).textTheme.headlineLarge,),
+            Text(car!.name,style: Theme.of(context).textTheme.headlineLarge,),
             Row(
          children: [
            Icon(Icons.star,color: ColorManager.green,),
-           Text('${carModel!.rate} . ${carModel!.trips} trips',
+           Text('${car!.rate} . ${car!.trips} trips',
              style: Theme.of(context).textTheme.displayMedium,),
 
          ],
             ),
           ],
         ),
-        Text('\$ ${carModel!.price} /h',style: Theme.of(context).textTheme.headlineLarge, )
+        Text('\$ ${car!.price} /h',style: Theme.of(context).textTheme.headlineLarge, )
       ],
     );
   }

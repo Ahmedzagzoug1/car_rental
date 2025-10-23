@@ -11,15 +11,14 @@ import 'package:dartz/dartz.dart';
 
 import '../repositories/cars_repository.dart';
 
-class GetBrandsUsecase implements UseCase<List<BrandEntity>,NoParams>{
+class GetBrandsUsecase {
   BrandRepository brandRepository;
 
   GetBrandsUsecase(this.brandRepository);
 
 
 
-  @override
-  Future<Either<Failure,List< BrandEntity>> > call(NoParams) async {    // TODO: implement call
+  Future<Either<Failure,List< BrandEntity>> > call() async {
     return await brandRepository.getBrands(); // Delegates to the repository
   }
 }

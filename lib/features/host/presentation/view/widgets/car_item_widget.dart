@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
-import 'package:car_rental/features/home/data/models/car_model.dart';
+import 'package:car_rental/features/host/domain/entities/host_car_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CarItemWidget extends StatelessWidget {
-  final CarModel car;
+  final HostCarEntity car;
   CarItemWidget({super.key,required this.car});
 
   @override
@@ -81,7 +81,7 @@ class CarItemWidget extends StatelessWidget {
                       ],
                     ),
                     const RSizedBox.vertical(AppSize.s4),
-                    Text(car.availability, style: Theme.of(context).textTheme.displayMedium),
+                    Text(car.carNumber, style: Theme.of(context).textTheme.displayMedium),
                     const  RSizedBox.vertical(AppSize.s4),
                     Row(
                       children: [
