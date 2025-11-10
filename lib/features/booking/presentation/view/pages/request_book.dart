@@ -1,21 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
-import 'package:car_rental/features/booking/data/model/time_model.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
-import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_information_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../payment_process/view/widgets/payment_detail_row.dart';
 class RequestBook extends StatefulWidget {
   final CarDetailsEntity car;
-  final HostEntity host; // Included based on your previous snippet
+  final HostEntity host;
 
   const RequestBook({
     super.key,
@@ -95,17 +91,17 @@ class _RequestBookState extends State<RequestBook> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title:  Text(
           'Request Book',
           style: TextStyle(
-            color: Colors.black,
+            color: ColorManager.black,
             fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: ColorManager.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon:  Icon(Icons.arrow_back_ios, color: ColorManager.black),
           onPressed: () {
             Navigator.pop(context);
             // Handle back button press
@@ -113,14 +109,14 @@ class _RequestBookState extends State<RequestBook> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.all(16.0.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Car Information Section
             //selection car from details
      CarInformationWidget(),
-            const SizedBox(height: 24),
+            const RSizedBox(height: 24),
 
             // Trip Date & Time Section
             const Text(
@@ -130,21 +126,21 @@ class _RequestBookState extends State<RequestBook> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            const RSizedBox(height: 12),
             BlocBuilder<TimeCubit, TimeState>(
   builder: (context, state) {
     return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
               ),
               child: DisplayTimeAndDate(timeEntity:( state as TimeSuccess ).timeEntity,)
 
             );
   },
 ),
-            const SizedBox(height: 24),
+            const RSizedBox(height: 24),
 
             // Pickup & Return Section
             const Text(
@@ -154,21 +150,21 @@ class _RequestBookState extends State<RequestBook> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            const RSizedBox(height: 12),
             Row(
               children: [
-                Icon(Icons.location_on, color: Colors.green[700]),
-                const SizedBox(width: 8),
-                const Text(
+                Icon(Icons.location_on, color: ColorManager.green),
+                const RSizedBox(width: 8),
+                 Text(
                   'Los Angeles, CA 91602',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.black87,
+                    color: ColorManager.black,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            const RSizedBox(height: 24),
 
             // Payment Details Section
             const Text(
@@ -178,7 +174,7 @@ class _RequestBookState extends State<RequestBook> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
+            const RSizedBox(height: 12),
             Column(
               children: [
                 PaymentDetailRow(
@@ -187,7 +183,7 @@ class _RequestBookState extends State<RequestBook> {
                 ),
                 PaymentDetailRow(label:  'Trip fee',value:  '\$${tripFee.toStringAsFixed(2)}'),
                 PaymentDetailRow(label: 'Discount',value:  '-', isDiscount: true),
-                const Padding(
+                const RPadding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
@@ -198,7 +194,7 @@ class _RequestBookState extends State<RequestBook> {
                 ),
               ],
             ),
-            const SizedBox(height: 32),
+            const RSizedBox(height: 32),
 
             // Request to Book Button
          /*   SizedBox(

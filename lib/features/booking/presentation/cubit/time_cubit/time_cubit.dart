@@ -20,8 +20,7 @@ class TimeCubit extends Cubit<TimeState> {
   TimeCubit(this.getTimeUsecase, this.saveTimeUsecase) : super(TimeInitial());
 final GetTimeUsecase getTimeUsecase;
 final SaveTimeUsecase saveTimeUsecase;
-  late TimeModel _currentTime;
-  final String _boxName = 'timeBox';
+
 
   Future<void> saveTime(TimeEntity timeEntity) async {
     emit(TimeLoading());

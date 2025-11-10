@@ -13,8 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../cubit/location_cubit/location_cubit.dart';
 
 class MapWidget extends StatefulWidget {
-  final PickupLocationEntity pickupLocationEntity;
-  const MapWidget({super.key,required this.pickupLocationEntity});
+  const MapWidget({super.key});
 
   @override
   State<MapWidget> createState() => _MapWidgetState();
@@ -34,9 +33,10 @@ class _MapWidgetState extends State<MapWidget> {
       child: BlocBuilder<LocationCubit, LocationState>(
         builder: (context, state) {
           if (state is LocationLoaded) {
+            final userLocation=BlocProvider.of<LocationCubit>(context).userLocation;
             return FlutterMap(
               options: MapOptions(
-                initialCenter: LatLng(state.location.latitude, state.location.longitude),
+                initialCenter: LatLng(userLocation.lat, userLocation.lng),
                 initialZoom: 14,
               ),
               children: [
@@ -47,8 +47,8 @@ class _MapWidgetState extends State<MapWidget> {
                   markers: [
 
 
-                    (state.location is Position )?                    Marker(
-                      point: LatLng(state.location.latitude, state.location.longitude),
+                    (userLocation is Position )?                    Marker(
+                      point: LatLng(userLocation.lat, userLocation.lng),
                       child: const Icon(Icons.my_location, color: Colors.blue, size: 40),
                     ):
                     Marker(

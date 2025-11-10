@@ -1,4 +1,8 @@
+import 'package:car_rental/core/resources/value_manager.dart';
+import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
@@ -8,21 +12,19 @@ class PickupMenu extends StatefulWidget {
 }
 
 class _PickupLocationsScreenState extends State<PickupMenu> {
-  int selectedIndex = 3;
-
-  final List<PickupLocation> locations = [
-    PickupLocation(title: 'Pickup at Car Location', subtitle: "We’ll send you the exact location once your trip is booked", price: 'Free'),
-    PickupLocation(title: 'Miami International Airport', subtitle: "Airport", price: '\$120'),
-    PickupLocation(title: 'Ford International Airport', subtitle: "Airport", price: '\$120'),
-    PickupLocation(title: 'Cruiseport Destinations', subtitle: "1001 North America Way, Miami, FL 33132", price: '\$120'),
-  ];
+ 
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LocationCubit, LocationState>(
+  builder: (context, state) {
+    final locations=context.read<LocationCubit>().pickupLocations;
+int selectedIndex=locations.length;
     return Padding(
+
         padding: const EdgeInsets.all(16.0),
         child: SizedBox(
-          height: 316.h,
+          height:AppSize.s316.h,
           child: ListView.builder(
               itemCount: locations.length,
 
@@ -30,8 +32,8 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
 
               final loc = locations[index];
               return Card(
-                margin: const EdgeInsets.symmetric(vertical: 6),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                margin:  EdgeInsets.symmetric(vertical: AppMargin.m6.h),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s12.r)),
                 child: RadioListTile(
                   value: index,
                   groupValue: selectedIndex,
@@ -51,5 +53,7 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
 
 
     );
+  },
+);
   }
 }

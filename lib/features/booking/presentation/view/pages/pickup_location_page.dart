@@ -100,7 +100,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
       body: Column(
         children: [
           // MAP SECTION (top ~45%)
-          SizedBox(
+          RSizedBox(
             height: mapHeight,
             child: FlutterMap(
               mapController: _mapController,
@@ -131,7 +131,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                       child: Icon(
                         Icons.location_pin,
                         size: 48,
-                        color: Colors.red,
+                        color: ColorManager.red,
                       ),
                     )
                   ],
@@ -163,7 +163,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                 itemCount: locations.length,
                 separatorBuilder: (_, __) => Divider(
                   thickness: 1.h,
-                  color: ColorManager.Gray.withOpacity(.25),
+                  color: ColorManager.grey,
                 ),
                 itemBuilder: (context, index) {
                   final location = locations[index];

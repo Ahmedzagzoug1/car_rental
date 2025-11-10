@@ -13,3 +13,6 @@ class UserNotFoundException implements Exception{
 class NotFoundException implements Exception{
 
 }
+class EmptyCacheException implements Exception{
+
+}

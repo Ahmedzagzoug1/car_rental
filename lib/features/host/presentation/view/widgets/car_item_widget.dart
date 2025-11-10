@@ -56,7 +56,7 @@ class CarItemWidget extends StatelessWidget {
                   Positioned(
                     right: AppSize.s12.sp,
                     top: AppSize.s12.sp,
-                    child: CircleAvatar(backgroundColor: ColorManager.Gray,
+                    child: CircleAvatar(backgroundColor: ColorManager.grey,
                         child : Center(child: Icon(Icons.favorite_border, color:ColorManager.white,))),
                   )
                 ],

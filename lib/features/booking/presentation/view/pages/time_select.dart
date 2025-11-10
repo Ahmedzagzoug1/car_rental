@@ -73,17 +73,17 @@ setState(() {
     // Top Date and Time Display
     DisplayTimeAndDate(
         timeEntity: getSelectedTimeEntity()),
-    SizedBox(height: 20.h),
-    Divider(color: ColorManager.Gray, thickness: 1),
-    SizedBox(height: 20.h),
+    RSizedBox(height: 20),
+    Divider(color: ColorManager.grey, thickness: 1),
+    RSizedBox(height: 20),
 
     // Calendar Month Navigation
     _buildMonthNavigation(),
-    SizedBox(height: 10.h),
+    RSizedBox(height: 10),
 
     // Calendar Grid
     _buildCalendarGrid(), // Replace with TableCalendar if using the package
-    SizedBox(height: 30),
+    RSizedBox(height: 30),
 
     // Pickup Time Slider
     _buildTimePickerSlider(
@@ -126,7 +126,7 @@ Navigator.pop(context);
   mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: [
   IconButton(
-  icon: Icon(Icons.chevron_left, color: Colors.grey.shade700),
+  icon: Icon(Icons.chevron_left, color: ColorManager.grey),
   onPressed: () {
   setState(() {
   _focusedDay = DateTime(_focusedDay.year, _focusedDay.month - 1, 1);
@@ -138,11 +138,11 @@ Navigator.pop(context);
   style: TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
-  color: Colors.green.shade700,
+  color: ColorManager.green,
   ),
   ),
   IconButton(
-  icon: Icon(Icons.chevron_right, color: Colors.grey.shade700),
+  icon: Icon(Icons.chevron_right, color: ColorManager.grey),
   onPressed: () {
   setState(() {
   _focusedDay = DateTime(_focusedDay.year, _focusedDay.month + 1, 1);
@@ -175,13 +175,13 @@ Navigator.pop(context);
   child: Center(
   child: Text(
   day,
-  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade600),
+     style: Theme.of(context).textTheme.displayMedium,
   ),
   ),
   ),
   ).toList(),
   ),
-  SizedBox(height: 10),
+  RSizedBox(height: 10),
   // Days grid
   GridView.builder(
   shrinkWrap: true,
@@ -214,18 +214,18 @@ Navigator.pop(context);
   bool isInRange = _pickupDate != null && _returnDate != null &&
   currentDay.isAfter(_pickupDate!) && currentDay.isBefore(_returnDate!);
 
-  Color backgroundColor = Colors.transparent;
-  Color textColor = Colors.black87;
+  Color backgroundColor = ColorManager.white;
+  Color textColor = ColorManager.black;
   FontWeight fontWeight = FontWeight.normal;
 
   if (isPickupSelected || isReturnSelected) {
-  backgroundColor = Colors.green.shade600;
-  textColor = Colors.white;
+  backgroundColor = ColorManager.green2;
+  textColor = ColorManager.white;
   fontWeight = FontWeight.bold;
   } else if (isInRange) {
-  backgroundColor = Colors.green.shade100; // Light green for range
+  backgroundColor = ColorManager.green2; // Light green for range
   } else {
-  backgroundColor = Colors.grey.shade100;
+  backgroundColor = ColorManager.grey;
   textColor = Colors.black87;
   }
 
@@ -280,23 +280,11 @@ Navigator.pop(context);
   padding: const EdgeInsets.only(left: 4.0, bottom: 8.0),
   child: Text(
   '$label Time',
-  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
+  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: ColorManager.black),
   ),
   ),
   SliderTheme(
-  data: SliderTheme.of(context).copyWith(
-  activeTrackColor: Colors.green,
-  inactiveTrackColor: Colors.green.shade100,
-  thumbColor: Colors.white,
-  overlayColor: Colors.green.withOpacity(0.2),
-  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
-  overlayShape: RoundSliderOverlayShape(overlayRadius: 20.0),
-  valueIndicatorColor: Colors.green, // Background color of the value indicator
-  valueIndicatorTextStyle: TextStyle(
-  color: Colors.white,
-  fontSize: 14.0,
-  ),
-  ),
+  data: Theme.of(context).sliderTheme,
   child: Slider(
   value: sliderValue,
   min: 0.0, // 00:00 AM

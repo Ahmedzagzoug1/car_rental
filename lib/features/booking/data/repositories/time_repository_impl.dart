@@ -3,7 +3,7 @@ import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:car_rental/features/booking/domain/repositories/time_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../data_source/remote_data_source/time_local_data_source.dart';
+import '../data_source/local_data_source/time_local_data_source.dart';
 import '../model/time_model.dart';
 
 class BookingTimeRepositoryImpl implements TimeRepository {
@@ -18,7 +18,7 @@ class BookingTimeRepositoryImpl implements TimeRepository {
       await localDataSource.clearBooking();
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure(message: e.toString()));
+      return Left(CacheFailure());
     }
   }
 
@@ -36,7 +36,7 @@ class BookingTimeRepositoryImpl implements TimeRepository {
       );
       return Right(entity);
     } catch (e) {
-      return Left(CacheFailure(message: e.toString()));
+      return Left(CacheFailure());
     }
   }
 
@@ -52,7 +52,7 @@ class BookingTimeRepositoryImpl implements TimeRepository {
       await localDataSource.saveBooking(model);
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure( message: e.toString()));
+      return Left(CacheFailure( ));
     }
 
   }

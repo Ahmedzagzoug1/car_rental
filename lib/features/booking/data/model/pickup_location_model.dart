@@ -7,7 +7,7 @@ part 'pickup_location_model.g.dart';
 
 @JsonSerializable()
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class PickupLocationModel extends PickupLocationEntity{
   @HiveField(0)
   final String title;

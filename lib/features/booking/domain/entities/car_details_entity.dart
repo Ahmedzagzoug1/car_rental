@@ -1,20 +1,26 @@
 import 'dart:math';
 
+import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
+import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:geocoding/geocoding.dart';
 
 class CarDetailsEntity extends Equatable {
+  String id;
   String name;
   double price;
   double rate;
   int trips;
   List<String> imagesUrl;
-DocumentReference host;
-  CarDetailsEntity({required this.name, required this.price,
+HostEntity host;
+ List<PickupLocationModel> pickupLocationEntities;
+  CarDetailsEntity({required this.id,required this.name, required this.price,
     required this.rate, required this.trips, required this.imagesUrl,
-  required this.host});
+  required this.host,required this.pickupLocationEntities});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [name,price,rate,trips,imagesUrl,host];
+  List<Object?> get props => [id,name,price,rate,trips,imagesUrl,host,pickupLocationEntities];
 }

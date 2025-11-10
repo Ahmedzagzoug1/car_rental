@@ -1,4 +1,7 @@
+import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SelectedWidget extends StatelessWidget {
  final  String textHeadline;
  final IconData iconData;
@@ -12,8 +15,8 @@ class SelectedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return RPadding(
+      padding:  EdgeInsets.all(AppSize.s16.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,21 +27,21 @@ class SelectedWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 10),
+          const RSizedBox(height: 10),
           GestureDetector(
             onTap: () {
 
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding:  EdgeInsets.symmetric(horizontal: AppSize.s16.w, vertical: AppSize.s12.h),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: ColorManager.grey),
+                borderRadius: BorderRadius.circular(AppSize.s10.r),
               ),
               child: Row(
                 children: [
                    Icon(iconData, color: Colors.green),
-                  const SizedBox(width: 10),
+                  const RSizedBox(width: 10),
                   Expanded(
                     child: Text(
                         content,
@@ -50,11 +53,12 @@ class SelectedWidget extends StatelessWidget {
                       children: [
                         Text(
                           toggleText,
-                          style: TextStyle(
+                            style: Theme.of(context).textTheme.displayMedium
+                         /* style: TextStyle(
                             fontSize: 16,
-                            color: Colors.green,
+                            color: ColorManager.green,
                             fontWeight: FontWeight.w600,
-                          ),
+                          ),*/
                         ),
                         const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.green),
 

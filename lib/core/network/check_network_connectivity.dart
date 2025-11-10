@@ -1,17 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class NetworkConnectivity{
-  static Future<void> checkInitialConnectivity() async {
-    final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
-
-    if (connectivityResult.contains(ConnectivityResult.mobile)) {
-      print('Connected to mobile network.');
-    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
-      print('Connected to Wi-Fi.');
-    } else if (connectivityResult.contains(ConnectivityResult.none)) {
-      print('No internet connection.');
+  static Future<bool> checkInternetConnectivity() async {
+    final List<ConnectivityResult> connectivity = await Connectivity()
+        .checkConnectivity();
+    if (connectivity.contains(ConnectivityResult.none)) {
+      return false;
     } else {
-      print('Other connectivity type: $connectivityResult');
+      return true;
     }
   }
 }

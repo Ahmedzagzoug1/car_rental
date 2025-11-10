@@ -1,5 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:flutter/material.dart';
@@ -52,17 +54,17 @@ class _CarViewPagerState extends State<CarViewPager> {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0),
+                    child: RPadding(
+                      padding:  EdgeInsets.only(bottom: AppSize.s20.h),
                       child: SmoothPageIndicator(
                         controller: _pageController,
                         count: car.imagesUrl.length,
-                        effect: const ExpandingDotsEffect(
-                          activeDotColor: Colors.green,
-                          dotColor: Colors.white,
-                          dotHeight: 8.0,
-                          dotWidth: 8.0,
-                          spacing: 4.0,
+                        effect:  ExpandingDotsEffect(
+                          activeDotColor: ColorManager.green,
+                          dotColor: ColorManager.white,
+                          dotHeight: AppSize.s8.h,
+                          dotWidth: AppSize.s8.w,
+                          spacing: AppSize.s8.r,
                           expansionFactor: 2,
                         ),
                       ),

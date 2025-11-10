@@ -4,12 +4,12 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
 import '../entities/pickup_location_entity.dart';
 import '../repositories/location_repository.dart';
-class GetLocation{
+class GetPickupLocationsUsecase{
   final LocationRepository locationRepository;
 
-  GetLocation({required this.locationRepository});
-  Future<Either<Failure, PickupLocationEntity?>> call()async{
-    return await locationRepository.getLocation();
+  GetPickupLocationsUsecase({required this.locationRepository});
+  Future<Either<Failure, List<PickupLocationEntity?>>> call(carId)async{
+    return await locationRepository.getLocations(carId);
   }
 
 }

@@ -1,3 +1,5 @@
+import 'package:car_rental/features/auth/presentation/pages/signin_page.dart';
+import 'package:car_rental/features/auth/presentation/pages/signup_page.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/pickup_location_page.dart';
@@ -22,6 +24,9 @@ import '../services/service_locators.dart';
 
 class AppRouter {
   static const String homeRoute = '/';
+  static const String signinWithEmailRoute = '/signinWithEmailRoute';
+  static const String signupRoute = '/signupRoute';
+
   static const String carDetailsRoute = '/car_details';
   static const String selectTimeRoute = '/select_time'; //
   static const String hostRoute = '/host';
@@ -62,7 +67,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => Center(child: Text('there ia an expected error !'),));
 
 
-
+      case signinWithEmailRoute:
+        return MaterialPageRoute(builder: (_) => const SigninPage());
+      case signupRoute:
+        return MaterialPageRoute(builder: (_) => const SignUpPage());
       case selectTimeRoute:
         return MaterialPageRoute(builder: (_) => const SelectTime());
       case selectLocationRoute:

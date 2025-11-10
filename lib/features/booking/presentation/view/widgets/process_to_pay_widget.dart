@@ -1,4 +1,7 @@
+import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProcessToPayWidget extends StatelessWidget {
   final double pricePerHour;
   final double originalPrice;
@@ -13,9 +16,9 @@ class ProcessToPayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // The main container for the widget, styled to match the image's rounded corners and dark background.
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      padding:  EdgeInsets.symmetric(horizontal: AppSize.s20.w, vertical:AppSize.s15.h),
       decoration: BoxDecoration(
-        color: Colors.grey[900], // Dark background for the widget itself
+        color: ColorManager.grey, // Dark background for the widget itself
         borderRadius: BorderRadius.circular(25.0), // Rounded corners
         boxShadow: [
           BoxShadow(
@@ -54,7 +57,7 @@ class ProcessToPayWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 30.0), // Space between price and button
+          const RSizedBox(width: 30.0), // Space between price and button
 
           // Right section: Book Now button
           Expanded( // Allows the button to take available horizontal space
@@ -64,17 +67,7 @@ class ProcessToPayWidget extends StatelessWidget {
                   const SnackBar(content: Text('Book Now button pressed!')),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent[700],
-                // Green button color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      18.0), // Rounded button corners
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                // Button padding
-                elevation: 5, // Button shadow
-              ),
+              style: Theme.of(context).elevatedButtonTheme.style,
               child: const Text(
                 'Proceed to Pay',
                 style: TextStyle(

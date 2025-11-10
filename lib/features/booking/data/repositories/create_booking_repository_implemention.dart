@@ -23,9 +23,7 @@ final CarDetailsRemoteDataSource carDetailsRemoteDataSource;
        final result = await createBookingRemoteDataSource.createBooking(booking as BookingModel);
        return Right(result);
      } on ServerException catch(e) {
-       return Left(ServerFailure(message: e.toString()));
-     } on Exception {
-       return const Left(ServerFailure(message: 'An unexpected error occurred.'));
+       return const Left(ServerFailure());
      }
    }
 
@@ -36,9 +34,7 @@ final CarDetailsRemoteDataSource carDetailsRemoteDataSource;
           await carDetailsRemoteDataSource.getCarDetails(carId);
       return Right(result);
     } on ServerException catch(e) {
-      return Left(ServerFailure(message: e.toString()));
-    } on Exception {
-      return const Left(ServerFailure(message: 'An unexpected error occurred.'));
+      return Left(ServerFailure());
     }  }
 
 

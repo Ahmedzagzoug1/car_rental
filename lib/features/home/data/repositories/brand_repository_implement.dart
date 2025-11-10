@@ -16,9 +16,9 @@ class BrandRepositoryImplement implements BrandRepository{
     List<BrandEntity> brand_entity= brands.map((brandModel)=>brandModel.toBrandEntity()).toList();
     return right(brand_entity);
     } on ServerException catch(e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure());
     } on Exception { // Catch any other unexpected exceptions
-      return const Left(ServerFailure(message: 'An unexpected error occurred.'));
+      return const Left(ServerFailure());
     }
   }
 

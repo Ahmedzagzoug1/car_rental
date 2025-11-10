@@ -9,12 +9,10 @@ class CarDetailsRemoteDataSource{
   final _firebaseFirestore= sl<FirebaseFirestore>();
 
   Future< CarModel> getCarDetails(carId) async {
-    print('$carId=================firebase');
     try {
       final querySnapShot =
       await _firebaseFirestore.collection('car').where('id',isEqualTo: carId).get();
-      print('${querySnapShot.docs.first.data()}');
-      print('${querySnapShot.docs.first.exists}');
+
       if (querySnapShot.docs.isEmpty) {
         throw NotFoundException();
       }

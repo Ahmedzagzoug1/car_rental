@@ -1,33 +1,24 @@
 import 'package:car_rental/core/error/exceptions.dart';
+import 'package:car_rental/core/services/service_locators.dart';
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 import 'package:car_rental/features/booking/data/model/time_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 
-abstract class LocationDataSource {
-  Future<void> savePickuplocation(PickupLocationModel location);
-  PickupLocationModel? getLocation();
+abstract class LocationRemoteDataSource {
+ Future<List <PickupLocationModel>> getLocations(carId);
   Future<PickupLocationModel> getCurrentLocation();
 }
 
-class LocationLocalDataSourceImpl implements LocationDataSource {
-  final Box<PickupLocationModel> box;
+class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
 
-  LocationLocalDataSourceImpl({ required this.box});
+  LocationRemoteDataSourceImpl();
 
-  static const String key = 'location';
 
-  @override
-  PickupLocationModel? getLocation() {
-    return box.get(key);
-  }
 
-  @override
-  Future<void> savePickuplocation(PickupLocationModel location) async {
-    await box.put(key, location);
-  }
-
+@override
   Future<PickupLocationModel> getCurrentLocation() async {
     try{
     final position= await Geolocator.getCurrentPosition(
@@ -61,5 +52,38 @@ class LocationLocalDataSourceImpl implements LocationDataSource {
       print('❌ خطأ أثناء جلب اسم المكان: $e');
     throw ServerException();
       }
+  }
+
+  @override
+  Future<List<PickupLocationModel>> getLocations(carId) async{
+    final carDoc = await FirebaseFirestore.instance
+        .collection('cars')
+        .doc(carId)
+        .get();
+
+    if (!carDoc.exists) {
+      print('❌ Car not found');
+      return [];
+    }
+
+    final List locationRefs = carDoc['pickupLocations'];
+
+    List<PickupLocationModel> locations = [];
+
+    for (var ref in locationRefs) {
+      if (ref is DocumentReference) {
+        final locationDoc = await ref.get();
+        if (locationDoc.exists) {
+          locations.add( PickupLocationModel.fromJson( locationDoc.data() as Map<String,dynamic>));
+        }
+      }
+    }
+
+    // عرض النتيجة
+    for (var loc in locations) {
+
+      print('📍 Location: ${loc.title}' );
+    }
+    return locations;
   }
   }

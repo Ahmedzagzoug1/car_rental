@@ -1,4 +1,5 @@
 import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,17 +19,17 @@ class BookNowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // The main container for the widget, styled to match the image's rounded corners and dark background.
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding:  EdgeInsets.symmetric(horizontal: AppSize.s20.w, vertical: AppSize.s12.h),
       decoration: BoxDecoration(
         color: Colors.grey[900], // Dark background for the widget itself
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16)), // Rounded corners
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(AppSize.s16.r),topRight: Radius.circular(AppSize.s16.r)), // Rounded corners
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // subtle shadow
+            spreadRadius: AppSize.s2.r,
+            blurRadius: AppSize.s7.r,
+            offset:  Offset(AppSize.s0, AppSize.s3.h), // subtle shadow
           ),
         ],
       ),
@@ -42,11 +43,7 @@ class BookNowWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 '\$${pricePerHour.toStringAsFixed(2)}/h', // Current price
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                 style: Theme.of(context).textTheme.displayMedium,
               ),
               Text(
                 '\$${originalPrice.toStringAsFixed(2)}', // Original (crossed-out) price
@@ -58,7 +55,7 @@ class BookNowWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(width: 30.0), // Space between price and button
+          const RSizedBox(width: 30.0), // Space between price and button
 
           // Right section: Book Now button
           Expanded( // Allows the button to take available horizontal space
@@ -69,21 +66,10 @@ class BookNowWidget extends StatelessWidget {
                 );
                 Navigator.pushNamed(context, AppRouter.paymentProcessRoute);
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent[700], // Green button color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0), // Rounded button corners
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15.0), // Button padding
-                elevation: 5, // Button shadow
-              ),
-              child: const Text(
+              style: Theme.of(context).elevatedButtonTheme.style,
+              child:  Text(
                 'Book Now',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style:    Theme.of(context).textTheme.displayMedium,
               ),
             ),
           ),

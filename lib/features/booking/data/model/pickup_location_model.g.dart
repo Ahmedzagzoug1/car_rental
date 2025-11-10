@@ -8,7 +8,7 @@ part of 'pickup_location_model.dart';
 
 class PickupLocationModelAdapter extends TypeAdapter<PickupLocationModel> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
   PickupLocationModel read(BinaryReader reader) {

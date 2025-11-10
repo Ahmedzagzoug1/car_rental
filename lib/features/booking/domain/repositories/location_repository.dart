@@ -5,7 +5,7 @@ import '../entities/time_entity.dart';
 
 abstract class LocationRepository {
   Future<Either<Failure, Unit>> saveLocation(PickupLocationEntity location);
-  Future<Either<Failure, PickupLocationEntity?>> getLocation();
+  Future<Either<Failure, List<PickupLocationEntity>>> getLocations(carId);
   Future<Either<Failure, PickupLocationEntity?>> getUserLocation();
 
 }

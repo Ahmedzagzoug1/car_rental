@@ -1,76 +1,67 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CarInformationWidget extends StatelessWidget {
- // final CarDetailsEntity car;
  const  CarInformationWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-/*    return
-      BlocBuilder(builder: (context,state){
-
+    return
+      BlocBuilder<CarDetailsCubit,CarDetailsState>
+       (builder: (context,state){
+final car=context.read<CarDetailsCubit>().car;
       return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppSize.s12.r),
       ),
-      child: Padding(
+      child: RPadding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(AppSize.s8.r),
                 child:     CachedNetworkImage(
                   fit: BoxFit.fill,
-                  imageUrl: car.imagesUrl[0],
+                  imageUrl: car!.imagesUrl[0],
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 )
             ),
-            const SizedBox(width: 16),
+            const RSizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     car.name,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                      style: Theme.of(context).textTheme.headlineLarge
                   ),
-                  const SizedBox(height: 4),
+                  const RSizedBox(height: 4),
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.green[700], size: 16),
+                      Icon(Icons.star, color: ColorManager.green, size: AppSize.s16),
                       const SizedBox(width: 4),
                       Text(
                         '${car.rate.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
+                          style: Theme.of(context).textTheme.displayMedium                      ),
+                      const RSizedBox(width: 8),
                       Text(
                         '• ${car.trips} Trips',
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontSize: 14,
-                        ),
+                          style: Theme.of(context).textTheme.titleMedium
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const RSizedBox(height: 8),
                   Text(
                     '\$${car.price.toStringAsFixed(2)}/h',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                      style: Theme.of(context).textTheme.displayMedium
                   ),
                 ],
               ),
@@ -79,7 +70,6 @@ class CarInformationWidget extends StatelessWidget {
         ),
       ),
     );});
-  */
-  return Container();
+
   }
 }

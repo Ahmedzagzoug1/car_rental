@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Brandwidget extends StatelessWidget {
   final BrandEntity brandEntity;
-   Brandwidget({super.key,required this.brandEntity});
+ const  Brandwidget({super.key,required this.brandEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class Brandwidget extends StatelessWidget {
            ))),
 
         const RSizedBox.vertical(AppSize.s4),
-     Text(brandEntity.brandName, style: Theme.of(context).textTheme.bodyMedium,),
+     Text(brandEntity.brandName, style: Theme.of(context).textTheme.headlineLarge,),
       ],
     );
   }

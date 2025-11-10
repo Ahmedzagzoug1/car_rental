@@ -17,7 +17,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -40,8 +39,8 @@ class _HomePageState extends State<HomePage> {
         create: (context) => sl()..getCars(),
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.green,
-            child: Image.asset(ImageAssets.floatingIcon, color: Colors.white),
+            backgroundColor: ColorManager.green,
+            child: Image.asset(ImageAssets.floatingIcon, color: ColorManager.white),
             onPressed: () => _onItemTapped(2),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -49,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             color: Colors.black,
             shape: const CircularNotchedRectangle(),
             notchMargin: 8,
-            child: Padding(
+            child: RPadding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,11 +57,11 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       IconButton(
-                        icon: Image.asset(ImageAssets.messageIcon, color: Colors.white),
+                        icon: Image.asset(ImageAssets.messageIcon, color: ColorManager.white),
                         onPressed: () => _onItemTapped(0),
                       ),
                       IconButton(
-                        icon: Image.asset(ImageAssets.tripIcon, color: Colors.white),
+                        icon: Image.asset(ImageAssets.tripIcon, color: ColorManager.white),
                         onPressed: () => _onItemTapped(1),
                       ),
                     ],
@@ -71,11 +70,11 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.favorite_border, color: Colors.white),
+                        icon:  Icon(Icons.favorite_border, color: ColorManager.white),
                         onPressed: () => _onItemTapped(3),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.person_outline, color: Colors.white),
+                        icon:  Icon(Icons.person_outline, color: ColorManager.white),
                         onPressed: () => _onItemTapped(4),
                       ),
                     ],

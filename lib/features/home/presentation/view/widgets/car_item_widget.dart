@@ -31,7 +31,7 @@ class CarItemWidget extends StatelessWidget {
         height: AppSize.s206.sp,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s16.sp),
-          color: Colors.white,
+          color: ColorManager.white,
           boxShadow: [
             BoxShadow(color: ColorManager.black, blurRadius: AppSize.s1_5.sp)
           ],
@@ -67,7 +67,7 @@ class CarItemWidget extends StatelessWidget {
                   Positioned(
                     right: AppSize.s12.sp,
                     top: AppSize.s12.sp,
-                    child: CircleAvatar(backgroundColor: ColorManager.Gray,
+                    child: CircleAvatar(backgroundColor: ColorManager.grey,
                         child: Center(child: Icon(
                           Icons.favorite_border, color: ColorManager.white,))),
                   )

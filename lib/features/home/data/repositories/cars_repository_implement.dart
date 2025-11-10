@@ -26,7 +26,7 @@ const  CarsRepositoryImplement({required this.carRemoteDataSource});
 
       return Right(carEntities);
     } on ServerException catch(e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure());
     }
   }
 }

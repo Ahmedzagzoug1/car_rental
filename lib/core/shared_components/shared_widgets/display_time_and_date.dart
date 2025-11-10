@@ -21,7 +21,7 @@ class DisplayTimeAndDate extends StatelessWidget {
               timeEntity.pickupDate, timeEntity.pickupTime, context),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0.r),
-            child: Icon(Icons.arrow_forward, color: ColorManager.Gray),
+            child: Icon(Icons.arrow_forward, color: ColorManager.grey),
           ),
           _buildDateTimeColumn(
               timeEntity.returnDate, timeEntity.returnTime, context),

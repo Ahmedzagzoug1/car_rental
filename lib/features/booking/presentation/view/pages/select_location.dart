@@ -1,11 +1,9 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
-import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/map_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/pickup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 class SelectLocation extends StatelessWidget {
   const SelectLocation({super.key});
 
@@ -24,15 +22,11 @@ class SelectLocation extends StatelessWidget {
           SizedBox(
               height: 204.h,
       
-              child:const MapWidget( pickupLocationEntity:
-              PickupLocationEntity(title: 'Miami International Airport',
-                  subtitle: "Airport", price: '\$120',
-              latLng:LatLng(51.509364, -0.128928)),
-              )),
+              child:const MapWidget()),
            PickupMenu(),
           SizedBox(
             width: double.infinity,
-            child: Padding(
+            child: RPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ElevatedButton(onPressed: (){
                       Navigator.pushNamed(context, AppRouter.carDetailsRoute);
