@@ -7,7 +7,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class BookingRepository {
   Future<Either<Failure, String>> createBooking(BookingEntity booking);
-  Future<Either<Failure, CarDetailsEntity>> getCarDetails(carId);
 
 
 }

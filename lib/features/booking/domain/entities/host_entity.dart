@@ -1,15 +1,15 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class HostEntity extends Equatable{
   String name;
   String starHost;
-  String joinTime;
+  DateTime joinTime;
   int trips;
   String imageUrl;
   String  responseTime;
   double rate;
-  String userId;
   String phoneNumber;
 
   HostEntity(
@@ -17,12 +17,11 @@ class HostEntity extends Equatable{
     required this.imageUrl,
   required this.rate
     ,required this.responseTime,
-  required this.phoneNumber,
-  required this.userId});
+  required this.phoneNumber});
 
   @override
   // TODO: implement props
   List<Object?> get props =>[name,starHost,joinTime,trips,imageUrl,responseTime,rate,
-  phoneNumber,userId];
+  phoneNumber];
 
 }

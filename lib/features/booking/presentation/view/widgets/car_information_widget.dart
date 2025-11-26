@@ -14,62 +14,51 @@ class CarInformationWidget extends StatelessWidget {
     return
       BlocBuilder<CarDetailsCubit,CarDetailsState>
        (builder: (context,state){
-final car=context.read<CarDetailsCubit>().car;
-      return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.s12.r),
-      ),
-      child: RPadding(
-        padding: const EdgeInsets.all(12.0),
+         if(state is CarDetailsLoaded){
+final car=state.carDetailsEntity;
+      return SizedBox(
+        height: AppSize.s53,
         child: Row(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(AppSize.s8.r),
-                child:     CachedNetworkImage(
-                  fit: BoxFit.fill,
-                  imageUrl: car!.imagesUrl[0],
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                )
-            ),
-            const RSizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    car.name,
-                      style: Theme.of(context).textTheme.headlineLarge
-                  ),
-                  const RSizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: ColorManager.green, size: AppSize.s16),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${car.rate.toStringAsFixed(2)}',
-                          style: Theme.of(context).textTheme.displayMedium                      ),
-                      const RSizedBox(width: 8),
-                      Text(
-                        '• ${car.trips} Trips',
-                          style: Theme.of(context).textTheme.titleMedium
-                      ),
-                    ],
-                  ),
-                  const RSizedBox(height: 8),
-                  Text(
-                    '\$${car.price.toStringAsFixed(2)}/h',
-                      style: Theme.of(context).textTheme.displayMedium
-                  ),
-                ],
+            children: [
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      car.name,
+                        style: Theme.of(context).textTheme.titleLarge
+                    ),
+                    const RSizedBox(height: 4),
+                    Row(
+                      children: [
+                        Icon(Icons.star, color: ColorManager.green, size: AppSize.s16),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${car.rate.toStringAsFixed(2)}',
+                            style: Theme.of(context).textTheme.displayMedium                      ),
+                        Text(
+                          '• ${car.trips} Trips',
+                            style: Theme.of(context).textTheme.displayMedium
+                        ),
+                      ],
+                    ),
+
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );});
+              Text(
+                  '\$${car.price.toStringAsFixed(2)}/h',
+                  style: Theme.of(context).textTheme.titleLarge
+              ),
+            ],),
+      );}else if(state is CarDetailsLoading){
+           return CircularProgressIndicator();
+         }else{
+           return Text('there is an expected error');
+         }
+
+      });
 
   }
 }

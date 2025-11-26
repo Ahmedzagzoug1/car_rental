@@ -11,48 +11,57 @@ class LocationCubit extends Cubit<LocationState> {
 final GetPickupLocationsUsecase getPickupLocationsUsecase;
 final SavePickupLocationUsecase savePickupLocationUsecase;
 
-  late PickupLocationEntity userLocation;
-  late List< PickupLocationEntity> pickupLocations;
-
+late final List<PickupLocationEntity> pickuplocations;
   LocationCubit({required this.getUserLocationUseCase,
   required this.savePickupLocationUsecase,required this.getPickupLocationsUsecase
   }) : super(LocationInitial());
+initLocations(pickupLocations){
+  getCurrentLocation();
+  getLocations(pickupLocations);
+}
 
  getCurrentLocation() async {
     emit(LocationLoading());
     try {
       final location = await getUserLocationUseCase();
-      location.fold((failure)=>failure,
-          (success)=>success
+      location.fold((failure){
+        emit(LocationError(failure.toString()));
+      },
+          (success){
+            emit(UserLocationLoaded(userLocation: success));
+
+          }
           );
-      emit(LocationLoaded());
     } catch (e) {
       emit(LocationError(e.toString()));
     }
   }
 
- getLocations(carId)async{
-   emit(LocationLoading());
+ getLocations(pickupLocations){
+  this.pickuplocations=pickupLocations;
+  emit(LocationsLoaded(pickupLocations: pickupLocations));
+  /* emit(LocationLoading());
+   print('get loading......');
    try {
      final locations = await getPickupLocationsUsecase(carId);
-   pickupLocations=  locations.fold((failure){
-     print('failure');
-     return [];
+     locations.fold((failure){
+       print('failure');
+     emit(LocationError(failure.toString()));
    },
              (success){
-     return success as List<PickupLocationEntity>;
+
+     emit(LocationsLoaded(pickupLocations: success));
              }
      );
-     emit(LocationLoaded());
    } catch (e) {
      emit(LocationError(e.toString()));
-   }
+   }*/
   }
   saveLocation(pickupLocationEntity)async{
     try{
       emit(LocationLoading());
      await savePickupLocationUsecase.call(pickupLocationEntity);
-     emit(LocationLoaded());
+     // emit(LocationLoaded());
     } catch (e) {
       emit(LocationError(e.toString()));
     }

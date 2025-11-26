@@ -19,20 +19,19 @@ class HostModelAdapter extends TypeAdapter<HostModel> {
     return HostModel(
       name: fields[0] as String,
       starHost: fields[1] as String,
-      joinTime: fields[2] as String,
+      joinTime: fields[2] as DateTime,
       trips: fields[3] as int,
       imageUrl: fields[4] as String,
       rate: fields[5] as double,
       responseTime: fields[6] as String,
       phoneNumber: fields[7] as String,
-      userId: fields[8] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, HostModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -48,9 +47,7 @@ class HostModelAdapter extends TypeAdapter<HostModel> {
       ..writeByte(6)
       ..write(obj.responseTime)
       ..writeByte(7)
-      ..write(obj.phoneNumber)
-      ..writeByte(8)
-      ..write(obj.userId);
+      ..write(obj.phoneNumber);
   }
 
   @override
@@ -70,24 +67,23 @@ class HostModelAdapter extends TypeAdapter<HostModel> {
 
 HostModel _$HostModelFromJson(Map<String, dynamic> json) => HostModel(
       name: json['name'] as String,
-      starHost: json['starHost'] as String,
-      joinTime: json['joinTime'] as String,
+      starHost: json['star_host'] as String,
+      joinTime:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       trips: (json['trips'] as num).toInt(),
-      imageUrl: json['imageUrl'] as String,
+      imageUrl: json['image_url'] as String,
       rate: (json['rate'] as num).toDouble(),
-      responseTime: json['responseTime'] as String,
-      phoneNumber: json['phoneNumber'] as String,
-      userId: json['userId'] as String,
+      responseTime: json['response_time'] as String,
+      phoneNumber: json['phone'] as String,
     );
 
 Map<String, dynamic> _$HostModelToJson(HostModel instance) => <String, dynamic>{
       'name': instance.name,
-      'starHost': instance.starHost,
-      'joinTime': instance.joinTime,
+      'star_host': instance.starHost,
+      'createdAt': const TimestampConverter().toJson(instance.joinTime),
       'trips': instance.trips,
-      'imageUrl': instance.imageUrl,
+      'image_url': instance.imageUrl,
       'rate': instance.rate,
-      'responseTime': instance.responseTime,
-      'phoneNumber': instance.phoneNumber,
-      'userId': instance.userId,
+      'response_time': instance.responseTime,
+      'phone': instance.phoneNumber,
     };

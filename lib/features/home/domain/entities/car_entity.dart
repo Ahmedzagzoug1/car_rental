@@ -8,13 +8,13 @@ final String id;
   final double rating;
   final String availability;
   final double price;
-  final String image;
+  final String imageUrl;
 
   CarHomeEntity({required this.name,
     required this.id,required this.
-  rating, required this.availability, required this.price, required this.image});
+  rating, required this.availability, required this.price, required this.imageUrl});
 
   @override
   // TODO: implement props
-  List<Object?> get props =>  [name,rating,availability,price,image];
+  List<Object?> get props =>  [name,rating,availability,price,imageUrl];
 }

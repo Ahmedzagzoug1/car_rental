@@ -8,7 +8,7 @@ class GetPickupLocationsUsecase{
   final LocationRepository locationRepository;
 
   GetPickupLocationsUsecase({required this.locationRepository});
-  Future<Either<Failure, List<PickupLocationEntity?>>> call(carId)async{
+  Future<Either<Failure, List<PickupLocationEntity>>> call(carId)async{
     return await locationRepository.getLocations(carId);
   }
 

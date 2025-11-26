@@ -3,7 +3,7 @@ import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/services/service_locators.dart';
 import 'package:car_rental/features/home/data/data_source/brand_data_source/brand_remote_data_source.dart';
-import 'package:car_rental/features/home/data/data_source/cars_data_source/car_remote_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
 import 'package:car_rental/features/home/data/repositories/brand_repository_implement.dart';
 import 'package:car_rental/features/home/data/repositories/cars_repository_implement.dart';
 import 'package:car_rental/features/home/domain/usecases/get_brands_usecase.dart';
@@ -11,7 +11,7 @@ import 'package:car_rental/features/home/domain/usecases/get_cars_usecase.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_appbar.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_cars_listview.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_top_brand_list.dart';
-import 'package:car_rental/features/home/presentation/view_model/cars_home_cubit/cars_home_cubit.dart';
+import 'package:car_rental/features/home/presentation/cubit/cars_home_cubit/cars_home_cubit.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

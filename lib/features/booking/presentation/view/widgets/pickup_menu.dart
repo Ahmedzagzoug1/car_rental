@@ -18,7 +18,7 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
   Widget build(BuildContext context) {
     return BlocBuilder<LocationCubit, LocationState>(
   builder: (context, state) {
-    final locations=context.read<LocationCubit>().pickupLocations;
+    final locations=(state as LocationsLoaded).pickupLocations;
 int selectedIndex=locations.length;
     return Padding(
 
@@ -44,7 +44,7 @@ int selectedIndex=locations.length;
                   },
                   title: Text(loc.title, style: TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Text(loc.subtitle),
-                  secondary: Text(loc.price, style: TextStyle(fontWeight: FontWeight.bold)),
+ //                 secondary: Text(loc.price, style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               );
 

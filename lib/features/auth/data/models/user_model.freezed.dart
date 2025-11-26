@@ -293,7 +293,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   UserEntity toEntity() {
-    return UserEntity(id: id, name: name, email: email, createdAt: createdAt);
+  return UserEntity(id: id, name: name, email: email, createdAt: createdAt);
   }
 }
 

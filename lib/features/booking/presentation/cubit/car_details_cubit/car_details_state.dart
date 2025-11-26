@@ -20,6 +20,14 @@ final class CarDetailsLoaded extends CarDetailsState {
   @override
   List<Object> get props => [carDetailsEntity];
 }
+final class HostLoaded extends CarDetailsState {
+  final HostEntity hostEntity;
+
+  const HostLoaded({required this.hostEntity});
+
+  @override
+  List<Object> get props => [hostEntity];
+}
 final class CarDetailsFailure extends CarDetailsState {
   final String errMessage;
 

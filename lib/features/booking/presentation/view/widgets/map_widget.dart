@@ -1,14 +1,10 @@
-import 'package:car_rental/core/resources/color_manager.dart';
-import 'package:car_rental/core/resources/constants_manager.dart';
+
 import 'package:car_rental/core/services/service_locators.dart';
-import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../cubit/location_cubit/location_cubit.dart';
 
@@ -32,8 +28,8 @@ class _MapWidgetState extends State<MapWidget> {
       create: (_) => sl<LocationCubit>()..getCurrentLocation(),
       child: BlocBuilder<LocationCubit, LocationState>(
         builder: (context, state) {
-          if (state is LocationLoaded) {
-            final userLocation=BlocProvider.of<LocationCubit>(context).userLocation;
+          if (state is UserLocationLoaded) {
+final userLocation=state.userLocation;
             return FlutterMap(
               options: MapOptions(
                 initialCenter: LatLng(userLocation.lat, userLocation.lng),

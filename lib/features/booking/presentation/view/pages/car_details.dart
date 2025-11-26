@@ -1,19 +1,21 @@
-import 'package:car_rental/core/resources/color_manager.dart';
-import 'package:car_rental/core/services/service_locators.dart';
-
-import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
-import 'package:car_rental/features/booking/presentation/view/widgets/book_now_widget.dart';
-import 'package:car_rental/features/booking/presentation/view/widgets/car_view_pager.dart';
-import 'package:car_rental/features/booking/presentation/view/widgets/date_details.dart';
-import 'package:car_rental/features/booking/presentation/view/widgets/distance_details.dart';
-
+import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/car_information_widget.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/host_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/resources/color_manager.dart';
+import '../../../../../core/services/service_locators.dart';
+import '../../../../host/presentation/view/pages/host_car_details.dart';
+import '../../cubit/time_cubit/time_cubit.dart';
+import '../widgets/book_now_widget.dart';
+import '../widgets/car_view_pager.dart';
+import '../widgets/date_details.dart';
+import '../widgets/distance_details.dart';
 
 class CarDetails extends StatefulWidget {
-  CarDetails({super.key});
+  const CarDetails({super.key});
 
   @override
   State<CarDetails> createState() => _CarDetailsState();
@@ -21,58 +23,67 @@ class CarDetails extends StatefulWidget {
 
 class _CarDetailsState extends State<CarDetails> {
   @override
-  void initState() {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     context.read<TimeCubit>().getTime();
-    super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TimeCubit>(
       create: (context) => sl<TimeCubit>(),
-      child: Scaffold(
 
+      child: Scaffold(
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
               actions: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.favorite_outline_outlined),
+                  icon: const Icon(Icons.favorite_outline_outlined),
                 ),
+
               ],
               leading: InkWell(
-                child: Icon(Icons.arrow_back_ios),
+                child: const Icon(Icons.arrow_back_ios),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               backgroundColor: ColorManager.white,
               elevation: 0,
+
             ),
             SliverPadding(
-              padding:  EdgeInsets.all(16.0.r),
+              padding: EdgeInsets.all(8.0.r),
               sliver: SliverList(
-                  delegate:
-                  SliverChildListDelegate([
+                delegate: SliverChildListDelegate([
+                  RSizedBox(
+                    height: 251,
+                    child: CarViewPager(),
+                  ),
+                  RSizedBox(height: 8),
+  CarInformationWidget(),
+                  RSizedBox(height: 8),
 
-                 const   RSizedBox(
-                        height: 251,
-                        child: CarViewPager()),
-
-
-                  const  RSizedBox(height: 20),
-                 const   DateDetails(),
-                    const  RSizedBox(height: 20),
-                    DistanceDetails(),
-                    const  RSizedBox(height: 20),
-                  ])
-
+                  HostDetails(),
+                  DateDetails(),
+                  RSizedBox(height: 8),
+                  BlocBuilder<CarDetailsCubit, CarDetailsState>(
+                    builder: (context, state) {
+                      if(state is CarDetailsLoaded) {
+                        return DistanceDetails(
+                          pickupLocations: state.carDetailsEntity.pickupLocationEntities,);
+                      }else{
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  ),
+                ]),
               ),
             ),
-
           ],
         ),
-
         bottomNavigationBar: SizedBox(
           height: 91.h,
           child: BookNowWidget(

@@ -1,16 +1,17 @@
 import 'package:car_rental/core/error/failures.dart' show Failure;
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/repositories/booking_repository.dart';
+import 'package:car_rental/features/booking/domain/repositories/car_details_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class GetCarDetailsUseCase{
-  final BookingRepository bookingRepository;
+  final CarDetailsRepository carDetailsRepository;
 
-  GetCarDetailsUseCase({required this.bookingRepository});
+  GetCarDetailsUseCase({required this.carDetailsRepository});
 
   Future<Either<Failure, CarDetailsEntity>> call(carId)async{
-    print(carId);
-    return await bookingRepository.getCarDetails(carId);
+    print('${carId} use case');
+    return await carDetailsRepository.getCarDetails(carId);
   }
 
 }

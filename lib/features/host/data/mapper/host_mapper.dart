@@ -7,7 +7,7 @@ import 'package:car_rental/features/host/domain/entities/host_entity.dart';
 import '../../../../core/shared_components/data/models/car_model.dart' show CarModel;
 
 extension HostModelMapper on HostModel {
-  HostEntity toHostEntity (){
+  /*HostEntity toHostEntity (){
     return HostEntity(
         name: name,
         starHost: starHost,
@@ -16,5 +16,5 @@ extension HostModelMapper on HostModel {
 
       rate: rate
     );
-  }
+  }*/
 }

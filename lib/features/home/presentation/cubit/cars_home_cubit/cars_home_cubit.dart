@@ -10,11 +10,13 @@ part 'cars_home_state.dart';
 class CarsHomeCubit extends Cubit<CarsHomeState> {
   late List<CarHomeEntity> cars;
  late final CarHomeEntity selectedCar;
-  CarsHomeCubit() : super(CarsHomeInitial());
+  final GetCarsUsecase getCarsUsecase;
+
+ CarsHomeCubit({required this.getCarsUsecase}) : super(CarsHomeInitial());
   getCars() async {
     emit(CarsHomeLoading());
     try {
-    final result   =await sl<GetCarsUsecase>().call();
+    final result   =await getCarsUsecase.call();
 
    cars=    result .fold((failure) {
         print('Folded Failure: ${failure.toString()}');

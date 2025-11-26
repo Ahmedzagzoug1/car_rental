@@ -2,14 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
-import 'package:car_rental/core/services/service_locators.dart';
-import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
-import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
-import 'package:car_rental/features/home/data/models/brand_model.dart';
+
 import 'package:car_rental/features/home/domain/entities/car_entity.dart';
-import 'package:car_rental/features/home/presentation/view_model/cars_home_cubit/cars_home_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CarItemWidget extends StatelessWidget {
   final CarHomeEntity carEntity;
@@ -19,11 +14,12 @@ class CarItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: () async {
-
+print('${carEntity.id}');
         Navigator.pushNamed(context, AppRouter.carDetailsRoute,
 
             arguments:{'id':
             carEntity.id});
+
       },
       child: Container(
         margin: EdgeInsets.only(right: AppMargin.m20.r),
@@ -43,20 +39,14 @@ class CarItemWidget extends StatelessWidget {
               Stack(
                 children: [
                   SizedBox(
-                    height: AppSize.s100.sp, //increase height
+                    height: AppSize.s121.sp, //increase height
                     width: AppSize.s227.sp,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(AppSize.s16)),
-                      child: /*Image.network(
-          car.image,
-          height: AppSize.s60.sp,
-          width:AppSize.s227.sp ,
-          fit: BoxFit.fill,
-          ),*/
-                      CachedNetworkImage(
+                      child:        CachedNetworkImage(
                         fit: BoxFit.fill,
-                        imageUrl: carEntity.image,
+                        imageUrl: carEntity.imageUrl,
                         progressIndicatorBuilder: (context, url,
                             downloadProgress) =>
                             Center(child: CircularProgressIndicator()),

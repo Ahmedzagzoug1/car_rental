@@ -1,7 +1,7 @@
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/features/home/domain/entities/car_entity.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/car_item_widget.dart';
-import 'package:car_rental/features/home/presentation/view_model/cars_home_cubit/cars_home_cubit.dart';
+import 'package:car_rental/features/home/presentation/cubit/cars_home_cubit/cars_home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

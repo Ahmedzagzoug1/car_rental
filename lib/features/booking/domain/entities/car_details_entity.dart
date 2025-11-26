@@ -14,13 +14,12 @@ class CarDetailsEntity extends Equatable {
   double rate;
   int trips;
   List<String> imagesUrl;
-HostEntity host;
  List<PickupLocationModel> pickupLocationEntities;
   CarDetailsEntity({required this.id,required this.name, required this.price,
     required this.rate, required this.trips, required this.imagesUrl,
-  required this.host,required this.pickupLocationEntities});
+  required this.pickupLocationEntities});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id,name,price,rate,trips,imagesUrl,host,pickupLocationEntities];
+  List<Object?> get props => [id,name,price,rate,trips,imagesUrl,pickupLocationEntities];
 }

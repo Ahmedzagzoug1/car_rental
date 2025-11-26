@@ -32,48 +32,50 @@ class _CarViewPagerState extends State<CarViewPager> {
           return BlocBuilder<CarDetailsCubit, CarDetailsState>(
   builder: (context, state) {
     if(state is CarDetailsLoaded){
-      CarDetailsEntity car=(state as  CarDetailsLoaded).carDetailsEntity;
-    return Scaffold(
-            body: SizedBox(
-              height: 150.h,
-              child: Stack(
-                children: [
-                  PageView.builder(
-                    controller: _pageController,
-                    itemCount: car.imagesUrl.length,
-                    itemBuilder: (context, index) {
-                      return CachedNetworkImage(
-                        fit: BoxFit.fill,
-                        imageUrl: car.imagesUrl[index],
-                        progressIndicatorBuilder: (context, url, progress) =>
-                        const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                      );
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: RPadding(
-                      padding:  EdgeInsets.only(bottom: AppSize.s20.h),
-                      child: SmoothPageIndicator(
-                        controller: _pageController,
-                        count: car.imagesUrl.length,
-                        effect:  ExpandingDotsEffect(
-                          activeDotColor: ColorManager.green,
-                          dotColor: ColorManager.white,
-                          dotHeight: AppSize.s8.h,
-                          dotWidth: AppSize.s8.w,
-                          spacing: AppSize.s8.r,
-                          expansionFactor: 2,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+      CarDetailsEntity car=state.carDetailsEntity;
+      return SizedBox(
+        height: 251.h,
+        child: Stack(
+          children: [
+
+            Positioned.fill(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: car.imagesUrl.length,
+                itemBuilder: (context, index) {
+                  return CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    imageUrl: car.imagesUrl[index],
+                    progressIndicatorBuilder: (context, url, progress) =>
+                    const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                    const Icon(Icons.error),
+                  );
+                },
               ),
             ),
-          );
+
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: AppSize.s20.h),
+                child: SmoothPageIndicator(
+                  controller: _pageController,
+                  count: car.imagesUrl.length,
+                  effect:  WormEffect(
+                      activeDotColor: ColorManager.green,
+                      dotColor: ColorManager.white,
+                      dotHeight: AppSize.s8.h,
+                      dotWidth: AppSize.s8.w,
+                      spacing: AppSize.s8.r,
+                      ),
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      );
   }
 
          else if (state is CarDetailsFailure) {

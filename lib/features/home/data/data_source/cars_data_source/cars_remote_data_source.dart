@@ -1,11 +1,12 @@
-import 'package:car_rental/core/shared_components/data/models/car_model.dart';
-import 'package:car_rental/features/home/data/models/cars_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-class CarRemoteDataSource{
-final  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-Future<List<CarsModel>> getCars() async {
+import 'package:car_rental/features/home/data/models/car_model.dart';
+
+import '../../../../../core/services/service_locators.dart';
+class CarsRemoteDataSource{
+final  FirebaseFirestore _firestore = sl<FirebaseFirestore>();
+Future<List<CarModel>> getCars() async {
   debugPrint("Fetching cars...");
 
   QuerySnapshot snapshot = await _firestore.collection('car').get();
@@ -21,6 +22,6 @@ Future<List<CarsModel>> getCars() async {
 }
 // find car
 }
-List<CarsModel> parseCars(List<Map<String, dynamic>> data) {
-  return data.map((e) => CarsModel.fromJson(e)).toList();
+List<CarModel> parseCars(List<Map<String, dynamic>> data) {
+  return data.map((e) => CarModel.fromJson(e)).toList();
 }

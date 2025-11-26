@@ -5,29 +5,43 @@ import 'package:car_rental/features/home/data/models/brand_model.dart';
 import 'package:car_rental/features/home/domain/entities/brand_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-class Brandwidget extends StatelessWidget {
+class BrandWidget extends StatelessWidget {
   final BrandEntity brandEntity;
- const  Brandwidget({super.key,required this.brandEntity});
+ const  BrandWidget({super.key,required this.brandEntity});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        //TODO add card or shadow
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
 
-        CircleAvatar(
-          backgroundColor: ColorManager.white,
-          radius: AppSize.s60.sp,
-       child: RPadding(padding: const EdgeInsets.all( AppPadding.p8)
+          Container(
+            decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: ColorManager.black.withOpacity(0.08),
+                offset: const Offset(0, 4),
+                blurRadius: 12,
+                spreadRadius: 1,
+              ),
+            ]),          child: CircleAvatar(
 
-             ,  child: CachedNetworkImage(imageUrl:  brandEntity.imageSrc,
+              backgroundColor: ColorManager.white,
+              radius: AppSize.s40.sp,
+                   child: RPadding(padding: const EdgeInsets.all( AppPadding.p8)
 
-           errorWidget:(context, error,child)=> Center(child: Text(error,))
-           ))),
+                 ,  child: CachedNetworkImage(imageUrl:  brandEntity.imageSrc,
 
-        const RSizedBox.vertical(AppSize.s4),
-     Text(brandEntity.brandName, style: Theme.of(context).textTheme.headlineLarge,),
-      ],
+               errorWidget:(context, error,child)=> Center(child: Text(error,))
+               ))),
+          ),
+
+          const RSizedBox.vertical(AppSize.s4),
+       Text(brandEntity.brandName, style: Theme.of(context).textTheme.headlineLarge,),
+        ],
+      ),
     );
   }
 }

@@ -1,14 +1,20 @@
 import 'package:car_rental/features/auth/presentation/pages/signin_page.dart';
 import 'package:car_rental/features/auth/presentation/pages/signup_page.dart';
+import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_pickup_locations_usecase.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_user_location.dart';
+import 'package:car_rental/features/booking/domain/usecases/save_pickup_location_usecase.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/pickup_location_page.dart';
-import 'package:car_rental/features/booking/presentation/view/pages/select_location.dart';
 import 'package:car_rental/features/driver_information/presentation/pages/approved_page.dart';
 import 'package:car_rental/features/driver_information/presentation/pages/driver_license_screen.dart';
 import 'package:car_rental/features/driver_information/presentation/pages/mobile_number_screen.dart';
 import 'package:car_rental/features/driver_information/presentation/pages/profile_photo_page.dart';
-import 'package:car_rental/features/home/presentation/view_model/cars_home_cubit/cars_home_cubit.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_car_details.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_home_page.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_profile.dart';
@@ -44,22 +50,28 @@ class AppRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => HomePage(
-
-                ));
+        return MaterialPageRoute(builder: (_) => HomePage());
       case carDetailsRoute:
-        final Map<String, dynamic>? arguments = settings.arguments as Map<String, dynamic>?;
+        final args = settings.arguments ;
 
-        if (arguments != null && arguments.containsKey('id')) {
-          final String carId = arguments['id'] as String; // ✅ هنا يتم استخلاص القيمة الصحيحة
+        if (args is Map<String, dynamic> && args.containsKey('id')) {
+          final carId = args['id'];
 
-          // 4. بناء الـ BlocProvider وتمرير الـ carId إلى باني Cubit
           return MaterialPageRoute(
             builder: (context) {
-              return BlocProvider<CarDetailsCubit>(
-                create: (_) => CarDetailsCubit()..getCarDetails(carId),
-                child:  CarDetails(),
-              );
+              return MultiBlocProvider(  providers: [
+
+                  BlocProvider(
+                    create: (_) => CarDetailsCubit(sl<GetCarDetailsUseCase>())..loadCar(carId),
+                  ),
+                  BlocProvider(
+                    create: (_) => HostCubit(sl<GetHostUsecase>())..getHost(carId),
+                  ),
+                ],
+
+              child: CarDetails(),);
+
+
             },
           );
         }
@@ -74,7 +86,23 @@ class AppRouter {
       case selectTimeRoute:
         return MaterialPageRoute(builder: (_) => const SelectTime());
       case selectLocationRoute:
-        return MaterialPageRoute(builder: (_) => const PickUpLocationPage());
+        final args = settings.arguments ;
+
+        if (args is Map<String,List<PickupLocationEntity>> && args.containsKey('pickupLocations')) {
+          final  pickupLocations = args['pickupLocations'] ;
+          return MaterialPageRoute(
+            builder: (context) {
+              return  BlocProvider<LocationCubit>(
+                create: (_) => LocationCubit(getUserLocationUseCase:  sl<GetUserLocationUseCase>(),
+  getPickupLocationsUsecase:   sl<GetPickupLocationsUsecase>(),
+    savePickupLocationUsecase: sl<SavePickupLocationUsecase>()
+    )
+                  ..initLocations(pickupLocations)
+                ,child:  PickUpLocationPage(),
+              );
+            },
+          );
+        }
       case paymentOptionsPage:
         return MaterialPageRoute(builder: (_) => const PaymentOptionsPage());
       case hostRoute:

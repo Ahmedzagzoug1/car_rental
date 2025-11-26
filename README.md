@@ -21,9 +21,9 @@ lib/
 │
 ├── features/                    # Feature-based structure
 │   ├── booking/
-│   │   ├── model/               # Booking data models
-│   │   ├── model_view/          # ViewModels or business logic
-│   │   └── view/                # UI Screens for booking
+│   │   ├── data/               # Booking data models
+│   │   ├── domain/          # ViewModels or business logic
+│   │   └── presentation/                # UI Screens for booking
 │   │
 │   ├── car_details/             # Car detail feature
 │   │   ├── model/               # Car detail  models

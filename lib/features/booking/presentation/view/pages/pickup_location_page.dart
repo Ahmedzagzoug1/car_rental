@@ -1,11 +1,13 @@
+import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
-import 'package:car_rental/core/resources/style_manager.dart';
 
 class PickUpLocationPage extends StatefulWidget {
   const PickUpLocationPage({Key? key}) : super(key: key);
@@ -17,75 +19,28 @@ class PickUpLocationPage extends StatefulWidget {
 class _PickUpLocationPageState extends State<PickUpLocationPage> {
   final MapController _mapController = MapController();
 
-  // بيانات ثابتة مع lat/lng عشان الماب
-  final List<Map<String, dynamic>> locations = [
-    {
-      "id": "1",
-      "name": "Alexandria - Airport",
-      "description": "North Coast Location",
-      "price": 50,
-      "lat": 31.2001,
-      "lng": 29.9187,
-    },
-    {
-      "id": "2",
-      "name": "Cairo - Nasr City",
-      "description": "Main City Office",
-      "price": 60,
-      "lat": 30.0444,
-      "lng": 31.2357,
-    },
-    {
-      "id": "3",
-      "name": "New Cairo",
-      "description": "Branch 5th Settlement",
-      "price": 70,
-      "lat": 30.0219,
-      "lng": 31.5036,
-    },
-    {
-"id": "4",
-"name": "My Place",
-"description": "Branch 5th Settlement",
-"price": 70,
-"lat": 30.0219,
-"lng": 31.5036,
-},
-  ];
+  late final List<PickupLocationEntity> locations ;
+  int selectedLocationId=0;
 
-  String? selectedLocationId;
-
-  @override
-  void initState() {
-    super.initState();
-    // initial selected = first location (طلبت Marker على أول مكان)
-    selectedLocationId = locations.first["id"] as String;
-
-    // move camera after first frame to ensure map is ready
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final first = locations.first;
-      _moveCamera(first["lat"] as double, first["lng"] as double, 14.0);
-    });
-  }
 
   void _moveCamera(double lat, double lng, double zoom) {
     try {
       _mapController.move(LatLng(lat, lng), zoom);
     } catch (_) {
-      // in some rare cases controller not ready; ignore silently
+      print('controller not ready');
     }
   }
-
+/*
   Map<String, dynamic> _getSelectedLocation() {
     return locations.firstWhere((loc) => loc["id"] == selectedLocationId,
         orElse: () => locations.first);
   }
-
+*/
   @override
   Widget build(BuildContext context) {
-    // ScreenUtil must be initialized in upper widget (usually in main)
-    final selected = _getSelectedLocation();
+
     final double mapHeight = MediaQuery.of(context).size.height * 0.45;
+int id=selectedLocationId;
 
     return Scaffold(
       appBar: AppBar(
@@ -96,16 +51,14 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
         centerTitle: true,
       ),
 
-      // BODY: Map top ~45% + Bottom container with list
       body: Column(
         children: [
-          // MAP SECTION (top ~45%)
           RSizedBox(
             height: mapHeight,
             child: FlutterMap(
               mapController: _mapController,
               options: MapOptions(
-                initialCenter: LatLng(selected["lat"] as double, selected["lng"] as double),
+                initialCenter: LatLng(locations[selectedLocationId].lat, locations[selectedLocationId].lng),
                 initialZoom: 14.0,
                 // enable interactive features as needed
                 interactionOptions:InteractionOptions(flags: InteractiveFlag.all) ,
@@ -125,7 +78,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                 MarkerLayer(
                   markers: [
                     Marker(
-                      point: LatLng(selected["lat"] as double, selected["lng"] as double),
+                      point: LatLng(locations[selectedLocationId].lat, locations[selectedLocationId].lng),
                       width: 48.w,
                       height: 48.h,
                       child: Icon(
@@ -139,9 +92,13 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
               ],
             ),
           ),
+//list of locations
+         BlocBuilder<LocationCubit, LocationState>(
 
-          // BOTTOM CONTAINER (rounded, shadow) - list inside
-          Expanded(
+    builder: (context, state) {
+      if(state is LocationsLoaded){
+locations =state.pickupLocations;
+       return   Expanded(
             child: Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(
@@ -166,99 +123,57 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                   color: ColorManager.grey,
                 ),
                 itemBuilder: (context, index) {
-                  final location = locations[index];
-                  final String id = location["id"] as String;
-                  final String name = location["name"] as String;
-                  final String desc = location["description"] as String;
-                  final int price = location["price"] as int;
-                  final bool isSelected = selectedLocationId == id;
+
+                  final location=locations[index];
 
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        selectedLocationId = id;
+                        selectedLocationId = index;
                       });
-                      _moveCamera(location["lat"] as double, location["lng"] as double, 14.0);
+                      _moveCamera(location.lat, location.lng, 14.0);
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: AppPadding.p12.h),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // Price on LEFT (كما اتفقنا)
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 6.h),
-                            decoration: BoxDecoration(
-                              color: ColorManager.inputBackgroundColor,
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Text(
-                              "$price EGP",
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
-
-                          SizedBox(width: 12.w),
-
-                          // Name & description
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  name,
-                                  style: Theme.of(context).textTheme.headlineLarge,
-                                ),
-                                SizedBox(height: 6.h),
-                                Text(
-                                  desc,
-                                  style: Theme.of(context).textTheme.displayMedium,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          // radio on the RIGHT
-                          Radio<String>(
-                            value: id,
-                            groupValue: selectedLocationId,
-                            activeColor: ColorManager.green,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedLocationId = value;
-                              });
-                              final loc = locations.firstWhere((l) => l["id"] == value);
-                              _moveCamera(loc["lat"] as double, loc["lng"] as double, 14.0);
-                            },
-                          ),
-                        ],
+                    child: ListTile(
+                      leading: Radio(
+                        value:index,
+                        groupValue: selectedLocationId,
+                        activeColor: ColorManager.green,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedLocationId = value!;
+                          });
+                          _moveCamera(location.lat, location.lng, 14.0);
+                        },
                       ),
+                      title: Text(location.title),
+                      subtitle: Text(location.subtitle),
+                      trailing: Text('${location.price} eg'),
                     ),
-                  );
-                },
+      ));}
               ),
-            ),
-          ),
-        ],
-      ),
+            )
 
-      // Save button ثابت في الأسفل (SafeArea)
+
+          );
+
+      }else if(state is LocationLoading) {
+        return Center(child: CircularProgressIndicator());
+      }else {
+        return Center(child: Text('there is an expected error'),);
+      }
+    }),
+      ]
+    ),
       bottomNavigationBar: SafeArea(
         minimum: EdgeInsets.all(AppPadding.p12.h),
         child: SizedBox(
           height: 52.h,
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: selectedLocationId == null
-                ? null
-                : () {
-              // TODO: إرسال الـ selectedLocationId أو الـ object كامل حسب الحاجة
-              final selected = _getSelectedLocation();
-              // مثال: print أو ارسل للـ Bloc
-              debugPrint("Saved location id: ${selected['id']}, name: ${selected['name']}");
+            onPressed: () {
+              debugPrint("Saved location id: ${locations[selectedLocationId].title}");
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorManager.primary,
@@ -274,5 +189,8 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
         ),
       ),
     );
+
+
+
   }
 }

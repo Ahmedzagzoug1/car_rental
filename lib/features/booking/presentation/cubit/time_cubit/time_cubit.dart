@@ -9,6 +9,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../core/services/service_locators.dart';
 import '../../../data/model/time_model.dart';
@@ -23,7 +24,6 @@ final SaveTimeUsecase saveTimeUsecase;
 
 
   Future<void> saveTime(TimeEntity timeEntity) async {
-    emit(TimeLoading());
     try {
       saveTimeUsecase.call(timeEntity);
 
@@ -34,8 +34,6 @@ final SaveTimeUsecase saveTimeUsecase;
   }
 
   Future<TimeEntity?> getTime() async {
-    emit(TimeLoading());
-    print('time loaddig');
     try {
 final Either<Failure, TimeEntity?> time=
 await      GetTimeUsecase(timeRepository: sl<TimeRepository>()).call();
@@ -47,8 +45,10 @@ return success;
 
 
     } catch (e) {
-      emit(TimeError(e.toString()));
       return null;
     }
+  }
+  void selectTime(TimeEntity entity) {
+    emit(TimeSelected( timeEntity: entity));
   }
 }

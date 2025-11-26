@@ -16,6 +16,7 @@ final LocationLocalDataSource  locationLocalDataSource;
 
   @override
   Future<Either<Failure, List<PickupLocationEntity>>> getLocations(carId)async {
+
     if(await NetworkConnectivity.checkInternetConnectivity()){
    try{
   List<PickupLocationModel> pickupLocationsModel= await locationRemoteDataSource.getLocations(carId);
@@ -45,7 +46,7 @@ final LocationLocalDataSource  locationLocalDataSource;
   }
 
   @override
-  Future<Either<Failure, PickupLocationEntity?>> getUserLocation() async {
+  Future<Either<Failure, PickupLocationEntity>> getUserLocation() async {
     try {
       final PickupLocationModel position = await locationRemoteDataSource
           .getCurrentLocation();

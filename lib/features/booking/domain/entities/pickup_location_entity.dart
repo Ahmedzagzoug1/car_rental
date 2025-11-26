@@ -1,10 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PickupLocationEntity  extends Equatable{
   final String title;
   final String subtitle;
-  final String price;
+  final double price;
 final double lat;
   final double lng;
 

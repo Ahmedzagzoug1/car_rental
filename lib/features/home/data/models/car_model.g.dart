@@ -8,7 +8,7 @@ part of 'car_model.dart';
 
 class CarModelAdapter extends TypeAdapter<CarModel> {
   @override
-  final int typeId = 4;
+  final int typeId = 5;
 
   @override
   CarModel read(BinaryReader reader) {
@@ -23,15 +23,16 @@ class CarModelAdapter extends TypeAdapter<CarModel> {
       rate: fields[3] as double,
       trips: fields[4] as int,
       imagesUrl: (fields[5] as List).cast<String>(),
-      host: fields[6] as HostModel,
-      pickupLocationModels: (fields[7] as List).cast<PickupLocationModel>(),
+      availability: fields[6] as String,
+      imageUrl: fields[7] as String,
+      carNumber: fields[8] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, CarModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -45,9 +46,11 @@ class CarModelAdapter extends TypeAdapter<CarModel> {
       ..writeByte(5)
       ..write(obj.imagesUrl)
       ..writeByte(6)
-      ..write(obj.host)
+      ..write(obj.availability)
       ..writeByte(7)
-      ..write(obj.pickupLocationModels);
+      ..write(obj.imageUrl)
+      ..writeByte(8)
+      ..write(obj.carNumber);
   }
 
   @override
@@ -71,25 +74,22 @@ CarModel _$CarModelFromJson(Map<String, dynamic> json) => CarModel(
       price: (json['price'] as num).toDouble(),
       rate: (json['rate'] as num).toDouble(),
       trips: (json['trips'] as num).toInt(),
-      imagesUrl:
-          (json['imagesUrl'] as List<dynamic>).map((e) => e as String).toList(),
-      host: HostModel.fromJson(json['host'] as Map<String, dynamic>),
-      pickupLocationModels: (json['pickupLocationModels'] as List<dynamic>)
-          .map((e) => PickupLocationModel.fromJson(e as Map<String, dynamic>))
+      imagesUrl: (json['images_url'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
-    )..pickupLocationEntities =
-        (json['pickupLocationEntities'] as List<dynamic>)
-            .map((e) => PickupLocationModel.fromJson(e as Map<String, dynamic>))
-            .toList();
+      availability: json['availability'] as String,
+      imageUrl: json['image'] as String,
+      carNumber: json['car_number'] as String,
+    );
 
 Map<String, dynamic> _$CarModelToJson(CarModel instance) => <String, dynamic>{
-      'pickupLocationEntities': instance.pickupLocationEntities,
       'id': instance.id,
       'name': instance.name,
       'price': instance.price,
       'rate': instance.rate,
       'trips': instance.trips,
-      'imagesUrl': instance.imagesUrl,
-      'host': instance.host,
-      'pickupLocationModels': instance.pickupLocationModels,
+      'images_url': instance.imagesUrl,
+      'availability': instance.availability,
+      'image': instance.imageUrl,
+      'car_number': instance.carNumber,
     };

@@ -3,13 +3,25 @@ part of 'time_cubit.dart';
 
 
 abstract class TimeState extends Equatable {
+  late TimeEntity timeEntity;
   @override
   List<Object?> get props => [];
 }
 
-class TimeInitial extends TimeState {}
+class TimeInitial extends TimeState {
+ final  timeEntity = TimeEntity(
+  pickupDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+  pickupTime: DateFormat('hh:mm a').format(DateTime.now()),
+  returnDate:
+  DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 7))),
+  returnTime: DateFormat('hh:mm a')
+      .format(DateTime.now().add(const Duration(hours: 1))),
+  );
+@override
+  List<Object?> get props => [timeEntity];
+}
 
-class TimeLoading extends TimeState {}
+
 
 class TimeSuccess extends TimeState {
   final TimeEntity timeEntity;
@@ -27,3 +39,12 @@ class TimeError extends TimeState {
   List<Object?> get props => [message];
 }
 
+class TimeSelected extends TimeState {
+  final TimeEntity timeEntity;
+   TimeSelected({required this.timeEntity});
+
+  @override
+  List<Object?> get props => [timeEntity];
+}
+
+class TimeSaved extends TimeState {}

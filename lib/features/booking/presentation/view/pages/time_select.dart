@@ -22,8 +22,8 @@ class _SelectTimeState extends State<SelectTime> {
   TimeOfDay? _pickupTime;
   DateTime? _returnDate;
   TimeOfDay? _returnTime;
-  DateTime _focusedDay = DateTime.now(); // Current month for calendar view
   TimeEntity?  _selectedTimeEntity ; // Currently selected day in calendar
+  DateTime _focusedDay = DateTime.now(); // Current month for calendar view
 
   @override
   void initState() {

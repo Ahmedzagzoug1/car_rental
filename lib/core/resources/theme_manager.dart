@@ -39,6 +39,8 @@ backgroundColor: ColorManager.green,
 
       // text theme
       textTheme: TextTheme(
+        titleLarge: getSemiBoldStyle(
+            color: ColorManager.black, fontSize: FontSize.s20.sp),
           headlineLarge: getSemiBoldStyle(
               color: ColorManager.black, fontSize: FontSize.s15.sp),
           headlineMedium: 
@@ -47,9 +49,11 @@ displayMedium: getRegularStyle(fontSize: FontSize.s13.sp, color: ColorManager.gr
           titleMedium: getMediumStyle(fontSize: FontSize.s13.sp, color: ColorManager.green),
           displayLarge:
               getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12.sp),
+          displaySmall: getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s11.sp) ,
           bodyLarge: getSemiBoldStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
           labelMedium: getSemiBoldStyle(color: ColorManager.white,fontSize: FontSize.s15.sp),
-        labelLarge: getMediumStyle(fontSize:  FontSize.s13.sp, color: ColorManager.white)
+        labelLarge: getMediumStyle(fontSize:  FontSize.s13.sp, color: ColorManager.white),
+        bodySmall:  getRegularStyle(color: ColorManager.black, fontSize: FontSize.s11.sp),
           ),
       // input decoration theme (text form field)
 inputDecorationTheme: InputDecorationTheme(

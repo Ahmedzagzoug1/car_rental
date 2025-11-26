@@ -1,11 +1,12 @@
-import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
-import 'package:equatable/equatable.dart';
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
+import '../../../../core/utils/timestamp_converter.dart';
+import '../../../host/domain/entities/host_entity.dart';
 part 'host_model.g.dart';
-
 @HiveType(typeId: 3)
 @JsonSerializable()
 class HostModel extends HostEntity {
@@ -13,28 +14,31 @@ class HostModel extends HostEntity {
   final String name;
 
   @HiveField(1)
+  @JsonKey(name: 'star_host')
   final String starHost;
 
   @HiveField(2)
-  final String joinTime;
+  @JsonKey(name: 'createdAt')
+  @TimestampConverter()
+  final DateTime joinTime;
 
   @HiveField(3)
   final int trips;
 
   @HiveField(4)
+  @JsonKey(name: 'image_url')
   final String imageUrl;
 
   @HiveField(5)
   final double rate;
 
   @HiveField(6)
+  @JsonKey(name: 'response_time')
   final String responseTime;
 
   @HiveField(7)
+  @JsonKey(name: 'phone')
   final String phoneNumber;
-
-  @HiveField(8)
-  final String userId;
 
   HostModel({
     required this.name,
@@ -45,20 +49,18 @@ class HostModel extends HostEntity {
     required this.rate,
     required this.responseTime,
     required this.phoneNumber,
-    required this.userId,
   }) : super(
     name: name,
     starHost: starHost,
     joinTime: joinTime,
     trips: trips,
+
     imageUrl: imageUrl,
     rate: rate,
     responseTime: responseTime,
     phoneNumber: phoneNumber,
-    userId: userId,
   );
 
-  /// JSON serialization
   factory HostModel.fromJson(Map<String, dynamic> json) =>
       _$HostModelFromJson(json);
 

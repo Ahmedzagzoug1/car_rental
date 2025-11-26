@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class BookingEntity{
+class BookingEntity {
   final String? id;
   final DocumentReference carRef;
   final DocumentReference userRef;

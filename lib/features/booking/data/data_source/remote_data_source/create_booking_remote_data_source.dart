@@ -8,6 +8,8 @@ class CreateBookingRemoteDataSource{
   final docRef = await firestore.collection('bookings').add(booking.toJson());
   return docRef.id;
   }
+
+
 //check car before booking
   Future<List<Map<String, dynamic>>> getBookingsForCar(DocumentReference carRef) async {
   final snap = await firestore

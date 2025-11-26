@@ -19,7 +19,7 @@ class PickupLocationModelAdapter extends TypeAdapter<PickupLocationModel> {
     return PickupLocationModel(
       title: fields[0] as String,
       subtitle: fields[1] as String,
-      price: fields[2] as String,
+      price: fields[2] as double,
       lat: fields[3] as double,
       lng: fields[4] as double,
     );
@@ -60,7 +60,7 @@ PickupLocationModel _$PickupLocationModelFromJson(Map<String, dynamic> json) =>
     PickupLocationModel(
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
-      price: json['price'] as String,
+      price: (json['price'] as num).toDouble(),
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
     );

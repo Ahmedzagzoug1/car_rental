@@ -1,11 +1,8 @@
 import 'package:car_rental/core/error/exceptions.dart';
-import 'package:car_rental/core/services/service_locators.dart';
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
-import 'package:car_rental/features/booking/data/model/time_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:hive/hive.dart';
 
 abstract class LocationRemoteDataSource {
  Future<List <PickupLocationModel>> getLocations(carId);
@@ -32,58 +29,41 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks.first;
 
-        print('🏠 المكان: ${place.name}');
-        print('📍 الشارع: ${place.street}');
-        print('🏙️ المدينة: ${place.locality}');
-        print('🌆 المحافظة: ${place.administrativeArea}');
-        print('🌍 الدولة: ${place.country}');
 
-        // مثال لو عايز اسم مختصر
         String locationName = '${place.street}, ${place.locality}';
-        print('📌 الموقع الكامل: $locationName');
 
-      return PickupLocationModel(title: place.name!, subtitle: place.street!, price: '200 eg', lat: position.latitude,
+      return PickupLocationModel(title: place.name!, subtitle: place.street!, price: 200.00, lat: position.latitude,
           lng: position.longitude);
     }
     else{
       throw NotFoundException();
       }
     } catch (e) {
-      print('❌ خطأ أثناء جلب اسم المكان: $e');
     throw ServerException();
       }
   }
 
   @override
-  Future<List<PickupLocationModel>> getLocations(carId) async{
-    final carDoc = await FirebaseFirestore.instance
-        .collection('cars')
-        .doc(carId)
-        .get();
-
-    if (!carDoc.exists) {
-      print('❌ Car not found');
+  Future<List<PickupLocationModel>> getLocations(carId) async {
+    final  cars = await FirebaseFirestore.instance
+        .collection('car').where('id',isEqualTo: carId).get();
+    if(cars.docs.isEmpty){
       return [];
     }
-
-    final List locationRefs = carDoc['pickupLocations'];
-
-    List<PickupLocationModel> locations = [];
-
-    for (var ref in locationRefs) {
-      if (ref is DocumentReference) {
-        final locationDoc = await ref.get();
-        if (locationDoc.exists) {
-          locations.add( PickupLocationModel.fromJson( locationDoc.data() as Map<String,dynamic>));
+    final carDoc=cars.docs.first;
+    if(!carDoc.exists){
+      print('car Not found!!!');
+          return[];
+    }
+    final  locationsSnapshot=   await carDoc.reference.collection('pickup_locations')
+        .get();
+        if(locationsSnapshot.docs.isEmpty){
+          print('locations is Empty');
+          return[];
         }
-      }
-    }
-
-    // عرض النتيجة
-    for (var loc in locations) {
-
-      print('📍 Location: ${loc.title}' );
-    }
-    return locations;
+    final pickupList = locationsSnapshot.docs
+        .map((doc) => PickupLocationModel.fromJson(doc.data()))
+        .toList();
+    return pickupList;
   }
   }
