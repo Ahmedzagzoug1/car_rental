@@ -45,7 +45,7 @@ class SelectedWidget extends StatelessWidget {
                   Expanded(
                     child: Text(
                         content,
-                        style: Theme.of(context).textTheme.displayMedium
+                        style: Theme.of(context).textTheme.titleMedium
                     ),
                   ),
                   InkWell(onTap: onTap,
@@ -54,13 +54,8 @@ class SelectedWidget extends StatelessWidget {
                         Text(
                           toggleText,
                             style: Theme.of(context).textTheme.displayMedium
-                         /* style: TextStyle(
-                            fontSize: 16,
-                            color: ColorManager.green,
-                            fontWeight: FontWeight.w600,
-                          ),*/
                         ),
-                        const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.green),
+                         Icon(Icons.arrow_forward_ios, size: 16, color: ColorManager.green),
 
                       ],
                     ),

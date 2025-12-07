@@ -1,3 +1,4 @@
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_information_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/host_details.dart';
@@ -30,7 +31,12 @@ class _CarDetailsState extends State<CarDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TimeCubit>(
+    return MultiBlocProvider(providers: [
+    BlocProvider<TimeCubit>(
+    create: (context) => sl<TimeCubit>(),),
+    BlocProvider<BookingCubit>(
+    create: (context) => sl<BookingCubit>(),)
+    ], child: BlocProvider<TimeCubit>(
       create: (context) => sl<TimeCubit>(),
 
       child: Scaffold(
@@ -89,9 +95,10 @@ class _CarDetailsState extends State<CarDetails> {
           child: BookNowWidget(
             originalPrice: 20,
             pricePerHour: 30,
+
           ),
         ),
       ),
-    );
+    ));
   }
 }

@@ -11,27 +11,96 @@ import 'package:car_rental/core/routes/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DistanceDetails extends StatelessWidget {
-  List<PickupLocationEntity> pickupLocations;
+  late List<PickupLocationEntity> pickupLocations;
+  late String title;
 
   DistanceDetails({super.key,required this.pickupLocations});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationCubit, LocationState>(
-
       builder: (context, state) {
-      //  final selectedPickupLocation=(state as Loca).
-        return SelectedWidget(textHeadline: 'Pickup & Return',
-            iconData: Icons.location_on,
-            toggleText:'Add Location' /*(pickupLocation == null)
-                ? 'Add Location'
-                : '${pickupLocation!.title}'*/,
-            onTap: () {
 
-              Navigator.pushNamed(context, AppRouter.selectLocationRoute ,arguments: {'pickupLocations':pickupLocations} );
+        String title = 'Add Location';  // default
+        List<PickupLocationEntity> pickupLocations = [];
+
+        if (state is SelectedLocation) {
+          title = state.selectedLocation.title;
+        }
+
+        if (state is LocationsLoaded) {
+          pickupLocations = state.pickupLocations;
+
+
+
+          return SelectedWidget(
+            textHeadline: 'Pickup & Return',
+            iconData: Icons.location_on,
+            toggleText: title,
+            onTap: () {
+               Navigator.pushNamed(
+                 context,
+                 AppRouter.selectLocationRoute,
+                 arguments: {'pickupLocations': pickupLocations},
+               );
+
             },
-            content: /*(pickupLocation == null) ? 'location' : 'change'*/'location');
+            content: 'Change',
+          );
+        }
+
+        return SelectedWidget(
+          textHeadline: 'Pickup & Return',
+          iconData: Icons.location_on,
+          toggleText: title,
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              AppRouter.selectLocationRoute,
+              arguments: {'pickupLocations': pickupLocations},
+            );
+          },
+          content: 'Add location',
+        );
       },
     );
+
+
+
+
+    /* return BlocBuilder<LocationCubit, LocationState>(
+
+      builder: (context, state) {
+        late PickupLocationEntity selectedLocation;
+       if(context.read<LocationCubit>().state is SelectedLocation) {
+         selectedLocation = (context
+             .read<LocationCubit>()
+             .state as SelectedLocation).selectedLocation;
+       }
+        if(state is LocationsLoaded) {
+          title = 'selectedLocation.title';
+          pickupLocations = state.pickupLocations;
+
+          return SelectedWidget(textHeadline: 'Pickup & Return',
+              iconData: Icons.location_on,
+              toggleText: title ,
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.selectLocationRoute,
+                    arguments: {'pickupLocations': pickupLocations});
+              },
+              content:   'Change');
+        }else{
+          return SelectedWidget(textHeadline: 'Pickup & Return',
+              iconData: Icons.location_on,
+              toggleText:  'Add Location',
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.selectLocationRoute,
+                    arguments: {'pickupLocations': pickupLocations});
+              },
+              content:  'Add location');
+        }
+        },
+
+    );*/
   }
 }

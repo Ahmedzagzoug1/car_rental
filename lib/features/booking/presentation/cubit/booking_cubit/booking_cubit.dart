@@ -1,11 +1,59 @@
 import 'package:bloc/bloc.dart';
-import 'package:car_rental/features/booking/domain/entities/booking_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:equatable/equatable.dart';
 
 part 'booking_state.dart';
 
 class BookingCubit extends Cubit<BookingState> {
-  BookingCubit(super.initialState);
+  BookingCubit() : super(BookingInitial());
+
+
+  PickupLocationEntity? selectedLocation;
+  TimeEntity? selectedTime;
+  CarDetailsEntity? selectedCar;
+
+
+
+  void setPickup(PickupLocationEntity location) {
+//    final updated = booking.copyWith(pickupLocation: location);
+    selectedLocation =location;
+    emit(BookingUpdated());
+  }
+
+  void setTime(TimeEntity time) {
+    selectedTime = time;
+    emit(BookingUpdated());
+  }
+
+  void setCarDetails(CarDetailsEntity carDetails) {
+    selectedCar = carDetails;
+    emit(BookingUpdated());
+  }
+  bool isBookingComplete() {
+    return selectedLocation != null &&
+        selectedCar != null &&
+        selectedTime != null;
+  }
+  bool hasLocation() => selectedLocation != null;
+  bool hasTime() => selectedTime != null;
+  bool hasCar() => selectedCar != null;
+
+  String? getMissingFieldsMessage() {
+    if (isBookingComplete()) return null;
+
+    if (!hasLocation() && !hasTime()) {
+      return 'You must select location and time';
+    } else if (!hasLocation()) {
+      return 'You must select location';
+    } else if (!hasTime()) {
+      return 'You must select time';
+    }
+    return null;
+  }
+}
+
 
 /*  final SubmitBookingUseCase submitBookingUseCase;
 
@@ -48,4 +96,4 @@ class BookingCubit extends Cubit<BookingState> {
           (_) => emit(BookingSuccess()),
     );
   }*/
-}
+

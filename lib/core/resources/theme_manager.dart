@@ -52,6 +52,7 @@ displayMedium: getRegularStyle(fontSize: FontSize.s13.sp, color: ColorManager.gr
           displaySmall: getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s11.sp) ,
           bodyLarge: getSemiBoldStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
           labelMedium: getSemiBoldStyle(color: ColorManager.white,fontSize: FontSize.s15.sp),
+
         labelLarge: getMediumStyle(fontSize:  FontSize.s13.sp, color: ColorManager.white),
         bodySmall:  getRegularStyle(color: ColorManager.black, fontSize: FontSize.s11.sp),
           ),

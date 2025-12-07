@@ -11,7 +11,7 @@ class DefaultConnector {
   
 /*
   static ConnectorConfig connectorConfig = ConnectorConfig(
-    'us-central1',
+    'us-centra1',
     'default',
     'carrental',
   );

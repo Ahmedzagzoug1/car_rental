@@ -3,29 +3,29 @@ import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.d
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_information_widget.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/car_review_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../payment_process/view/widgets/payment_detail_row.dart';
-class RequestBook extends StatefulWidget {
-  final CarDetailsEntity car;
-  final HostEntity host;
+   class BookingReviewPage extends StatefulWidget {
 
-  const RequestBook({
+
+  const BookingReviewPage({
     super.key,
-    required this.car,
-    required this.host,
   });
 
   @override
-  State<RequestBook> createState() => _RequestBookState();
+  State<BookingReviewPage> createState() => _RequestBookState();
 }
 
-class _RequestBookState extends State<RequestBook> {
+class _RequestBookState extends State<BookingReviewPage> {
   // Initial date and time values
-  DateTime _startDate = DateTime.now().add(const Duration(days: 1));
+ /* DateTime _startDate = DateTime.now().add(const Duration(days: 1));
   DateTime _endDate = DateTime.now().add(const Duration(days: 8));
   TimeOfDay _startTime = const TimeOfDay(hour: 5, minute: 0); // 5:00 AM
   TimeOfDay _endTime = const TimeOfDay(hour: 22, minute: 0); // 10:00 PM
@@ -80,14 +80,10 @@ class _RequestBookState extends State<RequestBook> {
       });
     }
   }
-
+*/
   @override
   Widget build(BuildContext context) {
-    final int tripDays = _calculateTripDays();
-    final int basePrice = (widget.car.price * 24 * tripDays) as int; // Assuming 24 hours/day
-    const double tripFee = 3.87;
-    const double discount = 0.0; // Placeholder for discount
-    final double totalAmount = basePrice + tripFee - discount;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -108,17 +104,26 @@ class _RequestBookState extends State<RequestBook> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        padding:  EdgeInsets.all(16.0.r),
+      body: BlocBuilder<BookingCubit, BookingState>(
+  builder: (context, state) {
+    if (state is BookingUpdated) {
+      final timeEntity = context
+          .read<BookingCubit>()
+          .selectedTime;
+      final carEntity = context
+          .read<BookingCubit>()
+          .selectedCar;
+      final locationEntity = context
+          .read<BookingCubit>()
+          .selectedLocation;
+      return SingleChildScrollView(
+        padding: EdgeInsets.all(16.0.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Car Information Section
-            //selection car from details
-     CarInformationWidget(),
+            const CarReviewWidget(),
             const RSizedBox(height: 24),
 
-            // Trip Date & Time Section
             const Text(
               'Trip Date & Time',
               style: TextStyle(
@@ -128,18 +133,19 @@ class _RequestBookState extends State<RequestBook> {
             ),
             const RSizedBox(height: 12),
             BlocBuilder<TimeCubit, TimeState>(
-  builder: (context, state) {
-    return Container(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: DisplayTimeAndDate(timeEntity:( state as TimeSuccess ).timeEntity,)
+              builder: (context, state) {
+                return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12
+                        .h),
+                    decoration: BoxDecoration(
+                      color: ColorManager.grey,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: DisplayTimeAndDate(timeEntity: timeEntity!,)
 
-            );
-  },
-),
+                );
+              },
+            ),
             const RSizedBox(height: 24),
 
             // Pickup & Return Section
@@ -155,8 +161,8 @@ class _RequestBookState extends State<RequestBook> {
               children: [
                 Icon(Icons.location_on, color: ColorManager.green),
                 const RSizedBox(width: 8),
-                 Text(
-                  'Los Angeles, CA 91602',
+                Text(
+                  '${locationEntity?.title ?? 'No Location Founded'}',
                   style: TextStyle(
                     fontSize: 16,
                     color: ColorManager.black,
@@ -178,18 +184,21 @@ class _RequestBookState extends State<RequestBook> {
             Column(
               children: [
                 PaymentDetailRow(
-               label:    '\$${widget.car.price.toStringAsFixed(2)} x ${tripDays} days',
-            value:       '\$${basePrice.toStringAsFixed(2)}',
+                  label: '\$${carEntity?.price.toStringAsFixed(2)} x ${carEntity
+                      ?.trips} days',
+                  value: '\$${carEntity?.price.toStringAsFixed(2)}',
                 ),
-                PaymentDetailRow(label:  'Trip fee',value:  '\$${tripFee.toStringAsFixed(2)}'),
-                PaymentDetailRow(label: 'Discount',value:  '-', isDiscount: true),
+                PaymentDetailRow(label: 'Trip fee',
+                    value: '\$${carEntity?.price.toStringAsFixed(2)}'),
+                PaymentDetailRow(
+                    label: 'Discount', value: '-', isDiscount: true),
                 const RPadding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
                 ),
                 PaymentDetailRow(
-                 label:  'Total Amount',
-               value:    '\$${totalAmount.toStringAsFixed(2)}',
+                  label: 'Total Amount',
+                  value: '\$${carEntity?.price.toStringAsFixed(2)}',
                   isTotal: true,
                 ),
               ],
@@ -197,7 +206,7 @@ class _RequestBookState extends State<RequestBook> {
             const RSizedBox(height: 32),
 
             // Request to Book Button
-         /*   SizedBox(
+            /*   SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
@@ -228,10 +237,16 @@ class _RequestBookState extends State<RequestBook> {
                 ),
               ),
             ),*/
-            BottomWidget(price: '300', subtitle: 'Total Amount', btn_text: 'Proceed to Pay')
+            BottomWidget(price: '300',
+                subtitle: 'Total Amount',
+                btn_text: 'Proceed to Pay')
           ],
         ),
-      ),
+      );
+    } else {
+return CircularProgressIndicator();
+    }
+  }),
     );
   }
 

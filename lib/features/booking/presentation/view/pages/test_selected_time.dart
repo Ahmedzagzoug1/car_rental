@@ -1,3 +1,4 @@
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/build_calendar_grid.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/build_calender.dart';
 import 'package:flutter/cupertino.dart';
@@ -83,6 +84,7 @@ class SelectTime extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     context.read<TimeCubit>().saveTime(state.timeEntity);
+                    context.read<BookingCubit>().setTime(timeEntity);
                     Navigator.pop(context);
                   },
                   child: const Text('Save'),

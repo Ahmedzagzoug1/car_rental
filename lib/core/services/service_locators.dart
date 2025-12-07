@@ -37,6 +37,7 @@ import 'package:car_rental/features/booking/domain/usecases/get_time_usecase.dar
 import 'package:car_rental/features/booking/domain/usecases/get_user_location.dart';
 import 'package:car_rental/features/booking/domain/usecases/save_pickup_location_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/save_time_usecase.dart';
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
@@ -166,7 +167,8 @@ class ServicesLocators{
         sl.registerFactory<TimeCubit>(()=>TimeCubit(sl<GetTimeUsecase>(),
         sl<SaveTimeUsecase>()));
         sl.registerFactory<SigninCubit>(()=>SigninCubit(sl<SignInWithEmailUsecase>()));
-        sl.registerFactory<SignupCubit>(()=>SignupCubit(sl<SignUpWithEmailUseCase>()));
+    sl.registerFactory<SignupCubit>(()=>SignupCubit(sl<SignUpWithEmailUseCase>()));
+    sl.registerFactory<BookingCubit>(()=>BookingCubit());
 
 
   }

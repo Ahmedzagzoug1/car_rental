@@ -8,3 +8,7 @@ final class BookingInitial extends BookingState {
   @override
   List<Object> get props => [];
 }
+final class BookingUpdated extends BookingState {
+  @override
+  List<Object> get props => [];
+}

@@ -61,7 +61,7 @@ final userLocation=state.userLocation;
               ],
             );
           }
-          if (state is LocationError) return Text(state.message);
+          if (state is LocationError) return Text(state.errMessage);
           return const Center(child: CircularProgressIndicator());
         },
       ),

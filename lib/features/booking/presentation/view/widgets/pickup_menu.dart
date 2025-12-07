@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
+
+import '../../../../../core/routes/app_router.dart';
 class PickupMenu extends StatefulWidget {
   @override
   State<PickupMenu> createState() => _PickupLocationsScreenState();
@@ -18,42 +20,72 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
   Widget build(BuildContext context) {
     return BlocBuilder<LocationCubit, LocationState>(
   builder: (context, state) {
-    final locations=(state as LocationsLoaded).pickupLocations;
-int selectedIndex=locations.length;
-    return Padding(
+    if (state is LocationsLoaded) {
+      final locations = state.pickupLocations;
+      int selectedIndex = locations.length;
+      return Column(
+        children: [
+          Padding(
 
-        padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          height:AppSize.s316.h,
-          child: ListView.builder(
-              itemCount: locations.length,
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              height: AppSize.s316.h,
+              child: ListView.builder(
+                  itemCount: locations.length,
 
-              itemBuilder: (context,index){
+                  itemBuilder: (context, index) {
+                    final loc = locations[index];
+                    return Card(
+                      margin: EdgeInsets.symmetric(vertical: AppMargin.m6.h),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius
+                          .circular(AppSize.s12.r)),
+                      child: RadioListTile(
+                        value: index,
+                        groupValue: selectedIndex,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedIndex = value!;
+                          });
+                        },
+                        title: Text(loc.title,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text(loc.subtitle),
+                        //                 secondary: Text(loc.price, style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                    );
+                  }),
+            ),
 
-              final loc = locations[index];
-              return Card(
-                margin:  EdgeInsets.symmetric(vertical: AppMargin.m6.h),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s12.r)),
-                child: RadioListTile(
-                  value: index,
-                  groupValue: selectedIndex,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedIndex = value!;
-                    });
-                  },
-                  title: Text(loc.title, style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text(loc.subtitle),
- //                 secondary: Text(loc.price, style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              );
 
-            }),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              width: double.infinity,
+              child: RPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ElevatedButton(onPressed: () {
+                  Navigator.pushNamed(context, AppRouter.carDetailsRoute);
+                },
 
+                    style: Theme
+                        .of(context)
+                        .elevatedButtonTheme
+                        .style,
+                    child: const Text('save')
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }else if(state is LocationLoading){
+      return Center(child: CircularProgressIndicator(),);
+    }else{
+      return Center(child: Text((state as LocationError).errMessage),);
+    }
+  }
 
-    );
-  },
 );
   }
 }

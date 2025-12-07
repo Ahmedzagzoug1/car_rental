@@ -9,6 +9,7 @@ import 'package:car_rental/features/booking/domain/usecases/save_pickup_location
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
+import 'package:car_rental/features/booking/presentation/view/pages/booking_review_page.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/pickup_location_page.dart';
 import 'package:car_rental/features/driver_information/presentation/pages/approved_page.dart';
@@ -34,15 +35,20 @@ class AppRouter {
   static const String signupRoute = '/signupRoute';
 
   static const String carDetailsRoute = '/car_details';
-  static const String selectTimeRoute = '/select_time'; //
-  static const String hostRoute = '/host';
+  static const String selectTimeRoute = '/select_time';
   static const String selectLocationRoute = '/select_location';
+  static const String  bookingReviewPage = '/booking_review_page';
+
+
   static const String paymentProcessRoute = '/payment_process';
+
   static const String paymentOptionsPage = '/payment_options_page';
   static const String approvedPage = '/approvedPage';
   static const String profilePhotoPage = '/profilePhotoPage';
   static const String mobileNumber = '/mobileNumber';
   static const String driverLicense = '/driverLicense';
+
+  static const String hostRoute = '/host';
   static const String hostCarDetails = '/hostCarDetails';
   static const String hostProfile = '/hostProfile';
 
@@ -86,23 +92,31 @@ class AppRouter {
       case selectTimeRoute:
         return MaterialPageRoute(builder: (_) => const SelectTime());
       case selectLocationRoute:
-        final args = settings.arguments ;
+        return MaterialPageRoute(builder: (_) => const PickUpLocationPage());
 
-        if (args is Map<String,List<PickupLocationEntity>> && args.containsKey('pickupLocations')) {
-          final  pickupLocations = args['pickupLocations'] ;
+    /* final args = settings.arguments;
+
+        if (args is Map<String, dynamic> &&
+            args['pickupLocations'] is List<PickupLocationEntity>) {
+
+          final pickupLocations = args['pickupLocations'] as List<PickupLocationEntity>;
+
           return MaterialPageRoute(
             builder: (context) {
-              return  BlocProvider<LocationCubit>(
-                create: (_) => LocationCubit(getUserLocationUseCase:  sl<GetUserLocationUseCase>(),
-  getPickupLocationsUsecase:   sl<GetPickupLocationsUsecase>(),
-    savePickupLocationUsecase: sl<SavePickupLocationUsecase>()
-    )
-                  ..initLocations(pickupLocations)
-                ,child:  PickUpLocationPage(),
+              return BlocProvider<LocationCubit>(
+                create: (_) => LocationCubit(
+                  getUserLocationUseCase: sl<GetUserLocationUseCase>(),
+                  getPickupLocationsUsecase: sl<GetPickupLocationsUsecase>(),
+                  savePickupLocationUsecase: sl<SavePickupLocationUsecase>(),
+                )..initLocations(pickupLocations),
+                child: PickUpLocationPage(),
               );
             },
           );
-        }
+        }*/
+      case  bookingReviewPage :
+        return MaterialPageRoute(builder: (_)=>const BookingReviewPage());
+
       case paymentOptionsPage:
         return MaterialPageRoute(builder: (_) => const PaymentOptionsPage());
       case hostRoute:
