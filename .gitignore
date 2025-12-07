@@ -3,6 +3,8 @@
 *.log
 *.pyc
 *.swp
+.lock
+.tmp
 .DS_Store
 .atom/
 .buildlog/
@@ -15,7 +17,9 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
+vscode/        # إعدادات VS Code
+*.sublime-workspace
+*.sublime-project
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
@@ -30,6 +34,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+.packages
+.flutter-versions
 
 # Symbolication related
 app.*.symbols
@@ -41,3 +47,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+android/.gradle/
+android/.idea/
+android/app/build/
+android/local.properties
+
+
+.DS_Store       # MacOS
+Thumbs.db       # Windows
+
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
