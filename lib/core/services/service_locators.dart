@@ -29,6 +29,7 @@ import 'package:car_rental/features/booking/domain/repositories/booking_reposito
 import 'package:car_rental/features/booking/domain/repositories/car_details_repository.dart';
 import 'package:car_rental/features/booking/domain/repositories/location_repository.dart';
 import 'package:car_rental/features/booking/domain/repositories/time_repository.dart';
+import 'package:car_rental/features/booking/domain/usecases/calculate_payment_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/clear_time_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
@@ -38,10 +39,17 @@ import 'package:car_rental/features/booking/domain/usecases/get_user_location.da
 import 'package:car_rental/features/booking/domain/usecases/save_pickup_location_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/save_time_usecase.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/calculate_payment_cubit/calculate_payment_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/features/driver_information/data/data_source/approval_remote_datasource/approval_remote_datasource.dart';
+import 'package:car_rental/features/driver_information/data/repositories/approval_repository_impl.dart';
+import 'package:car_rental/features/driver_information/domain/repositories/approval_repository.dart';
+import 'package:car_rental/features/driver_information/domain/usecases/send_otp_usecase.dart';
+import 'package:car_rental/features/driver_information/domain/usecases/verify_otp_usecase.dart';
+import 'package:car_rental/features/driver_information/presentation/cubits/otp_cubit/otp_cubit.dart';
 import 'package:car_rental/features/home/data/data_source/brand_data_source/brand_remote_data_source.dart';
 import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_local_data_source.dart';
 import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
@@ -58,6 +66,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../features/home/data/models/car_model.dart';
 
@@ -69,6 +78,7 @@ class ServicesLocators{
       sl.registerLazySingleton<FirebaseFirestore>(()=> FirebaseFirestore.instance);
       sl.registerLazySingleton<FirebaseAuth>(()=> FirebaseAuth.instance);
       sl.registerLazySingleton<FlutterSecureStorage>(()=>FlutterSecureStorage());
+      sl.registerLazySingleton<ImagePicker>(()=> ImagePicker());
 
 
 //data layer
@@ -85,7 +95,11 @@ class ServicesLocators{
       sl.registerLazySingleton<LocationRemoteDataSource>(()=>LocationRemoteDataSourceImpl());
       sl.registerLazySingleton<CarDetailsRemoteDataSource>(()=>CarDetailsRemoteDataSourceImpl());
 
-      //local data source
+      //approval
+    sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl());
+
+
+    //local data source
         //home
        sl.registerLazySingleton<CarsLocalDataSource>(
             ()=>CarsLocalDataSourceImpl(carBox:  sl<Box<CarModel>>()));
@@ -120,7 +134,9 @@ class ServicesLocators{
         locationLocalDataSource: sl<LocationLocalDataSource>(),
     locationRemoteDataSource: sl<LocationRemoteDataSource>()));
       sl.registerLazySingleton<TimeRepository>(()=>BookingTimeRepositoryImpl(  sl<BookingTimeLocalDataSource>()));
-
+      //approval
+    sl.registerLazySingleton<ApprovalRepository>(()=>ApprovalRepositoryImpl(
+        approvalRemoteDatasource: sl<ApprovalRemoteDatasource>()));
 //use cases
     //auth
       sl.registerLazySingleton<SignInWithEmailUsecase>(()=>SignInWithEmailUsecase(authRepository: sl<AuthRepository>()));
@@ -151,15 +167,23 @@ class ServicesLocators{
       sl.registerLazySingleton<GetTimeUsecase>(() => GetTimeUsecase(timeRepository: sl<TimeRepository>()));
       sl.registerLazySingleton<ClearTimeUsecase>(() => ClearTimeUsecase(timeRepository: sl<TimeRepository>()));
       sl.registerLazySingleton<GetHostUsecase>(()=>GetHostUsecase(carDetailsRepository: sl<CarDetailsRepository>()));
+      sl.registerLazySingleton<CalculatePaymentUseCase>(()=>CalculatePaymentUseCase());
+
+      //approval
+    sl.registerLazySingleton<SendOtpUsecase>(()=>SendOtpUsecase(sl<ApprovalRepository>()));
+    sl.registerLazySingleton<VerifyOtpUsecase>(()=>VerifyOtpUsecase( sl<ApprovalRepository>()));
 
 
 
 
-      //presentation layer
+
+    //presentation layer
         //cubit
         sl.registerFactory<AppModeCubit>(()=>AppModeCubit());
+        //home
         sl.registerFactory<CarsHomeCubit>(()=>CarsHomeCubit(getCarsUsecase: sl<GetCarsUsecase>()));
         sl.registerFactory<BrandCubit>(()=>BrandCubit());
+        //booking
     sl.registerFactory<CarDetailsCubit>(()=>CarDetailsCubit(sl<GetCarDetailsUseCase>()));
     sl.registerFactory<HostCubit>(()=>HostCubit(sl<GetHostUsecase>()));
         sl.registerFactory<LocationCubit>(()=>LocationCubit(getPickupLocationsUsecase: sl<GetPickupLocationsUsecase>(),
@@ -169,7 +193,8 @@ class ServicesLocators{
         sl.registerFactory<SigninCubit>(()=>SigninCubit(sl<SignInWithEmailUsecase>()));
     sl.registerFactory<SignupCubit>(()=>SignupCubit(sl<SignUpWithEmailUseCase>()));
     sl.registerFactory<BookingCubit>(()=>BookingCubit());
-
-
+    sl.registerFactory<CalculatePaymentCubit>(()=>CalculatePaymentCubit(sl<CalculatePaymentUseCase>()));
+//approval
+    sl.registerFactory<OtpCubit>(()=>OtpCubit(sl<SendOtpUsecase>(), sl<VerifyOtpUsecase>()));
   }
 }

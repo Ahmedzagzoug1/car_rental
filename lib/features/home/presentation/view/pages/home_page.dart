@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     return  SafeArea(
       child: BlocProvider<CarsHomeCubit>(
         create: (context) => sl()..getCars(),
+
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             backgroundColor: ColorManager.green,

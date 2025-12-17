@@ -41,6 +41,11 @@ class EmptyCacheFailure extends Failure {
 
 
 }
+class AuthFailure extends Failure {
+  const AuthFailure(): super('auth Failure');
+
+
+}
 
 
 

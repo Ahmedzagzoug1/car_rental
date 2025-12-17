@@ -20,11 +20,15 @@ final LocationLocalDataSource  locationLocalDataSource;
     if(await NetworkConnectivity.checkInternetConnectivity()){
    try{
   List<PickupLocationModel> pickupLocationsModel= await locationRemoteDataSource.getLocations(carId);
+   List<PickupLocationEntity>pickupLocationEntities=[];
   pickupLocationsModel.forEach((location){
+
     locationLocalDataSource.saveLocation(location);
+    pickupLocationEntities.add(location as PickupLocationEntity);
+ //   PickupLocationEntity(title: location.title, subtitle: location.subtitle, price: location.price, lat: location.lat, lng: location.lng);
 
   });
-     return Right( pickupLocationsModel);
+     return Right( pickupLocationEntities );
    }on ServerException{
      return Left(ServerFailure());
 
@@ -41,8 +45,7 @@ final LocationLocalDataSource  locationLocalDataSource;
 
   @override
   Future<Either<Failure, Unit>> saveLocation(PickupLocationEntity location) {
-    // TODO: implement saveLocation
-    throw UnimplementedError();
+   throw UnimplementedError();
   }
 
   @override

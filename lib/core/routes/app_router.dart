@@ -58,21 +58,29 @@ class AppRouter {
       case homeRoute:
         return MaterialPageRoute(builder: (_) => HomePage());
       case carDetailsRoute:
-        final args = settings.arguments ;
+        return
+          MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+              value: context.read<CarDetailsCubit>(),
+              child: CarDetails(),
+
+
+          ),settings: settings,);
+
+    /*  final args = settings.arguments ;
 
         if (args is Map<String, dynamic> && args.containsKey('id')) {
           final carId = args['id'];
-
           return MaterialPageRoute(
             builder: (context) {
+
               return MultiBlocProvider(  providers: [
 
                   BlocProvider(
                     create: (_) => CarDetailsCubit(sl<GetCarDetailsUseCase>())..loadCar(carId),
                   ),
-                  BlocProvider(
-                    create: (_) => HostCubit(sl<GetHostUsecase>())..getHost(carId),
-                  ),
+
+
                 ],
 
               child: CarDetails(),);
@@ -83,7 +91,7 @@ class AppRouter {
         }
 
         return MaterialPageRoute(builder: (_) => Center(child: Text('there ia an expected error !'),));
-
+*/
 
       case signinWithEmailRoute:
         return MaterialPageRoute(builder: (_) => const SigninPage());
@@ -93,6 +101,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SelectTime());
       case selectLocationRoute:
         return MaterialPageRoute(builder: (_) => const PickUpLocationPage());
+
 
     /* final args = settings.arguments;
 
@@ -108,12 +117,12 @@ class AppRouter {
                   getUserLocationUseCase: sl<GetUserLocationUseCase>(),
                   getPickupLocationsUsecase: sl<GetPickupLocationsUsecase>(),
                   savePickupLocationUsecase: sl<SavePickupLocationUsecase>(),
-                )..initLocations(pickupLocations),
+                )..getLocations(pickupLocations),
                 child: PickUpLocationPage(),
               );
             },
-          );
-        }*/
+          );*/
+
       case  bookingReviewPage :
         return MaterialPageRoute(builder: (_)=>const BookingReviewPage());
 

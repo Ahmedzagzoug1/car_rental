@@ -1,12 +1,18 @@
 import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../core/services/service_locators.dart';
 
 class ProfilePhotoPage extends StatelessWidget {
   const ProfilePhotoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final imagePicker=sl<ImagePicker>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -77,36 +83,49 @@ class ProfilePhotoPage extends StatelessWidget {
                       color: Colors.green,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
+                    child:  BlocConsumer<ImageCubit, ImageState>(
+                        listener: (context, state) {
+                          if (state is ImageError) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(content: Text(state.message)));
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is ImageLoading) {
+                            return CircularProgressIndicator();
+                          } else if (state is ImageUploaded) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.network(state.image.url),
+                                SizedBox(height: 10),
+                                SelectableText(state.image.url),
+                              ],
+                            );
+                          }
+                          return GestureDetector(
+                            onTap: () async {
+                              final XFile? image =
+                              await imagePicker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (image != null) {
+                                context.read<ImageCubit>().uploadImage(
+                                    image.path);
+                              }
+                            },
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          );
+                        }
+                  ),),
                 ),
               ],
             ),
             const Spacer(), // Pushes the button to the bottom
-          /*  SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Handle save and continue action
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  'Save and Continue',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),*/
+
             CustomButton(onPressed: (){
               Navigator.pushNamed(context, AppRouter.mobileNumber);
             },title: 'Save and Continue',),

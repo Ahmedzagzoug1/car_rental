@@ -58,6 +58,10 @@ dependencies:
   path_provider: ^2.1.5
   hydrated_bloc: ^10.1.1
   json_annotation: ^4.9.0
+  intl_phone_field: ^3.2.0
+  pin_code_fields: ^8.0.1
+  image_picker: ^1.2.1
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

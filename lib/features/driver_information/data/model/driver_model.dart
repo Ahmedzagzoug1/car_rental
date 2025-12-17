@@ -1,5 +1,4 @@
 import 'package:car_rental/features/driver_information/data/model/license_model.dart';
-import 'package:car_rental/features/driver_information/domain/entities/driver_entity.dart';
 
 class DriverModel{
   final String name;
@@ -29,7 +28,5 @@ class DriverModel{
     };
   }
 
-  DriverEntity toDomain(){
-    return DriverEntity(imageUrl: imageUrl, MobileNumber: mobileNumber);
-  }
+
 }

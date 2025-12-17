@@ -6,10 +6,12 @@ import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart
 import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/usecases/get_pickup_locations_usecase.dart';
+
 part 'car_details_state.dart';
 
 class CarDetailsCubit extends Cubit<CarDetailsState> {
-
+//final GetPickupLocationsUsecase getPickupLocationsUsecase;
 final GetCarDetailsUseCase getCarDetailsUseCase;
    CarDetailsCubit(this.getCarDetailsUseCase) : super(CarDetailsInitial());
   loadCar(carId){
@@ -32,7 +34,24 @@ getCarDetails(String carId)async{
        } catch (e) {
       emit(CarDetailsFailure(errMessage: e.toString()));
     }
+
   }
+/*
+getLocations(carId)async{
+  emit(CarDetailsLoading());
+  try {
+    final locations = await getPickupLocationsUsecase(carId);
+    locations.fold((failure){
+      emit(LocationError(failure.toString()));
+    },
+            (success){
 
-
+          emit(LocationsLoaded(pickupLocations: success));
+          print('locations loaded-');
+        }
+    );
+  } catch (e) {
+    emit(LocationError(e.toString()));
+  }
+}*/
 }

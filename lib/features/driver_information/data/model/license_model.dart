@@ -16,7 +16,6 @@ class LicenseModel{
     );
   }
 
-  /// A method to convert a [LicenseModel] instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'fullName': fullName,

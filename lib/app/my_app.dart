@@ -2,7 +2,12 @@
 import 'package:car_rental/app/cubits/app_mode/app_mode_cubit.dart';
 import 'package:car_rental/core/services/service_locators.dart';
 import 'package:car_rental/core/utils/permissions.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_pickup_locations_usecase.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_user_location.dart';
+import 'package:car_rental/features/booking/domain/usecases/save_pickup_location_usecase.dart';
+import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
@@ -13,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/resources/theme_manager.dart';
 import '../core/routes/app_router.dart';
+import '../features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -41,7 +47,14 @@ class _MyAppState extends State<MyApp> {
              providers: [
                BlocProvider<AppModeCubit>(create: (context)=>sl<AppModeCubit>()),
                BlocProvider<TimeCubit>(create: (context)=>sl<TimeCubit>()),
-               BlocProvider<LocationCubit>(create: (context)=>sl<LocationCubit>()),
+               BlocProvider<HostCubit>(create: (_)=> HostCubit(sl<GetHostUsecase>())),
+               BlocProvider<LocationCubit>(create: (_)=>LocationCubit(getUserLocationUseCase: sl<GetUserLocationUseCase>(),
+                   savePickupLocationUsecase:  sl<SavePickupLocationUsecase>(),
+                   getPickupLocationsUsecase:  sl<GetPickupLocationsUsecase>())),
+               BlocProvider<CarDetailsCubit>(create: (_)=> CarDetailsCubit(sl<GetCarDetailsUseCase>())),
+               BlocProvider<BookingCubit>(
+                 create: (context) => sl<BookingCubit>(),
+               ),
 
              ],
              child: MaterialApp(
@@ -55,10 +68,16 @@ class _MyAppState extends State<MyApp> {
            ));
   }
 }
+/*
 class MyTest extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HostCubit>(create: (_)=> HostCubit(sl<GetHostUsecase>())..getHost('asd'),
+    return MultiBlocProvider(providers: [
+    BlocProvider<HostCubit>(create: (_)=> HostCubit(sl<GetHostUsecase>())),
+    BlocProvider<LocationCubit>(create: (_)=>LocationCubit(getUserLocationUseCase: sl<GetUserLocationUseCase>(),
+        savePickupLocationUsecase:  sl<SavePickupLocationUsecase>(),
+        getPickupLocationsUsecase:  sl<GetPickupLocationsUsecase>()))
+    ],
       child: Scaffold(
         body: BlocBuilder<HostCubit,HostState>(builder: (context,state) {
           if (state is HostLoaded){
@@ -74,4 +93,4 @@ class MyTest extends StatelessWidget{
   }
 
 }
-
+*/

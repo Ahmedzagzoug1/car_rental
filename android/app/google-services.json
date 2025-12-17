@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "892666697069",
+    "project_id": "car-rental-c3a92",
+    "storage_bucket": "car-rental-c3a92.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892666697069:android:bc874e0b119c017f3bf664",
+        "android_client_info": {
+          "package_name": "com.elsaghier.car_rental"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYtRXXPVwmO6xNn7LwGespno5VKIzeW-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

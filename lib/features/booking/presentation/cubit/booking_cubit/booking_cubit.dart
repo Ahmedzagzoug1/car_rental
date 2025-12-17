@@ -17,7 +17,6 @@ class BookingCubit extends Cubit<BookingState> {
 
 
   void setPickup(PickupLocationEntity location) {
-//    final updated = booking.copyWith(pickupLocation: location);
     selectedLocation =location;
     emit(BookingUpdated());
   }

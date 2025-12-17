@@ -16,10 +16,7 @@ late final List<PickupLocationEntity> pickuplocations;
   LocationCubit({required this.getUserLocationUseCase,
   required this.savePickupLocationUsecase,required this.getPickupLocationsUsecase
   }) : super(LocationInitial());
-initLocations(pickupLocations){
-  getCurrentLocation();
-  getLocations(pickupLocations);
-}
+
 
  getCurrentLocation() async {
     emit(LocationLoading());
@@ -30,7 +27,7 @@ initLocations(pickupLocations){
       },
           (success){
             emit(UserLocationLoaded(userLocation: success));
-
+pickuplocations=success as List<PickupLocationEntity>;
           }
           );
     } catch (e) {
@@ -38,30 +35,25 @@ initLocations(pickupLocations){
     }
   }
 
- getLocations(pickupLocations){
-  this.pickuplocations=pickupLocations;
-  emit(LocationsLoaded(pickupLocations: pickupLocations));
-  /* emit(LocationLoading());
-   print('get loading......');
+   getLocations(carId)async{
+  emit(LocationLoading());
    try {
      final locations = await getPickupLocationsUsecase(carId);
      locations.fold((failure){
-       print('failure');
      emit(LocationError(failure.toString()));
    },
              (success){
 
      emit(LocationsLoaded(pickupLocations: success));
+     print('locations loaded-');
              }
      );
    } catch (e) {
      emit(LocationError(e.toString()));
-   }*/
+   }
   }
   selectedLocation(selectedLocation)async{
     try{
-      emit(LocationLoading());
-     //await savePickupLocationUsecase.call(selectedLocation);
       emit(SelectedLocation(selectedLocation: selectedLocation));
     } catch (e) {
       emit(LocationError(e.toString()));

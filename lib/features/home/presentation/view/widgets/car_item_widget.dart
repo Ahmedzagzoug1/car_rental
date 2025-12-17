@@ -14,7 +14,7 @@ class CarItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: () async {
-print('${carEntity.id}');
+print('${carEntity.id} home');
         Navigator.pushNamed(context, AppRouter.carDetailsRoute,
 
             arguments:{'id':
@@ -22,9 +22,9 @@ print('${carEntity.id}');
 
       },
       child: Container(
-        margin: EdgeInsets.only(right: AppMargin.m20.r),
-        width: AppSize.s227.sp,
-        height: AppSize.s206.sp,
+        margin: EdgeInsets.only(right: AppMargin.m16.r),
+        width: AppSize.s227.w,
+        height: AppSize.s206.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s16.sp),
           color: ColorManager.white,
@@ -39,8 +39,8 @@ print('${carEntity.id}');
               Stack(
                 children: [
                   SizedBox(
-                    height: AppSize.s121.sp, //increase height
-                    width: AppSize.s227.sp,
+                    height: AppSize.s133.r,
+                    width: AppSize.s227.r,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(AppSize.s16)),
