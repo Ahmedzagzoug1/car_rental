@@ -44,12 +44,12 @@ import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
-import 'package:car_rental/features/driver_information/data/data_source/approval_remote_datasource/approval_remote_datasource.dart';
-import 'package:car_rental/features/driver_information/data/repositories/approval_repository_impl.dart';
-import 'package:car_rental/features/driver_information/domain/repositories/approval_repository.dart';
-import 'package:car_rental/features/driver_information/domain/usecases/send_otp_usecase.dart';
-import 'package:car_rental/features/driver_information/domain/usecases/verify_otp_usecase.dart';
-import 'package:car_rental/features/driver_information/presentation/cubits/otp_cubit/otp_cubit.dart';
+import 'package:car_rental/features/approval/data/data_source/approval_remote_datasource/approval_remote_datasource.dart';
+import 'package:car_rental/features/approval/data/repositories/approval_repository_impl.dart';
+import 'package:car_rental/features/approval/domain/repositories/approval_repository.dart';
+import 'package:car_rental/features/approval/domain/usecases/send_otp_usecase.dart';
+import 'package:car_rental/features/approval/domain/usecases/verify_otp_usecase.dart';
+import 'package:car_rental/features/approval/presentation/cubits/otp_cubit/otp_cubit.dart';
 import 'package:car_rental/features/home/data/data_source/brand_data_source/brand_remote_data_source.dart';
 import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_local_data_source.dart';
 import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
@@ -67,6 +67,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../features/home/data/models/car_model.dart';
 
@@ -79,6 +80,7 @@ class ServicesLocators{
       sl.registerLazySingleton<FirebaseAuth>(()=> FirebaseAuth.instance);
       sl.registerLazySingleton<FlutterSecureStorage>(()=>FlutterSecureStorage());
       sl.registerLazySingleton<ImagePicker>(()=> ImagePicker());
+      sl.registerLazySingleton<MobileScannerController>(()=> MobileScannerController());
 
 
 //data layer
@@ -96,8 +98,8 @@ class ServicesLocators{
       sl.registerLazySingleton<CarDetailsRemoteDataSource>(()=>CarDetailsRemoteDataSourceImpl());
 
       //approval
-    sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl());
-
+    sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl(sl<MobileScannerController>(),
+sl<ImagePicker>()));
 
     //local data source
         //home

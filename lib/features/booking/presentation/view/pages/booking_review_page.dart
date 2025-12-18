@@ -11,7 +11,6 @@ import 'package:car_rental/features/booking/presentation/view/widgets/car_review
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../payment_process/view/widgets/payment_detail_row.dart';
    class BookingReviewPage extends StatefulWidget {
 
 

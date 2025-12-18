@@ -54,6 +54,17 @@ class EmailAlreadyInUseFailure extends Failure {
 
 }
 
+class ImageNotSelectedFailure extends Failure {
+  const ImageNotSelectedFailure() : super('Image not selected');
+}
+
+class NoQrFoundFailure extends Failure {
+  const NoQrFoundFailure() : super('No QR code found');
+}
+
+class QrScanFailure extends Failure {
+  const QrScanFailure() : super('QR scan failed');
+}
 
 
 

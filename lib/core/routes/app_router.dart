@@ -1,3 +1,4 @@
+import 'package:car_rental/features/approval/presentation/pages/smart_qr_scanner.dart';
 import 'package:car_rental/features/auth/presentation/pages/signin_page.dart';
 import 'package:car_rental/features/auth/presentation/pages/signup_page.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
@@ -12,14 +13,14 @@ import 'package:car_rental/features/booking/presentation/cubit/location_cubit/lo
 import 'package:car_rental/features/booking/presentation/view/pages/booking_review_page.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/pickup_location_page.dart';
-import 'package:car_rental/features/driver_information/presentation/pages/approved_page.dart';
-import 'package:car_rental/features/driver_information/presentation/pages/driver_license_screen.dart';
-import 'package:car_rental/features/driver_information/presentation/pages/mobile_number_screen.dart';
-import 'package:car_rental/features/driver_information/presentation/pages/profile_photo_page.dart';
+import 'package:car_rental/features/approval/presentation/pages/approved_page.dart';
+import 'package:car_rental/features/approval/presentation/pages/driver_license_screen.dart';
+import 'package:car_rental/features/approval/presentation/pages/otp_page.dart';
+import 'package:car_rental/features/approval/presentation/pages/profile_photo_page.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_car_details.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_home_page.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_profile.dart';
-import 'package:car_rental/features/payment_process/view/pages/payment_options_page.dart';
+import 'package:car_rental/features/payment_process/presentation/view/pages/payment_options_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -45,8 +46,9 @@ class AppRouter {
   static const String paymentOptionsPage = '/payment_options_page';
   static const String approvedPage = '/approvedPage';
   static const String profilePhotoPage = '/profilePhotoPage';
-  static const String mobileNumber = '/mobileNumber';
+  static const String otpPage = '/otpPage';
   static const String driverLicense = '/driverLicense';
+  static const String smartQrScanner = '/smartQrScanner';
 
   static const String hostRoute = '/host';
   static const String hostCarDetails = '/hostCarDetails';
@@ -127,7 +129,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_)=>const BookingReviewPage());
 
       case paymentOptionsPage:
-        return MaterialPageRoute(builder: (_) => const PaymentOptionsPage());
+        return MaterialPageRoute(builder: (_) => const CheckoutPage());
       case hostRoute:
         return MaterialPageRoute(builder: (_) => const HostHomePage());
       case hostCarDetails:
@@ -140,8 +142,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const ProfilePhotoPage());
       case driverLicense:
         return MaterialPageRoute(builder: (_) => const DriverLicenseScreen());
-      case mobileNumber:
-        return MaterialPageRoute(builder: (_) => const MobileNumberScreen());
+      case otpPage:
+        return MaterialPageRoute(builder: (_) => const OtpPage());
+        case smartQrScanner:
+      return MaterialPageRoute(builder: (_) => const SmartQrScanner());
 
       default:
       // Handle unknown routes, perhaps navigate to a 404 page or home
