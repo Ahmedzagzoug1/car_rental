@@ -58,12 +58,16 @@ class ImageNotSelectedFailure extends Failure {
   const ImageNotSelectedFailure() : super('Image not selected');
 }
 
-class NoQrFoundFailure extends Failure {
-  const NoQrFoundFailure() : super('No QR code found');
+class OcrProcessingFailure extends Failure {
+  const OcrProcessingFailure() : super('No Ocr Processing found');
 }
+class LicenseParsingFailure extends Failure {
+  LicenseParsingFailure()
+      : super('Could not extract license data clearly');
+}
+class MissingLicenseFieldsFailure extends Failure{
+  const MissingLicenseFieldsFailure(String field) : super('Missing $field in license ');
 
-class QrScanFailure extends Failure {
-  const QrScanFailure() : super('QR scan failed');
 }
 
 

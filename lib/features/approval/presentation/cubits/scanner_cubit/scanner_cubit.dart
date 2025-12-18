@@ -1,4 +1,4 @@
-import 'package:car_rental/features/approval/domain/usecases/scan_from_gallery_usecase.dart';
+import 'package:car_rental/features/approval/domain/usecases/get_from_gallery_usecase.dart';
 import 'package:car_rental/features/approval/domain/usecases/scan_or_upload_from_camera_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

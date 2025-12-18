@@ -49,17 +49,29 @@ class ApprovalRepositoryImpl implements ApprovalRepository{
 
 
   @override
-  Future<Either<Failure,String?>> scanFromGallery() async{
+  Future<Either<Failure,String>> getFromGallery() async{
     try {
       final imagePath = await approvalRemoteDatasource.pickImagePath();
      // final qr = await approvalRemoteDatasource.scanImage(imagePath);
       return Right(imagePath);
     } on ImageNotSelectedException {
       return const Left(ImageNotSelectedFailure());
-    } on QrScannerException {
-      return const Left(QrScanFailure());
     }
   }
+
+
+
+
+  @override
+  Future<Either<Failure, String>> recognizeTextFromImage(String imagePath) async{
+    try {
+      final text = await approvalRemoteDatasource.recognizeTextFromImage(imagePath);
+      return Right(text);
+    } on OcrProcessingException {
+      return Left(OcrProcessingFailure());
+    }
+  }
+
 
 
 }

@@ -4,20 +4,19 @@ import 'package:equatable/equatable.dart';
 
 part 'profile_image_state.dart';
 
-class ImageCubit extends Cubit<ProfileImageState> {
-  //TODO cubit Getit
+class ProfileImageCubit extends Cubit<ProfileImageState> {
   final UploadProfilePhotoUsecase uploadProfilePhotoUsecase;
 
-  ImageCubit({required this.uploadProfilePhotoUsecase}) : super(ProfileImageInitial());
+  ProfileImageCubit({required this.uploadProfilePhotoUsecase}) : super(ProfileImageInitial());
 
   Future<void> uploadImage(String filePath) async {
     try {
-      emit(ImageLoading());
+      emit(ProfileImageLoading());
       final uploadImage = await uploadProfilePhotoUsecase(filePath);
-      uploadImage.fold((failure)=>emit(P), (sucess))
-      emit(ImageUploaded(image));
+      uploadImage.fold((failure)=>emit(ProfileImageFailure(failure)),
+          (sucess)=>emit(ProfileImageloaded(sucess)));
     } catch (e) {
-      emit(ImageError(e.toString()));
+      emit(ProfileImageFailure(e.toString()));
     }
   }
 }

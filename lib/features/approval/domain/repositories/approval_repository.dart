@@ -10,5 +10,6 @@ abstract class ApprovalRepository{
     required String phoneNumber,
   });
   Future<Either<Failure, String>> uploadProfilePhoto({required String filePath});
-  Future<Either<Failure,String?>> scanFromGallery();
+  Future<Either<Failure,String>> getFromGallery();
+  Future<Either<Failure,String>> recognizeTextFromImage(String imagePath);
 }

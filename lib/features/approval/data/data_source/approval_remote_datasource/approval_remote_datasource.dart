@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:car_rental/core/error/exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -17,13 +18,17 @@ abstract class ApprovalRemoteDatasource{
 
   Future<String> uploadImage(String filePath);
   Future<String> pickImagePath();
-  Future<String> scanImage(String imagePath);
+  Future<String> recognizeTextFromImage(String imagePath);
 
 
 }
 
 class ApprovalRemoteDatasourceImpl implements ApprovalRemoteDatasource{
 final _firebaseAuth=sl<FirebaseAuth>();
+final TextRecognizer _textRecognizer=sl<TextRecognizer>();
+
+
+
 final MobileScannerController controller;
 final ImagePicker picker;
 ApprovalRemoteDatasourceImpl(this.controller, this.picker);
@@ -96,24 +101,31 @@ Future<String> pickImagePath() async {
   final image = await picker.pickImage(source: ImageSource.gallery);
 
   if (image == null) {
-    throw const ImageNotSelectedException();
+    throw  ImageNotSelectedException();
   }
 
   return image.path;
 }
 
+
 @override
-Future<String> scanImage(String imagePath) async {
-  try {
-    final capture = await controller.analyzeImage(imagePath);
+Future<String> recognizeTextFromImage(String imagePath) async {
+try{
+  final inputImage = InputImage.fromFilePath(imagePath);
 
-    if (capture == null || capture.barcodes.isEmpty) {
-      throw const QrScanException('No QR code found in image');
-    }
+  final RecognizedText recognizedText =
+  await _textRecognizer.processImage(inputImage);
 
-    return capture.barcodes.first.rawValue ?? '';
-  } catch (e) {
-    throw const QrScanException();
-  }
+  return recognizedText.text;
+}catch(e){
+  throw OcrProcessingException();
 }
+
+}
+
+void dispose() {
+  _textRecognizer.close();
+}
+
+
 }

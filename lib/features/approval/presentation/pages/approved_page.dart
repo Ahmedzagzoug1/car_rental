@@ -71,7 +71,7 @@ class ApprovedPage extends StatelessWidget {
                         subtitle:
                         'We\'ll send you a verification code to help secure your account',
                          onTap: (){
-                           Navigator.pushNamed(context, AppRouter.mobileNumber);
+                           Navigator.pushNamed(context, AppRouter.otpPage);
                          },
                       ),
                       const Divider(color: Colors.grey, height: 1),
@@ -90,6 +90,10 @@ class ApprovedPage extends StatelessWidget {
                         title: 'Payment Method',
                         subtitle:
                         'You won\'t be charged until you book your trip.',
+                         onTap: (){
+                           Navigator.pushNamed(context, AppRouter.paymentOptionsPage);
+                         },
+
                       ),
                     ],
                   ),

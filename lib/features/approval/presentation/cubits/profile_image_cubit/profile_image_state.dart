@@ -9,20 +9,20 @@ final class ProfileImageInitial extends ProfileImageState {
   @override
   List<Object> get props => [];
 }
-class ImageLoading extends ProfileImageState {
+class ProfileImageLoading extends ProfileImageState {
   @override
   List<Object?> get props =>[];
 }
-class ImageUploaded extends ProfileImageState {
+class ProfileImageloaded extends ProfileImageState {
   final image;
-  ImageUploaded(this.image);
+  ProfileImageloaded(this.image);
 
   @override
   List<Object?> get props => [image];
 }
-class ImageError extends ProfileImageState {
+class ProfileImageFailure extends ProfileImageState {
   final message;
-  ImageError(this.message);
+  ProfileImageFailure(this.message);
   @override
   List<Object?> get props => [message];
 }

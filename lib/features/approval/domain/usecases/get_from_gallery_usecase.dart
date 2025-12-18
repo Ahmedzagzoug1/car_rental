@@ -8,6 +8,6 @@ class ScanFromGalleryUseCase {
   ScanFromGalleryUseCase(this.approvalRepository);
 
   Future<Either<Failure,String?>> call() async {
-    return await approvalRepository.scanFromGallery();
+    return await approvalRepository.getFromGallery();
   }
 }

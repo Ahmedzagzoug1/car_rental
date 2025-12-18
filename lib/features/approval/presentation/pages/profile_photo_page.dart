@@ -1,5 +1,6 @@
 import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/custom_button.dart';
+import 'package:car_rental/features/approval/presentation/cubits/profile_image_cubit/profile_image_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,17 +84,17 @@ class ProfilePhotoPage extends StatelessWidget {
                       color: Colors.green,
                       shape: BoxShape.circle,
                     ),
-                    child:  BlocConsumer<ImageCubit, ImageState>(
+                    child:  BlocConsumer<ProfileImageCubit, ProfileImageState>(
                         listener: (context, state) {
-                          if (state is ImageError) {
+                          if (state is ProfileImageFailure) {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(content: Text(state.message)));
                           }
                         },
                         builder: (context, state) {
-                          if (state is ImageLoading) {
+                          if (state is ProfileImageLoading) {
                             return CircularProgressIndicator();
-                          } else if (state is ImageUploaded) {
+                          } else if (state is ProfileImageloaded) {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -109,7 +110,7 @@ class ProfilePhotoPage extends StatelessWidget {
                               await imagePicker.pickImage(
                                   source: ImageSource.gallery);
                               if (image != null) {
-                                context.read<ImageCubit>().uploadImage(
+                                context.read<ProfileImageCubit>().uploadImage(
                                     image.path);
                               }
                             },
@@ -127,7 +128,9 @@ class ProfilePhotoPage extends StatelessWidget {
             const Spacer(), // Pushes the button to the bottom
 
             CustomButton(onPressed: (){
-              Navigator.pushNamed(context, AppRouter.mobileNumber);
+              //save data and push
+
+              Navigator.pushNamed(context, AppRouter.paymentOptionsPage);
             },title: 'Save and Continue',),
             const SizedBox(height: 24),
           ],
