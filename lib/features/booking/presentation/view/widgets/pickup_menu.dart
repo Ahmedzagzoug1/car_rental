@@ -1,14 +1,14 @@
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
-import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 
 import '../../../../../core/routes/app_router.dart';
 class PickupMenu extends StatefulWidget {
+  const PickupMenu({super.key});
+
   @override
   State<PickupMenu> createState() => _PickupLocationsScreenState();
 }
@@ -48,7 +48,7 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
                           });
                         },
                         title: Text(loc.title,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: const TextStyle(fontWeight: FontWeight.bold)),
                         subtitle: Text(loc.subtitle),
                         //                 secondary: Text(loc.price, style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
@@ -80,7 +80,7 @@ class _PickupLocationsScreenState extends State<PickupMenu> {
         ],
       );
     }else if(state is LocationLoading){
-      return Center(child: CircularProgressIndicator(),);
+      return const Center(child: CircularProgressIndicator(),);
     }else{
       return Center(child: Text((state as LocationError).errMessage),);
     }

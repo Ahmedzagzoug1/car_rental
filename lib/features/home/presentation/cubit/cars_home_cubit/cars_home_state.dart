@@ -16,7 +16,7 @@ final class CarsHomeLoading extends CarsHomeState {
 final class CarsHomeLoaded extends CarsHomeState {
  final List<CarHomeEntity> cars;
 
-  CarsHomeLoaded({required this.cars});
+  const CarsHomeLoaded({required this.cars});
   @override
   // TODO: implement props
   List<Object?> get props => [cars];
@@ -24,7 +24,7 @@ final class CarsHomeLoaded extends CarsHomeState {
 final class CarsHomeFailure extends CarsHomeState {
   final String errmessage;
 
-  CarsHomeFailure(this.errmessage);
+  const CarsHomeFailure(this.errmessage);
   @override
   // TODO: implement props
   List<Object?> get props => [errmessage];

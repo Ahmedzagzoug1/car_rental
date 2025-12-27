@@ -2,12 +2,7 @@ import 'package:car_rental/core/resources/assets_manager.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/services/service_locators.dart';
-import 'package:car_rental/features/home/data/data_source/brand_data_source/brand_remote_data_source.dart';
 import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
-import 'package:car_rental/features/home/data/repositories/brand_repository_implement.dart';
-import 'package:car_rental/features/home/data/repositories/cars_repository_implement.dart';
-import 'package:car_rental/features/home/domain/usecases/get_brands_usecase.dart';
-import 'package:car_rental/features/home/domain/usecases/get_cars_usecase.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_appbar.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_cars_listview.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_top_brand_list.dart';
@@ -104,7 +99,10 @@ class _HomePageState extends State<HomePage> {
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: ()async {
+                       await   CarsRemoteDataSource().addFiveCars();
+                       print('add cars successfully----------');
+                        },
                         style: Theme.of(context).elevatedButtonTheme.style,
                         child: const Text('Host & Earn'),
                       ),
@@ -121,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       filled: true,
                       hintText: 'Search any car...',
                       prefixIcon: const Icon(Icons.search_rounded),
-                      suffixIcon: const Icon(CupertinoIcons.arrow_down),
+                      suffixIcon: const Icon(Icons.filter_list),
                     ),
                   ),
                 ),

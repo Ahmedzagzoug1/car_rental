@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CarItemWidget extends StatelessWidget {
   final HostCarEntity car;
-  CarItemWidget({super.key,required this.car});
+  const CarItemWidget({super.key,required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,8 @@ class CarItemWidget extends StatelessWidget {
                         fit: BoxFit.fill,
                         imageUrl: car.image,
                         progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                     ),
                   ),

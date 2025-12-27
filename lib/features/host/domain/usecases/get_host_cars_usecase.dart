@@ -2,7 +2,6 @@ import 'package:car_rental/core/error/failures.dart';
 import 'package:car_rental/features/host/domain/entities/host_car_entity.dart';
 import 'package:car_rental/features/host/domain/repositories/host_cars_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 
 class GetCarsUsecase {
   final HostCarsRepository repository; // Dependency on the repository interface

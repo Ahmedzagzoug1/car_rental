@@ -11,7 +11,7 @@ final double rate;
   final String imageUrl;
 
 
-  HostEntity({required this.name,required this.starHost,required this.trips,required this.responseTime,
+  const HostEntity({required this.name,required this.starHost,required this.trips,required this.responseTime,
       required this.rate,required this.joinTime,required this.imageUrl,required this.phoneNumber});
 
   @override

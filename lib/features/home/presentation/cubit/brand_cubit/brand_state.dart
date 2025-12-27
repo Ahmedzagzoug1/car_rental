@@ -23,7 +23,7 @@ sealed class BrandState extends Equatable {
  class BrandFailure extends BrandState{
 final String errorMessage;
 
-  BrandFailure(this.errorMessage);
+  const BrandFailure(this.errorMessage);
 
   @override
   // TODO: implement props

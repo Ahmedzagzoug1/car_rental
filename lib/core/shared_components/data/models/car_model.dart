@@ -1,4 +1,3 @@
-import 'package:car_rental/core/shared_components/data/models/host_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CarModel {

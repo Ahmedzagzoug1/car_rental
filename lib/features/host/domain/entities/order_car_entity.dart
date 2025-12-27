@@ -6,7 +6,7 @@ class OrderCarEntity extends Equatable{
   final String rentalPersonName;
   final String rentalPersonNumber;
   final String imageUrl;
-  OrderCarEntity(
+  const OrderCarEntity(
   {
     required this.name,
     required this.dateOfRental,

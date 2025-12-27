@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:car_rental/core/error/failures.dart';
 import 'package:car_rental/features/auth/domain/entities/user_entity.dart';
 import 'package:car_rental/features/auth/domain/usecases/email_auth/sign_up_with_email_usecase.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

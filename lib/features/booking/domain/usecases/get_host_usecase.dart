@@ -9,7 +9,7 @@ class GetHostUsecase{
 
   GetHostUsecase({required this.carDetailsRepository});
   Future<Either<Failure, HostEntity>> getHost(carId){
-    print('host uses case ${carId}');
+    print('host uses case $carId');
     return carDetailsRepository.getHost(carId);
   }
 }

@@ -12,7 +12,7 @@ class HostCubit extends Cubit<HostState> {
   HostCubit(this.getHostUsecase) : super(HostInitial());
   getHost(carId)async{
     try{
-      print('get host  ${carId}');
+      print('get host  $carId');
       emit(HostLoading());
       final result=await getHostUsecase.getHost(carId);
       result.fold((failure){

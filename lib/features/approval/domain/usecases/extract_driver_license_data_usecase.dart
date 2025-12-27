@@ -12,7 +12,7 @@ class ExtractDriverLicenseDataUseCase {
       final country = _extractCountry(rawText);
 
       if (name == null || dob == null || expiry == null || country == null) {
-        return Left(LicenseParsingFailure());
+        return const Left(LicenseParsingFailure());
       }
 
       return Right(
@@ -24,23 +24,31 @@ class ExtractDriverLicenseDataUseCase {
         ),
       );
     } catch (_) {
-      return Left(LicenseParsingFailure());
+      return const Left(LicenseParsingFailure());
     }
   }
 
   String? _extractName(String text) {
+    return null;
+  
     // regex / rules
   }
 
   DateTime? _extractDateOfBirth(String text) {
+    return null;
+  
     // parsing logic
   }
 
   DateTime? _extractExpiryDate(String text) {
+    return null;
+  
     // parsing logic
   }
 
   String? _extractCountry(String text) {
+    return null;
+  
     // rules
   }
 }

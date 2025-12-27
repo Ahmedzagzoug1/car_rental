@@ -47,14 +47,14 @@ final userLocation=state.userLocation;
                       point: LatLng(userLocation.lat, userLocation.lng),
                       child: const Icon(Icons.my_location, color: Colors.blue, size: 40),
                     ):
-                    Marker(
+                    const Marker(
                       point: LatLng(30.74007173979984, 31.585461507698227),
-                      child: const Icon(Icons.my_location, color: Colors.blue, size: 40),
+                      child: Icon(Icons.my_location, color: Colors.blue, size: 40),
                     )
                     ,
-                    Marker(
+                    const Marker(
                       point: LatLng( 30.722487364240795,30.722487364240795),
-                      child: const Icon(Icons.my_location, color: Colors.blue, size: 40),
+                      child: Icon(Icons.my_location, color: Colors.blue, size: 40),
                     )
                   ],
                 ),

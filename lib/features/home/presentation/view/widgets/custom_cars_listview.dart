@@ -15,10 +15,10 @@ class CustomCarsListview extends StatelessWidget {
     return BlocBuilder<CarsHomeCubit,CarsHomeState>(
         builder: (context,state) {
           if (state is CarsHomeInitial) {
-            return Text('start Loading data');
+            return const Text('start Loading data');
           }
           else if (state is CarsHomeLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is CarsHomeLoaded) {
             List<CarHomeEntity>cars = state.cars;
 
@@ -32,7 +32,7 @@ class CustomCarsListview extends StatelessWidget {
                     carEntity: cars[index],);
                 },),);
           } else  {
-            return Text('${(state as CarsHomeFailure).errmessage}');
+            return Text((state as CarsHomeFailure).errmessage);
           }
         }
           );

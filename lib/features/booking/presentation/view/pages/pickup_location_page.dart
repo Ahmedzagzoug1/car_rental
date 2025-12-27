@@ -9,14 +9,10 @@ import 'package:latlong2/latlong.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 
-import '../../../../../core/services/service_locators.dart';
-import '../../../domain/usecases/get_pickup_locations_usecase.dart';
-import '../../../domain/usecases/get_user_location.dart';
-import '../../../domain/usecases/save_pickup_location_usecase.dart';
 import '../../cubit/booking_cubit/booking_cubit.dart';
 
 class PickUpLocationPage extends StatefulWidget {
-  const PickUpLocationPage({Key? key}) : super(key: key);
+  const PickUpLocationPage({super.key});
 
   @override
   State<PickUpLocationPage> createState() => _PickUpLocationPageState();
@@ -75,13 +71,13 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                             locations[selectedLocationId].lng ),
                         initialZoom: 14.0,
                         // enable interactive features as needed
-                        interactionOptions: InteractionOptions(
+                        interactionOptions: const InteractionOptions(
                             flags: InteractiveFlag.all),
                       ),
                       children: [
                         TileLayer(
                           urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                          subdomains: ['a', 'b', 'c'],
+                          subdomains: const ['a', 'b', 'c'],
                           userAgentPackageName: 'com.example.car_rental',
                         ),
                   
@@ -200,9 +196,9 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
       
           );
     }else if(state is LocationLoading){
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
   }else{
-      return Center(child: Text('an expected error !!'),);
+      return const Center(child: Text('an expected error !!'),);
 
     }
        }

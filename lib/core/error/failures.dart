@@ -62,7 +62,7 @@ class OcrProcessingFailure extends Failure {
   const OcrProcessingFailure() : super('No Ocr Processing found');
 }
 class LicenseParsingFailure extends Failure {
-  LicenseParsingFailure()
+  const LicenseParsingFailure()
       : super('Could not extract license data clearly');
 }
 class MissingLicenseFieldsFailure extends Failure{

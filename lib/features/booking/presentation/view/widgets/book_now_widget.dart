@@ -1,7 +1,6 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
-import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:flutter/material.dart';

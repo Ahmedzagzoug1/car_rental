@@ -68,7 +68,6 @@ import 'package:get_it/get_it.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../features/home/data/models/car_model.dart';
 
@@ -79,9 +78,8 @@ class ServicesLocators{
       //basic
       sl.registerLazySingleton<FirebaseFirestore>(()=> FirebaseFirestore.instance);
       sl.registerLazySingleton<FirebaseAuth>(()=> FirebaseAuth.instance);
-      sl.registerLazySingleton<FlutterSecureStorage>(()=>FlutterSecureStorage());
+      sl.registerLazySingleton<FlutterSecureStorage>(()=>const FlutterSecureStorage());
       sl.registerLazySingleton<ImagePicker>(()=> ImagePicker());
-      sl.registerLazySingleton<MobileScannerController>(()=> MobileScannerController());
       sl.registerLazySingleton<TextRecognizer>(()=> TextRecognizer());
 
 
@@ -100,7 +98,7 @@ class ServicesLocators{
       sl.registerLazySingleton<CarDetailsRemoteDataSource>(()=>CarDetailsRemoteDataSourceImpl());
 
       //approval
-    sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl(sl<MobileScannerController>(),
+    sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl(
 sl<ImagePicker>()));
 
     //local data source

@@ -1,5 +1,4 @@
 import 'package:car_rental/core/error/exceptions.dart';
-import 'package:car_rental/core/error/failures.dart';
 import 'package:car_rental/features/auth/data/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
@@ -209,6 +208,7 @@ throw ServerException();
       await _secureStorage.write(key: 'jwt_token', value: idToken);
     }
   }
+  @override
   Future<String?> getToken() async {
     return await _secureStorage.read(key: 'jwt_token');
   }

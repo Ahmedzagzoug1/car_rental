@@ -16,7 +16,7 @@ final class HostLoading extends HostState {
   final class HostLoaded extends HostState {
   final HostEntity hostEntity;
 
-  HostLoaded({required this.hostEntity});
+  const HostLoaded({required this.hostEntity});
   @override
   // TODO: implement props
   List<Object?> get props => [hostEntity];
@@ -25,7 +25,7 @@ final class HostLoading extends HostState {
   final class HostFailure extends HostState {
 final String errMessage;
 
-  HostFailure({required this.errMessage});
+  const HostFailure({required this.errMessage});
 
   @override
   // TODO: implement props

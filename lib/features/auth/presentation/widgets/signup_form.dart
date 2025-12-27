@@ -42,7 +42,7 @@ class _SignupFormState extends State<SignupForm> {
       child: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('sign up success'),));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('sign up success'),));
             Navigator.pushNamedAndRemoveUntil(context, AppRouter.homeRoute, (predicate){
               return false;
             });
@@ -111,8 +111,8 @@ class _SignupFormState extends State<SignupForm> {
 
                         print("EMAIL: ${_emailController.text.trim()}");
                         print("PASSWORD: ${_passwordController.text.trim()}");
-                        print("email: ${_emailController}");
-                        print("password: ${_passwordController}");
+                        print("email: $_emailController");
+                        print("password: $_passwordController");
 
                         context.read<SignupCubit>().signUpWithEmail(
                             email: _emailController.text,

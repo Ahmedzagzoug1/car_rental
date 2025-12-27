@@ -20,7 +20,7 @@ class SigninPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.height * 0.1),
-                Center(
+                const Center(
                   child: Icon(Icons.directions_car, color: Colors.green, size: 60),
                 ),
                 const SizedBox(height: 30),
@@ -38,7 +38,7 @@ class SigninPage extends StatelessWidget {
                   style: TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 40),
-SignInWithEmailForm(),
+const SignInWithEmailForm(),
                 const SizedBox(height: 20),
 
                 // Bottom text

@@ -22,7 +22,7 @@ class SelectedWidget extends StatelessWidget {
         children: [
            Text(
             textHeadline,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -66,6 +66,6 @@ class SelectedWidget extends StatelessWidget {
           ),
         ],
       ),
-    );;
+    );
   }
 }

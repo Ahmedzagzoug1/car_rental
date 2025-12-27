@@ -1,3 +1,4 @@
+/*
 import 'package:car_rental/features/approval/domain/usecases/get_from_gallery_usecase.dart';
 import 'package:car_rental/features/approval/domain/usecases/scan_or_upload_from_camera_usecase.dart';
 import 'package:car_rental/features/approval/presentation/cubits/scanner_cubit/scanner_cubit.dart';
@@ -174,3 +175,5 @@ class QrScannerOverlayShape extends ShapeBorder {
   @override
   ShapeBorder scale(double t) => this;
 }
+
+ */

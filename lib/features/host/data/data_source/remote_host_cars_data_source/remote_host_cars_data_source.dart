@@ -1,10 +1,8 @@
-import 'package:car_rental/core/shared_components/data/models/host_model.dart';
-import 'package:car_rental/features/host/domain/usecases/get_host_cars_usecase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RemoteHostCarsDataSource{
 
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   /*8
   Future<List<BaseHostModel>> getHostCars(GetHostCarParams getHostCarParams) async {
     // host id

@@ -7,7 +7,6 @@ import 'package:car_rental/features/booking/data/model/pickup_location_model.dar
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:car_rental/features/booking/domain/repositories/location_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:geolocator/geolocator.dart';
 
 class LocationRepositoryImpl implements LocationRepository {
   final LocationRemoteDataSource locationRemoteDataSource;
@@ -21,23 +20,23 @@ final LocationLocalDataSource  locationLocalDataSource;
    try{
   List<PickupLocationModel> pickupLocationsModel= await locationRemoteDataSource.getLocations(carId);
    List<PickupLocationEntity>pickupLocationEntities=[];
-  pickupLocationsModel.forEach((location){
+  for (var location in pickupLocationsModel) {
 
     locationLocalDataSource.saveLocation(location);
     pickupLocationEntities.add(location as PickupLocationEntity);
  //   PickupLocationEntity(title: location.title, subtitle: location.subtitle, price: location.price, lat: location.lat, lng: location.lng);
 
-  });
+  }
      return Right( pickupLocationEntities );
    }on ServerException{
-     return Left(ServerFailure());
+     return const Left(ServerFailure());
 
    }}else{
     try{
     locationLocalDataSource.getLocation();
-    return Left(CacheFailure());
+    return const Left(CacheFailure());
     }on EmptyCacheException{
-      return Left(CacheFailure());
+      return const Left(CacheFailure());
 
     }
     }
@@ -55,8 +54,8 @@ final LocationLocalDataSource  locationLocalDataSource;
           .getCurrentLocation();
 
       return Right(position);
-    } on ServerException catch (e) {
-      return Left(ServerFailure());
+    } on ServerException {
+      return const Left(ServerFailure());
     } on Exception {
       return const Left(
           ServerFailure());

@@ -9,7 +9,8 @@ abstract class TimeState extends Equatable {
 }
 
 class TimeInitial extends TimeState {
- final  timeEntity = TimeEntity(
+ @override
+  final  timeEntity = TimeEntity(
   pickupDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
   pickupTime: DateFormat('hh:mm a').format(DateTime.now()),
   returnDate:
@@ -24,6 +25,7 @@ class TimeInitial extends TimeState {
 
 
 class TimeSuccess extends TimeState {
+  @override
   final TimeEntity timeEntity;
   TimeSuccess(this.timeEntity);
 
@@ -40,6 +42,7 @@ class TimeError extends TimeState {
 }
 
 class TimeSelected extends TimeState {
+  @override
   final TimeEntity timeEntity;
    TimeSelected({required this.timeEntity});
 

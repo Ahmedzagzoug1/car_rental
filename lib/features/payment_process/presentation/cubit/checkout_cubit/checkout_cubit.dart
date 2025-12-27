@@ -28,13 +28,13 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     final canCheckout = await checkUserEligibility.call(userId);
 
     if (!canCheckout) {
-      emit(CheckoutFailure("You are not eligible to checkout"));
+      emit(const CheckoutFailure("You are not eligible to checkout"));
       return;
     }
 
     final method = selectPaymentMethod.selectedMethod;
     if (method == null) {
-      emit(CheckoutFailure("Please select a payment method"));
+      emit(const CheckoutFailure("Please select a payment method"));
       return;
     }
 

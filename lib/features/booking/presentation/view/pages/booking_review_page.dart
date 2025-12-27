@@ -1,16 +1,14 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
-import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
-import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
-import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
-import 'package:car_rental/features/booking/presentation/view/widgets/car_information_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_review_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../widgets/payment_detail_row.dart';
    class BookingReviewPage extends StatefulWidget {
 
 
@@ -161,7 +159,7 @@ class _RequestBookState extends State<BookingReviewPage> {
                 Icon(Icons.location_on, color: ColorManager.green),
                 const RSizedBox(width: 8),
                 Text(
-                  '${locationEntity?.title ?? 'No Location Founded'}',
+                  locationEntity?.title ?? 'No Location Founded',
                   style: TextStyle(
                     fontSize: 16,
                     color: ColorManager.black,
@@ -189,8 +187,8 @@ class _RequestBookState extends State<BookingReviewPage> {
                 ),
                 PaymentDetailRow(label: 'Trip fee',
                     value: '\$${carEntity?.price.toStringAsFixed(2)}'),
-                PaymentDetailRow(
-                    label: 'Discount', value: '-', isDiscount: true),
+                const PaymentDetailRow(
+                    label: 'Discount', value: '-'),
                 const RPadding(
                   padding: EdgeInsets.symmetric(vertical: 8.0),
                   child: Divider(),
@@ -198,7 +196,7 @@ class _RequestBookState extends State<BookingReviewPage> {
                 PaymentDetailRow(
                   label: 'Total Amount',
                   value: '\$${carEntity?.price.toStringAsFixed(2)}',
-                  isTotal: true,
+
                 ),
               ],
             ),
@@ -243,7 +241,7 @@ class _RequestBookState extends State<BookingReviewPage> {
         ),
       );
     } else {
-return CircularProgressIndicator();
+return const CircularProgressIndicator();
     }
   }),
     );

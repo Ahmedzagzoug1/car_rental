@@ -1,11 +1,6 @@
-import 'dart:math';
 
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
-import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
-import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geocoding/geocoding.dart';
 
 class CarDetailsEntity extends Equatable {
   String id;

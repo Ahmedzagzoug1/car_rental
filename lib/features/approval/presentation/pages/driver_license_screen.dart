@@ -1,6 +1,5 @@
 import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/custom_button.dart';
-import 'package:car_rental/features/approval/presentation/pages/smart_qr_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,12 +63,12 @@ class DriverLicenseScreen extends StatelessWidget {
             );
 
             if (source == ScanSource.camera) {
-            Navigator.push(
+         /*   Navigator.push(
             context,
             MaterialPageRoute(
             builder: (_) => const SmartQrScanner(),
             ),
-            );
+            );*/
             } else if (source == ScanSource.gallery) {
             context.read<ScannerCubit>().scanFromGallery();
             }
@@ -81,14 +80,14 @@ class DriverLicenseScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.grey[100],
                 ),
-                child: Row(
+                child: const Row(
                   children: [
 
 
                      Icon(Icons.credit_card_outlined,
                         color: Colors.green, size: 28),
-                    const SizedBox(width: 16),
-                    const Text(
+                    SizedBox(width: 16),
+                    Text(
                       'Scan license to autofill',
                       style: TextStyle(
                         fontSize: 18,

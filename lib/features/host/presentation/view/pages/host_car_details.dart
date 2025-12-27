@@ -12,7 +12,7 @@ class HostCarDetails extends StatelessWidget {
   Widget build(BuildContext context) {
 return BlocBuilder<HostCubit,HostState>(builder: (context,state){
   if(state is HostLoading){
-    return CircularProgressIndicator();
+    return const CircularProgressIndicator();
   }else if (state is HostLoaded){
     final hostEntity=state.hostEntity;
     return SizedBox(
@@ -53,8 +53,8 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        Text(
-                        "${hostEntity.name}",
-                        style: TextStyle(
+                        hostEntity.name,
+                        style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),
@@ -64,12 +64,12 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
 
                       Row(
                         children:  [
-                          Icon(Icons.emoji_events,
+                          const Icon(Icons.emoji_events,
                               color: Colors.orange, size: 16),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
-                            "${hostEntity.starHost}",
-                            style: TextStyle(
+                            hostEntity.starHost,
+                            style: const TextStyle(
                               color: Colors.black54,
                               fontSize: 14,
                             ),
@@ -83,12 +83,12 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
                         children:  [
                           Text(
                             "${hostEntity.trips} Trips",
-                            style: TextStyle(color: Colors.black54),
+                            style: const TextStyle(color: Colors.black54),
                           ),
-                          SizedBox(width: 6),
-                          Text("•", style: TextStyle(color: Colors.grey)),
-                          SizedBox(width: 6),
-                          Text(
+                          const SizedBox(width: 6),
+                          const Text("•", style: TextStyle(color: Colors.grey)),
+                          const SizedBox(width: 6),
+                          const Text(
                             "Joined",
                             style: TextStyle(color: Colors.black54),
                           ),
@@ -99,9 +99,9 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
                 ),
 
                 // Icons
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(Icons.call, color: Colors.green, size: 22),
                     SizedBox(height: 8),
                     Icon(Icons.more_horiz, color: Colors.green, size: 22),
@@ -114,23 +114,23 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
           const SizedBox(height: 6),
 
            Padding(
-            padding: EdgeInsets.only(left: 8.0),
+            padding: const EdgeInsets.only(left: 8.0),
             child: Row(
               children: [
-                Icon(Icons.star, color: Colors.green, size: 18),
-                SizedBox(width: 4),
+                const Icon(Icons.star, color: Colors.green, size: 18),
+                const SizedBox(width: 4),
                 Text(
                   "${hostEntity.rate}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Text(
                   "Typically responds in ${hostEntity.responseTime}",
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ],
             ),
@@ -139,9 +139,9 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
       ),
     );
   }else  if(state is HostFailure){
-    return Text('${state.errMessage}');
+    return Text(state.errMessage);
   }else{
-   return Text('undefind error!');
+   return const Text('undefind error!');
   }
 });
 

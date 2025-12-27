@@ -93,13 +93,13 @@ class ProfilePhotoPage extends StatelessWidget {
                         },
                         builder: (context, state) {
                           if (state is ProfileImageLoading) {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           } else if (state is ProfileImageloaded) {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.network(state.image.url),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 SelectableText(state.image.url),
                               ],
                             );
@@ -114,7 +114,7 @@ class ProfilePhotoPage extends StatelessWidget {
                                     image.path);
                               }
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                               size: 24,

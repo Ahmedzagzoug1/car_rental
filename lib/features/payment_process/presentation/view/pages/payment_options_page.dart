@@ -100,9 +100,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
         border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Text('**** **** **** 0258'),
           Icon(Icons.keyboard_arrow_down),
         ],

@@ -36,7 +36,7 @@ class CarsLocalDataSourceImpl implements CarsLocalDataSource {
   Future<void> cacheCars(List<CarModel> cars) async {
     await carBox.clear();
     for (final car in cars) {
-      await carBox.put('${car.id}', car);
+      await carBox.put(car.id, car);
     }
   }
 

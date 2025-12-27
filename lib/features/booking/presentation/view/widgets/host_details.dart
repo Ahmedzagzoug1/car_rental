@@ -5,9 +5,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
-import 'package:intl/intl.dart';
 
 class HostDetails extends StatelessWidget {
+  const HostDetails({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HostCubit, HostState>(
@@ -64,14 +65,14 @@ class HostDetails extends StatelessWidget {
                                         width: AppSize.s52.w,
                                         height: AppSize.s52.h,
                                         fit: BoxFit.contain,
-                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => Icon(Icons.error, size: AppSize.s52),
+                                        placeholder: (context, url) => const CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error, size: AppSize.s52),
                                                                      ),
                                      ),
                                     const SizedBox(height: AppSize.s8,),
                                      Row(
                                        children: [
-                                         Icon(Icons.star, color: Colors.green, size: 10),
+                                         const Icon(Icons.star, color: Colors.green, size: 10),
                                          SizedBox(width: AppSize.s4.w),
                                          Text(
                                            '${hostEntity.rate}',
@@ -97,7 +98,7 @@ class HostDetails extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Icon(Icons.star, color: Colors.orange, size: 16),
+                                      const Icon(Icons.star, color: Colors.orange, size: 16),
                                       Text(
                                         hostEntity.starHost,
                                         style: Theme.of(context).textTheme.bodySmall,
@@ -124,7 +125,7 @@ SizedBox(height: AppSize.s20.h,),
                                     backgroundColor: Colors.green.shade100,
                                     child: Icon(Icons.phone, color: Colors.green, size: AppSize.s24.r),
                                   ),
-                                  SizedBox(width: AppSize.s12,),
+                                  const SizedBox(width: AppSize.s12,),
                                   CircleAvatar(
                                     radius: AppSize.s20.r,
                                     backgroundColor: Colors.green.shade100,
@@ -148,11 +149,11 @@ SizedBox(height: AppSize.s20.h,),
           return Center(child: CircularProgressIndicator(color: ColorManager.primary));
         } else if(state is HostInitial) {
           print( 'inital ');
-return Text('initial');
+return const Text('initial');
 
         }else{
             return Text(
-              '${(state as HostFailure).errMessage}',
+              (state as HostFailure).errMessage,
               style: TextStyle(color: ColorManager.error),
             );
           }

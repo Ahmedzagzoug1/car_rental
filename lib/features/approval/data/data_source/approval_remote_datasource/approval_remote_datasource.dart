@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../../../core/services/service_locators.dart';
 abstract class ApprovalRemoteDatasource{
@@ -29,9 +28,8 @@ final TextRecognizer _textRecognizer=sl<TextRecognizer>();
 
 
 
-final MobileScannerController controller;
 final ImagePicker picker;
-ApprovalRemoteDatasourceImpl(this.controller, this.picker);
+ApprovalRemoteDatasourceImpl(this.picker);
   @override
   Future< String> SendOtp({required String phoneNumber}) async {
     try {
@@ -80,7 +78,7 @@ ApprovalRemoteDatasourceImpl(this.controller, this.picker);
 
 @override
 Future<String> uploadImage(String filePath) async {
-    final apiKey='ff546ae7a015175a04a2c5d885be4d39';
+    const apiKey='ff546ae7a015175a04a2c5d885be4d39';
   final url = Uri.parse("https://api.imgbb.com/1/upload?key=$apiKey");
   http.MultipartRequest request = http.MultipartRequest('POST', url);
   request.files.add(await http.MultipartFile.fromPath('image', filePath));

@@ -18,7 +18,7 @@ final  FirebaseFirestore _firebaseFirestore=sl<FirebaseFirestore>();
       final carSnapShot = await _firebaseFirestore.collection('car').where(
           'id', isEqualTo: carId).get();
       final car = carSnapShot.docs.first;
-print('${car} source');
+print('$car source');
       final DocumentReference hostRef = car['host'];
       final hostId = hostRef.id;
       final hostDoc = await _firebaseFirestore
@@ -36,7 +36,7 @@ print('${car} source');
     @override
     Future<List<PickupLocationModel>> getLocations(carId) async {
     print('get location');
-    print('${carId} location');
+    print('$carId location');
       final  cars = await FirebaseFirestore.instance
           .collection('car').where('id',isEqualTo: carId).get();
     print('cars found = ${cars.docs.length}');
@@ -56,7 +56,7 @@ print('${car} source');
       }
       print('pickup ${locationsSnapshot.docs.length}');
     final pickupList = locationsSnapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
+      final data = doc.data();
       print("Pickup data: $data");
       return PickupLocationModel.fromJson(data);
     }).toList();

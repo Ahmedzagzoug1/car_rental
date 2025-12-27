@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
-import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +33,7 @@ final car=state.carDetailsEntity;
                         Icon(Icons.star, color: ColorManager.green, size: AppSize.s16),
                         const SizedBox(width: 4),
                         Text(
-                          '${car.rate.toStringAsFixed(2)}',
+                          car.rate.toStringAsFixed(2),
                             style: Theme.of(context).textTheme.displayMedium                      ),
                         Text(
                           '• ${car.trips} Trips',
@@ -53,9 +51,9 @@ final car=state.carDetailsEntity;
               ),
             ],),
       );}else if(state is CarDetailsLoading){
-           return CircularProgressIndicator();
+           return const CircularProgressIndicator();
          }else{
-           return Text('there is an expected error');
+           return const Text('there is an expected error');
          }
 
       });

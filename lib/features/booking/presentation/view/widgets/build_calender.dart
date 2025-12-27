@@ -14,7 +14,7 @@ class BuildCalender extends StatefulWidget {
 class _BuildCalenderState extends State<BuildCalender> {
   @override
   Widget build(BuildContext context) {
-    DateTime _focusedDay = DateTime.now(); // Current month for calendar view
+    DateTime focusedDay = DateTime.now(); // Current month for calendar view
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -23,12 +23,12 @@ class _BuildCalenderState extends State<BuildCalender> {
           icon: Icon(Icons.chevron_left, color: ColorManager.grey),
           onPressed: () {
             setState(() {
-              _focusedDay = DateTime(_focusedDay.year, _focusedDay.month - 1, 1);
+              focusedDay = DateTime(focusedDay.year, focusedDay.month - 1, 1);
             });
           },
         ),
         Text(
-          DateFormat('MMMM yyyy').format(_focusedDay).toUpperCase(),
+          DateFormat('MMMM yyyy').format(focusedDay).toUpperCase(),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class _BuildCalenderState extends State<BuildCalender> {
           icon: Icon(Icons.chevron_right, color: ColorManager.grey),
           onPressed: () {
             setState(() {
-              _focusedDay = DateTime(_focusedDay.year, _focusedDay.month + 1, 1);
+              focusedDay = DateTime(focusedDay.year, focusedDay.month + 1, 1);
             });
           },
         ),

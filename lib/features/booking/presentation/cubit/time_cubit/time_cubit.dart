@@ -1,18 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:car_rental/core/error/failures.dart';
-import 'package:car_rental/features/booking/data/repositories/time_repository_impl.dart';
 import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
-import 'package:car_rental/features/booking/domain/usecases/clear_time_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_time_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/save_time_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:equatable/equatable.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../core/services/service_locators.dart';
-import '../../../data/model/time_model.dart';
 import '../../../domain/repositories/time_repository.dart';
 
 part 'time_state.dart';
@@ -47,6 +42,7 @@ return success;
     } catch (e) {
       return null;
     }
+    return null;
   }
   void selectTime(TimeEntity entity) {
     emit(TimeSelected( timeEntity: entity));

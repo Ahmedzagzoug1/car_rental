@@ -95,7 +95,7 @@ try {
   final userEntity=userModel?.toEntity();
       return Right(userEntity);
     }catch(e){
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
 
 
@@ -112,9 +112,9 @@ try {
 
     try {
       await remoteDataSource.upgradeToHost();
-      return Right(unit);
+      return const Right(unit);
     }catch(e){
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 
@@ -128,9 +128,9 @@ try {
   Future<Either<Failure, Unit>> signOut() async {
     try {
       await remoteDataSource.signOut();
-      return Right(unit);
+      return const Right(unit);
     }catch(e){
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 
@@ -143,9 +143,9 @@ try {
     try {
       final userModel =UserModel(id: user.id, name: user.name, email: user.email, createdAt: user.createdAt);
       await remoteDataSource.saveUserData(userModel);
-      return Right(unit);
+      return const Right(unit);
     }catch(e){
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 

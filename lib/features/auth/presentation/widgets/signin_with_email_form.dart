@@ -3,7 +3,6 @@ import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/services/service_locators.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/custom_text_form_field.dart';
 import 'package:car_rental/features/auth/domain/usecases/email_auth/sign_in_with_email_usecase.dart';
-import 'package:car_rental/features/auth/domain/usecases/email_auth/sign_up_with_email_usecase.dart';
 import 'package:car_rental/features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +39,7 @@ class _SignInWithEmailFormState extends State<SignInWithEmailForm> {
       child: BlocConsumer<SigninCubit, SigninState>(
         listener: (context, state) {
           if (state is SigninSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('sign in sucess')));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('sign in sucess')));
             Navigator.pushNamedAndRemoveUntil(context, AppRouter.homeRoute, (predicate){
               return false;
             });
@@ -95,8 +94,8 @@ class _SignInWithEmailFormState extends State<SignInWithEmailForm> {
 
                         print("EMAIL: ${_emailController.text.trim()}");
                         print("PASSWORD: ${_passwordController.text.trim()}");
-                        print("email: ${_emailController}");
-                        print("password: ${_passwordController}");
+                        print("email: $_emailController");
+                        print("password: $_passwordController");
 
                         context.read<SigninCubit>().signinWithEmail(
                          email: _emailController.text,

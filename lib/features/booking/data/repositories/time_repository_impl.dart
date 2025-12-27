@@ -18,7 +18,7 @@ class BookingTimeRepositoryImpl implements TimeRepository {
       await localDataSource.clearBooking();
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure());
+      return const Left(CacheFailure());
     }
   }
 
@@ -36,7 +36,7 @@ class BookingTimeRepositoryImpl implements TimeRepository {
       );
       return Right(entity);
     } catch (e) {
-      return Left(CacheFailure());
+      return const Left(CacheFailure());
     }
   }
 
@@ -52,7 +52,7 @@ class BookingTimeRepositoryImpl implements TimeRepository {
       await localDataSource.saveBooking(model);
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure( ));
+      return const Left(CacheFailure( ));
     }
 
   }

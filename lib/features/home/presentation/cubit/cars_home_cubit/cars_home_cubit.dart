@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:car_rental/core/services/service_locators.dart';
 
 import 'package:car_rental/features/home/domain/entities/car_entity.dart';
 import 'package:car_rental/features/home/domain/usecases/get_cars_usecase.dart';

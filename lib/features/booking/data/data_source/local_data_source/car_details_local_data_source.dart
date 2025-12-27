@@ -22,8 +22,8 @@ class CarDetailsLocalDataSourceImpl implements CarDetailsLocalDataSource {
 
   @override
   Future<CarModel?> getCachedCar(carId) async {
-    debugPrint('${carId} getcache');
-     final car= await carBox.get(carId);
+    debugPrint('$carId getcache');
+     final car= carBox.get(carId);
       print('${car!.price} in the cache' );
       return car;
   }

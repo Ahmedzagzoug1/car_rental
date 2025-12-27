@@ -109,7 +109,7 @@ Navigator.pushReplacementNamed(context, AppRouter.driverLicense);
               child: ElevatedButton(
                 onPressed: () {
 if(phoneNumber.isEmpty){
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please Enter phone Number')));
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('please Enter phone Number')));
 }else{
   context.read<OtpCubit>().sendOtp(phoneNumber);
 

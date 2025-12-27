@@ -13,10 +13,10 @@ class BrandRepositoryImplement implements BrandRepository{
   Future<Either<Failure,List<BrandEntity>>> getBrands() async{
     try{
     List<BrandModel>brands=await   brandRemoteDataSource.getBrands();
-    List<BrandEntity> brand_entity= brands.map((brandModel)=>brandModel.toBrandEntity()).toList();
-    return right(brand_entity);
-    } on ServerException catch(e) {
-      return Left(ServerFailure());
+    List<BrandEntity> brandEntity= brands.map((brandModel)=>brandModel.toBrandEntity()).toList();
+    return right(brandEntity);
+    } on ServerException {
+      return const Left(ServerFailure());
     } on Exception { // Catch any other unexpected exceptions
       return const Left(ServerFailure());
     }

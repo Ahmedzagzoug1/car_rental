@@ -13,7 +13,7 @@ final class CalculatePaymentInitial extends CalculatePaymentState {
 final class PaymentCalculated extends CalculatePaymentState{
  final  double totalAmount;
 
-  PaymentCalculated({required this.totalAmount});
+  const PaymentCalculated({required this.totalAmount});
  @override
  List<Object> get props => [totalAmount];
 }

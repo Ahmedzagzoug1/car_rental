@@ -14,10 +14,10 @@ class CustomTopBrandList extends StatelessWidget {
    create:   (context)=>sl<BrandCubit>()..getBrands(),
    child: BlocBuilder<BrandCubit,BrandState>(builder: (context,state){
      if(state is BrandInitial){
-       return Text('start Loading data');
+       return const Text('start Loading data');
      }
 else if(state is BrandLoading){
-  return Center(child: CircularProgressIndicator());
+  return const Center(child: CircularProgressIndicator());
 }else if (state is BrandLoaded){
 List<BrandEntity>brands=  state.brands;
 
@@ -33,7 +33,7 @@ List<BrandEntity>brands=  state.brands;
         },),
     );
 }else{
-  return Text('there is an error ');
+  return const Text('there is an error ');
 
    }}),);
 }}

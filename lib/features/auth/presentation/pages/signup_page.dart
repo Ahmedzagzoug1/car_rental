@@ -19,7 +19,7 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.height * 0.1),
-                Center(
+                const Center(
                   child: Icon(Icons.directions_car, color: Colors.green, size: 60),
                 ),
                 const SizedBox(height: 30),
@@ -37,7 +37,7 @@ class SignUpPage extends StatelessWidget {
                   style: TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 40),
-SignupForm(),
+const SignupForm(),
 
          const SizedBox(height: 20),
 

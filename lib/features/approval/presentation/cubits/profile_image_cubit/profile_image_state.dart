@@ -15,14 +15,14 @@ class ProfileImageLoading extends ProfileImageState {
 }
 class ProfileImageloaded extends ProfileImageState {
   final image;
-  ProfileImageloaded(this.image);
+  const ProfileImageloaded(this.image);
 
   @override
   List<Object?> get props => [image];
 }
 class ProfileImageFailure extends ProfileImageState {
   final message;
-  ProfileImageFailure(this.message);
+  const ProfileImageFailure(this.message);
   @override
   List<Object?> get props => [message];
 }

@@ -39,7 +39,7 @@ class ApprovalRepositoryImpl implements ApprovalRepository{
     try {
       await approvalRemoteDatasource.verifyPhoneCode(
           verificationId: verificationId, smsCode: otp);
-      return Right(true);
+      return const Right(true);
     }on FirebaseAuthException {
       return const Left(AuthFailure());
     }on ServerException{
@@ -68,7 +68,7 @@ class ApprovalRepositoryImpl implements ApprovalRepository{
       final text = await approvalRemoteDatasource.recognizeTextFromImage(imagePath);
       return Right(text);
     } on OcrProcessingException {
-      return Left(OcrProcessingFailure());
+      return const Left(OcrProcessingFailure());
     }
   }
 

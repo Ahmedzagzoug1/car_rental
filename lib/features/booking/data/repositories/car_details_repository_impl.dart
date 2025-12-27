@@ -20,11 +20,11 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
   @override
   Future<Either<Failure, CarDetailsEntity>> getCarDetails(carId)async {
     try{
-      print('${carId} repo imp');
+      print('$carId repo imp');
       final CarModel? carModel=await carDetailsLocalDataSource.getCachedCar(carId);
       final locations=await carDetailsRemoteDataSource.getLocations(carId);
 
-      debugPrint("${carModel} repo");
+      debugPrint("$carModel repo");
 
 if(carModel !=null) {
   final CarDetailsEntity carDetailsEntity = CarDetailsEntity(id: carModel.id,
@@ -38,10 +38,10 @@ if(carModel !=null) {
 
   return Right(carDetailsEntity);
 }else{
-  return Left(OfflineFailure());
+  return const Left(OfflineFailure());
 }
     }catch(e){
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 
@@ -53,7 +53,7 @@ if(carModel !=null) {
           joinTime: hostModel.joinTime, trips: hostModel.trips, imageUrl: hostModel.imageUrl,
           rate: hostModel.rate, responseTime: hostModel.responseTime, phoneNumber: hostModel.phoneNumber);
       return Right(hostEntity);
-    }on NotFoundException catch(e){
+    }on NotFoundException {
       return const Left(NotFoundFailure());
     } catch(e){
       return const Left( ServerFailure());

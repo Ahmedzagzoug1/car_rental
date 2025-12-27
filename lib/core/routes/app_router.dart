@@ -1,15 +1,6 @@
-import 'package:car_rental/features/approval/presentation/pages/smart_qr_scanner.dart';
 import 'package:car_rental/features/auth/presentation/pages/signin_page.dart';
 import 'package:car_rental/features/auth/presentation/pages/signup_page.dart';
-import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
-import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart';
-import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
-import 'package:car_rental/features/booking/domain/usecases/get_pickup_locations_usecase.dart';
-import 'package:car_rental/features/booking/domain/usecases/get_user_location.dart';
-import 'package:car_rental/features/booking/domain/usecases/save_pickup_location_usecase.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
-import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
-import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/booking_review_page.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/car_details.dart';
 import 'package:car_rental/features/booking/presentation/view/pages/pickup_location_page.dart';
@@ -24,11 +15,11 @@ import 'package:car_rental/features/payment_process/presentation/view/pages/paym
 
 import 'package:flutter/material.dart';
 
-import 'package:car_rental/features/booking/presentation/view/pages/time_select.dart';
 import 'package:car_rental/features/home/presentation/view/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../services/service_locators.dart';
+import '../../features/booking/presentation/view/pages/selected_time.dart';
+
 
 class AppRouter {
   static const String homeRoute = '/';
@@ -58,13 +49,13 @@ class AppRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case carDetailsRoute:
         return
           MaterialPageRoute(
             builder: (context) => BlocProvider.value(
               value: context.read<CarDetailsCubit>(),
-              child: CarDetails(),
+              child: const CarDetails(),
 
 
           ),settings: settings,);
@@ -144,14 +135,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const DriverLicenseScreen());
       case otpPage:
         return MaterialPageRoute(builder: (_) => const OtpPage());
-        case smartQrScanner:
+       /* case smartQrScanner:
       return MaterialPageRoute(builder: (_) => const SmartQrScanner());
-
+*/
       default:
-      // Handle unknown routes, perhaps navigate to a 404 page or home
         return MaterialPageRoute(builder: (_) =>
-        const Center(
-          child: Text('Route Not Found !!!'),
+     const   Scaffold(
+          body:  Center(
+            child: Text('Route Not Found !!!'),
+          ),
         ));
     }
   }

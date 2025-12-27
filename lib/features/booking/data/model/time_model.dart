@@ -8,19 +8,23 @@ part 'time_model.g.dart';
 
 @HiveType(typeId: 1)
 class TimeModel extends TimeEntity {
+  @override
   @HiveField(0)
   final String pickupDate;
 
+  @override
   @HiveField(1)
   final String pickupTime;
 
+  @override
   @HiveField(2)
   final String returnDate;
 
+  @override
   @HiveField(3)
   final String returnTime;
 
-  TimeModel({
+  const TimeModel({
     required this.pickupDate,
     required this.pickupTime,
     required this.returnDate,

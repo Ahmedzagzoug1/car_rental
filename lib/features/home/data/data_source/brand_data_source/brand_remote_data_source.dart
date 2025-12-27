@@ -9,7 +9,7 @@ class BrandRemoteDataSource {
     final snapshot = await _firestore.collection('brand').get();
 
 
-    final data = snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    final data = snapshot.docs.map((doc) => doc.data()).toList();
 
     final brands = await compute(parseBrands, data);
 

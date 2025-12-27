@@ -1,12 +1,10 @@
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/build_calendar_grid.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/build_calender.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../core/resources/color_manager.dart';
 import '../../../../../core/shared_components/shared_widgets/display_time_and_date.dart' show DisplayTimeAndDate;
 import '../../../domain/entities/time_entity.dart';
 import '../../cubit/time_cubit/time_cubit.dart';

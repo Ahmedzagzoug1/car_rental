@@ -21,7 +21,7 @@ final class SignupLoading extends SignupState {
 final class SignupFailure extends SignupState {
   final String errMessage;
 
-  SignupFailure({required this.errMessage});
+  const SignupFailure({required this.errMessage});
   @override
   List<Object> get props => [errMessage];
 }
