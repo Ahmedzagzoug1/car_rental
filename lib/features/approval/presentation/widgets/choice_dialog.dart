@@ -13,9 +13,31 @@ class ChoiceDialog extends StatelessWidget {
     return AlertDialog(
       title: const Text('Choose scan source'),
       content: BlocListener<PermissionCubit, PermissionState>(listener:  (context, state) {
-if(state is )
+        if (state is PermissionGranted) {
+          Navigator.pop(context, ScanSource.camera);
+        }
 
-          return Column(
+        if (state is PermissionDenied) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Camera permission is required'),
+            ),
+          );
+        }
+
+        if (state is PermissionPermanentlyDenied) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Camera permission permanently denied. Enable it from settings.',
+              ),
+            ),
+          );
+          context.read<PermissionCubit>().openAppSettingsUseCase();
+
+        }
+      }
+          , child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
@@ -23,19 +45,7 @@ if(state is )
                 title: const Text('Camera'),
                 onTap: () async {
                   context.read<PermissionCubit>().request(AppPermission.camera);
-                  if (state is PermissionGranted){
-                    Navigator.pop(context, ScanSource.camera);
-
-                  }if(state is PermissionDenied){
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Camera permission is required')),
-                    );
-                  }if(state is PermissionPermanentlyDenied){
-
-                }else{
-
-          }
+                }
               ),
               ListTile(
                 leading: const Icon(Icons.photo),
@@ -45,8 +55,8 @@ if(state is )
                 },
               ),
             ],
-          );
-        },
+          )
+
       ),
     );
   }

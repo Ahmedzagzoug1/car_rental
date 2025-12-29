@@ -1,4 +1,5 @@
 import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
@@ -85,7 +86,7 @@ class _RequestBookState extends State<BookingReviewPage> {
     return Scaffold(
       appBar: AppBar(
         title:  Text(
-          'Request Book',
+          'Request to Book',
           style: TextStyle(
             color: ColorManager.black,
             fontWeight: FontWeight.bold,
@@ -97,7 +98,7 @@ class _RequestBookState extends State<BookingReviewPage> {
           icon:  Icon(Icons.arrow_back_ios, color: ColorManager.black),
           onPressed: () {
             Navigator.pop(context);
-            // Handle back button press
+Navigator.pop(context);
           },
         ),
       ),
@@ -135,7 +136,7 @@ class _RequestBookState extends State<BookingReviewPage> {
                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12
                         .h),
                     decoration: BoxDecoration(
-                      color: ColorManager.grey,
+                      color: ColorManager.emeraldGreen05,
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: DisplayTimeAndDate(timeEntity: timeEntity!,)
@@ -177,66 +178,44 @@ class _RequestBookState extends State<BookingReviewPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const RSizedBox(height: 12),
-            Column(
-              children: [
-                PaymentDetailRow(
-                  label: '\$${carEntity?.price.toStringAsFixed(2)} x ${carEntity
-                      ?.trips} days',
-                  value: '\$${carEntity?.price.toStringAsFixed(2)}',
-                ),
-                PaymentDetailRow(label: 'Trip fee',
-                    value: '\$${carEntity?.price.toStringAsFixed(2)}'),
-                const PaymentDetailRow(
-                    label: 'Discount', value: '-'),
-                const RPadding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Divider(),
-                ),
-                PaymentDetailRow(
-                  label: 'Total Amount',
-                  value: '\$${carEntity?.price.toStringAsFixed(2)}',
+            const RSizedBox(height: 12), Container(
+              color: ColorManager.charcoalBlack05,
+              child:
+              Padding(padding: EdgeInsets.all(16),
+                child: Column(
 
-                ),
-              ],
-            ),
-            const RSizedBox(height: 32),
+                children: [
+                  PaymentDetailRow(
+                    label: '\$${carEntity?.price.toStringAsFixed(2)} x ${carEntity
+                        ?.trips} days',
+                    value: '\$${carEntity?.price.toStringAsFixed(2)}',
+                  ),
+                  PaymentDetailRow(label: 'Trip fee',
+                      value: '\$${carEntity?.price.toStringAsFixed(2)}'),
+                   PaymentDetailRow(
+                      label: 'Discount', value: '-'),
+                  const RPadding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                    child: Divider(),
+                  ),
+                  PaymentDetailRow(
+                    label: 'Total Amount',
+                    labelStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: ColorManager.black),
+                    valueStyle: Theme.of(context).textTheme.headlineLarge,
+                    value: '\$${carEntity?.price.toStringAsFixed(2)}',
 
-            // Request to Book Button
-            /*   SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Handle request to book logic
-                  print('Request to Book pressed!');
-                  print('Start Date: $_startDate');
-                  print('End Date: $_endDate');
-                  print('Start Time: ${_startTime.format(context)}');
-                  print('End Time: ${_endTime.format(context)}');
-                  print('Total Amount: \$${totalAmount.toStringAsFixed(2)}');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[700], // Button color
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
                   ),
-                  elevation: 5,
-                  shadowColor: Colors.green.withOpacity(0.3),
-                ),
-                child: const Text(
-                  'Request to Book',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                ],
               ),
-            ),*/
+            ),),
+            const RSizedBox(height: 8),
+
             BottomWidget(price: '300',
                 subtitle: 'Total Amount',
-                btn_text: 'Proceed to Pay')
+                onPressed: (){
+              Navigator.pushNamed(context, AppRouter.approvedPage);
+                },
+                btnText: 'Proceed to Pay')
           ],
         ),
       );

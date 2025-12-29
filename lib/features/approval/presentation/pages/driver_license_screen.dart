@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/scan_source.dart';
 import '../cubits/scanner_cubit/scanner_cubit.dart';
-import '../widgets/scan_choice_dialog.dart';
+import '../widgets/choice_dialog.dart';
 
 class DriverLicenseScreen extends StatelessWidget {
   const DriverLicenseScreen({super.key});
@@ -20,8 +20,7 @@ class DriverLicenseScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.black),
           onPressed: () {
-            // Handle close action
-          },
+Navigator.pop(context);          },
         ),
         title: const Text(
           'Driver\'s License',
@@ -59,7 +58,7 @@ class DriverLicenseScreen extends StatelessWidget {
               onTap: () async {
             final source = await showDialog<ScanSource>(
             context: context,
-            builder: (_) => const ScanChoiceDialog(),
+            builder: (_) => const ChoiceDialog(),
             );
 
             if (source == ScanSource.camera) {

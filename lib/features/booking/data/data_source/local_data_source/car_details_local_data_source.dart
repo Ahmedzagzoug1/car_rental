@@ -28,7 +28,6 @@ class CarDetailsLocalDataSourceImpl implements CarDetailsLocalDataSource {
       return car;
   }
 
-  @override
   Future<void> clearCachedCars() async {
     await carBox.clear();
   }

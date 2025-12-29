@@ -1,11 +1,14 @@
+import '../entities/app_permission.dart';
 import '../entities/app_permission_status.dart';
 import '../repositories/permission_repository.dart';
 
-class RequestCameraPermission {
-  final PermissionRepository repo;
-  RequestCameraPermission(this.repo);
+class RequestPermissionUseCase {
+  final PermissionRepository repository;
 
-  Future<AppPermissionStatus> call() {
-    return repo.requestCamera();
+  RequestPermissionUseCase(this.repository);
+
+  Future<AppPermissionStatus> call(AppPermission permission) {
+    return repository.request(permission);
   }
 }
+

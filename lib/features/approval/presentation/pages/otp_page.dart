@@ -1,4 +1,5 @@
 import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/core/shared_components/shared_widgets/custom_button.dart';
 import 'package:car_rental/features/approval/presentation/cubits/otp_cubit/otp_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +20,7 @@ class OtpPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.black),
           onPressed: () {
-            // Handle close action
-          },
+Navigator.pop(context);          },
         ),
         title: const Text(
           'Mobile Number',
@@ -87,13 +87,16 @@ class OtpPage extends StatelessWidget {
               ],
             ),
             const Spacer(), // Pushes the button to the bottom
+CustomButton(title: 'Get OTP',onPressed: (){
+  showOtpBottomSheet(context,phoneNumber);
+
+},)
             
-            
-            BlocListener<OtpCubit, OtpState>(
+   /*         BlocListener<OtpCubit, OtpState>(
   listener: (context, state) {
 if(state is OtpSent){
 
-  showOtpBottomSheet(context);
+  showOtpBottomSheet(context,phoneNumber);
 
 }else if(state is OtpSendFailure){
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
@@ -129,8 +132,8 @@ if(phoneNumber.isEmpty){
                 ),
               ),
             ),
-),
-            const SizedBox(height: 24),
+),*/
+            ,const SizedBox(height: 24),
           ],
         ),
       ),
@@ -138,7 +141,7 @@ if(phoneNumber.isEmpty){
   }
 }
 
-void showOtpBottomSheet(BuildContext context) {
+void showOtpBottomSheet(BuildContext context,String phone) {
   String otp='';
   showModalBottomSheet(
     context: context,
@@ -217,6 +220,7 @@ void showOtpBottomSheet(BuildContext context) {
                 const Text("Didn't receive the text? "),
                 GestureDetector(
                   onTap: () {
+                    context.read<OtpCubit>().sendOtp(phone);
 
                   },
                   child: const Text(
@@ -231,27 +235,10 @@ void showOtpBottomSheet(BuildContext context) {
             ),
 
             const SizedBox(height: 20),
-
-            // Button
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  context.read<OtpCubit>().verifyOtp(otp);
-                },
-                child: const Text(
-                  "Verify and Continue",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
+            CustomButton(title:  "Verify and Continue",onPressed: (){
+              context.read<OtpCubit>().verifyOtp(otp);
+Navigator.pushNamed(context, AppRouter.driverLicense);
+            },)
           ],
         ),
       );

@@ -33,7 +33,7 @@ if(carModel !=null) {
       rate: carModel.rate,
       trips: carModel.trips,
       imagesUrl: carModel.imagesUrl,
-      pickupLocationEntities: locations??[]);
+      pickupLocationEntities: locations);
   debugPrint(" name ${carDetailsEntity.name}");
 
   return Right(carDetailsEntity);

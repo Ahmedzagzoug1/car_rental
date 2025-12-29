@@ -30,8 +30,9 @@ class ApprovalCubit extends Cubit<ApprovalState> {
 
   Future<void> confirmOtp(String otp) async {
     emit(ApprovalLoading());
-    final success = await verifyOtpUsecase(otp);
+
 /*
+  final success = await verifyOtpUsecase(otp);
     if (success) {
       approval = approval.copyWith(phoneVerified: true);
       emit(ApprovalUpdated(approval));

@@ -29,26 +29,82 @@ class ExtractDriverLicenseDataUseCase {
   }
 
   String? _extractName(String text) {
-    return null;
-  
-    // regex / rules
+
+
+    final nameRegex = RegExp(
+      r'([أ-ي]{2,}\s+[أ-ي]{2,}\s+[أ-ي]{2,}(?:\s+[أ-ي]{2,})?)',
+    );
+
+    final match = nameRegex.firstMatch(text);
+
+        if (match != null) {
+      return match.group(0);
+    }
+
+
+  return null;
   }
 
   DateTime? _extractDateOfBirth(String text) {
+    // كلمات بتدل على تاريخ الميلاد
+    final dobKeywords = ['تاريخ الميلاد', 'Birth', 'DOB'];
+
+    for (final keyword in dobKeywords) {
+      final regex = RegExp(
+        '$keyword[^0-9]*(\\d{2}[/-]\\d{2}[/-]\\d{4})',
+      );
+
+      final match = regex.firstMatch(text);
+      if (match != null) {
+        return _parseDate(match.group(1)!);
+      }
+    }
+
     return null;
-  
-    // parsing logic
   }
 
   DateTime? _extractExpiryDate(String text) {
+    // كلمات بتدل على تاريخ الانتهاء
+    final expiryKeywords = [
+      'صالحة حتى',
+      'تاريخ الانتهاء',
+      'Expiry',
+      'Valid Until'
+    ];
+
+    for (final keyword in expiryKeywords) {
+      final regex = RegExp(
+        '$keyword[^0-9]*(\\d{2}[/-]\\d{2}[/-]\\d{4})',
+      );
+
+      final match = regex.firstMatch(text);
+      if (match != null) {
+        return _parseDate(match.group(1)!);
+      }
+    }
+
     return null;
-  
-    // parsing logic
   }
 
   String? _extractCountry(String text) {
+    if (text.contains('مصر')) return 'Egypt';
+    if (text.toLowerCase().contains('egypt')) return 'Egypt';
+
     return null;
-  
-    // rules
+  }
+  DateTime? _parseDate(String date) {
+    try {
+      final parts = date.contains('/')
+          ? date.split('/')
+          : date.split('-');
+
+      final day = int.parse(parts[0]);
+      final month = int.parse(parts[1]);
+      final year = int.parse(parts[2]);
+
+      return DateTime(year, month, day);
+    } catch (_) {
+      return null;
+    }
   }
 }

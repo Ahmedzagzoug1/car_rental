@@ -14,27 +14,39 @@ class CarReviewWidget extends StatelessWidget {
       final car = context.read<BookingCubit>().selectedCar;
 
     return Row(
-    mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+   // mainAxisSize: MainAxisSize.min,
     children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(12.r),
-        child: Image.network(car!.imagesUrl.first),
-      ),
-    SizedBox(width: 12.r,),
-    Column(
-    children: [
-    Text(car.name,style: Theme.of(context).textTheme.headlineLarge,),
-    Row(
-    children: [
-    Icon(Icons.star,color: ColorManager.green,),
-    Text('${car.rate} . ${car.trips} trips',
-    style: Theme.of(context).textTheme.displayMedium,),
+      SizedBox(height: 100.h,width: 110.w,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(2.r),
+          child: Image.network(car!.imagesUrl.first),
 
-    ],
+        ),
+      ),),
+    SizedBox(width: 4.r,),
+    SizedBox(
+      height: 100.h,
+      width: 113.w,
+      child: Column(
+      children: [
+      Text(car.name,style: Theme.of(context).textTheme.labelSmall,),
+      Row(
+      children: [
+      Icon(Icons.star,color: ColorManager.green,),
+      Text('${car.rate} . ${car.trips} trips',
+      style: Theme.of(context).textTheme.headlineLarge,),
+
+      ],
+      ),
+        RSizedBox(height: 8,),
+        Text('\$ ${car.price} /h',style: Theme.of(context).textTheme.bodyMedium, )
+
+      ],
+      ),
     ),
-    ],
-    ),
-    Text('\$ ${car.price} /h',style: Theme.of(context).textTheme.headlineLarge, )
     ],
     );
     }else{

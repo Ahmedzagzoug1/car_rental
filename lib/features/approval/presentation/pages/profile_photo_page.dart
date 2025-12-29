@@ -1,3 +1,4 @@
+import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/custom_button.dart';
 import 'package:car_rental/features/approval/presentation/cubits/profile_image_cubit/profile_image_cubit.dart';
@@ -67,19 +68,17 @@ class ProfilePhotoPage extends StatelessWidget {
               alignment: Alignment.bottomRight,
               children: [
                 CircleAvatar(
-                  radius: 70,
-                  backgroundColor: Colors.grey[200],
-                  child: Icon(
+                  radius: 60,
+                  backgroundColor: ColorManager.white,
+                  child:const Icon(
                     Icons.person,
-                    size: 100,
-                    color: Colors.grey[400],
+                    size: 120,
                   ),
                 ),
                 Positioned(
                   right: 0,
                   bottom: 0,
                   child: Container(
-                    padding: const EdgeInsets.all(4),
                     decoration: const BoxDecoration(
                       color: Colors.green,
                       shape: BoxShape.circle,

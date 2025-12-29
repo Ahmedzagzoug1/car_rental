@@ -47,14 +47,17 @@ backgroundColor: ColorManager.green,
               getRegularStyle(color: ColorManager.black, fontSize: FontSize.s15.sp),
 displayMedium: getRegularStyle(fontSize: FontSize.s13.sp, color: ColorManager.grey),
           titleMedium: getMediumStyle(fontSize: FontSize.s13.sp, color: ColorManager.green),
+
           displayLarge:
               getRegularStyle(color: ColorManager.white, fontSize: FontSize.s12.sp),
           displaySmall: getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s11.sp) ,
           bodyLarge: getSemiBoldStyle( color: ColorManager.black,fontSize: FontSize.s15.sp),
           labelMedium: getSemiBoldStyle(color: ColorManager.white,fontSize: FontSize.s15.sp),
-
+bodyMedium: getMediumStyle(fontSize: FontSize.s15.sp, color: ColorManager.black),
         labelLarge: getMediumStyle(fontSize:  FontSize.s13.sp, color: ColorManager.white),
         bodySmall:  getRegularStyle(color: ColorManager.black, fontSize: FontSize.s11.sp),
+        labelSmall: getRegularStyle(fontSize: FontSize.s12, color: ColorManager.black),
+        titleSmall: getRegularStyle(fontSize: FontSize.s12, color: ColorManager.midGray),
           ),
       // input decoration theme (text form field)
 inputDecorationTheme: InputDecorationTheme(
@@ -93,7 +96,7 @@ inputDecorationTheme: InputDecorationTheme(
     //slider theme
     sliderTheme: SliderThemeData(
       activeTrackColor: ColorManager.green,
-      inactiveTrackColor: ColorManager.green2,
+      inactiveTrackColor: ColorManager.green100,
       thumbColor: ColorManager.white,
       overlayColor: ColorManager.green.withOpacity(0.2),
       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0.r),

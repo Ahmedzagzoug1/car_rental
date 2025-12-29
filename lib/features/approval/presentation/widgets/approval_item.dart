@@ -1,3 +1,4 @@
+import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 class ApprovalItem extends StatelessWidget {
   final IconData icon;
@@ -29,18 +30,13 @@ class ApprovalItem extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: Theme.of(context).textTheme.headlineLarge
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
+                        style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: ColorManager.black)
+
                     ),
                   ],
                 ),

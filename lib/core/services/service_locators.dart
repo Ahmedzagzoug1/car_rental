@@ -1,4 +1,9 @@
 import 'package:car_rental/app/cubits/app_mode/app_mode_cubit.dart';
+import 'package:car_rental/core/shared_components/permissions/data/permission_repository_impl.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/repositories/permission_repository.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/usecases/open_app_settings_usecase.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/usecases/request_permission_usecase.dart';
+import 'package:car_rental/core/shared_components/permissions/presentation/cubits/permission_cubit/permission_cubit.dart';
 import 'package:car_rental/features/auth/data/data_sources/remote_data_source/auth_remote_data_source.dart';
 import 'package:car_rental/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:car_rental/features/auth/domain/repositories/auth_repository.dart';
@@ -13,7 +18,7 @@ import 'package:car_rental/features/auth/domain/usecases/user/save_user_data.dar
 import 'package:car_rental/features/auth/domain/usecases/user/upgrade_to_host.dart';
 import 'package:car_rental/features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
 import 'package:car_rental/features/auth/presentation/cubits/signup_cubit/signup_cubit.dart';
-import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart' hide CarLocalDataSourceImpl;
+import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart' ;
 import 'package:car_rental/features/booking/data/data_source/local_data_source/location_local_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/car_details_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/create_booking_remote_data_source.dart';
@@ -139,7 +144,12 @@ sl<ImagePicker>()));
       //approval
     sl.registerLazySingleton<ApprovalRepository>(()=>ApprovalRepositoryImpl(
         approvalRemoteDatasource: sl<ApprovalRemoteDatasource>()));
-//use cases
+
+
+      //core
+        //permission
+             sl.registerLazySingleton<PermissionRepository>(()=>PermissionRepositoryImpl());
+    //use cases
     //auth
       sl.registerLazySingleton<SignInWithEmailUsecase>(()=>SignInWithEmailUsecase(authRepository: sl<AuthRepository>()));
       sl.registerLazySingleton<SignUpWithEmailUseCase>(()=>SignUpWithEmailUseCase(authRepository: sl<AuthRepository>()));
@@ -175,7 +185,11 @@ sl<ImagePicker>()));
     sl.registerLazySingleton<SendOtpUsecase>(()=>SendOtpUsecase(sl<ApprovalRepository>()));
     sl.registerLazySingleton<VerifyOtpUsecase>(()=>VerifyOtpUsecase( sl<ApprovalRepository>()));
 
+    //core
+    //permission
 
+    sl.registerLazySingleton<RequestPermissionUseCase>(()=>RequestPermissionUseCase( sl<PermissionRepository>()));
+    sl.registerLazySingleton<OpenAppSettingsUseCase>(()=>OpenAppSettingsUseCase( sl<PermissionRepository>()));
 
 
 
@@ -198,5 +212,12 @@ sl<ImagePicker>()));
     sl.registerFactory<CalculatePaymentCubit>(()=>CalculatePaymentCubit(sl<CalculatePaymentUseCase>()));
 //approval
     sl.registerFactory<OtpCubit>(()=>OtpCubit(sl<SendOtpUsecase>(), sl<VerifyOtpUsecase>()));
+
+
+ //core
+    //permission
+    sl.registerFactory<PermissionCubit>(()=>PermissionCubit(sl<RequestPermissionUseCase>(),
+    sl<OpenAppSettingsUseCase>()));
+
   }
 }
