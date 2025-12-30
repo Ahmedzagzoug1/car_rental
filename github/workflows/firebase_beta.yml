@@ -1,0 +1,40 @@
+name: Firebase Beta Distribution
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  android:
+    name: Android Build & Firebase Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: bundle install
+      - name: Build & distribute
+        run: bundle exec fastlane android beta
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+  ios:
+    name: iOS Build & Firebase Distribution
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+      - name: Install dependencies
+        run: bundle install
+      - name: Build & distribute
+        run: bundle exec fastlane ios beta
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
