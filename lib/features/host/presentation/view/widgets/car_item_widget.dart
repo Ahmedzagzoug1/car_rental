@@ -74,7 +74,7 @@ class CarItemWidget extends StatelessWidget {
                         Row(
                           children: [
                             Icon(Icons.star, color: ColorManager.green, size: AppSize.s16.sp),
-                            Text(car.rating.toString()),
+                            Text(car.rate.toString()),
                           ],
                         ),
 

@@ -15,7 +15,7 @@ class BrandRepositoryImplement implements BrandRepository{
     List<BrandEntity> brand_entity= brands.map((brandModel)=>brandModel.toBrandEntity()).toList();
     return right(brand_entity);
     }catch(e){
-    return  Left(ServerFailure(message: 'Failed to get Cars.'));
+    return  Left(ServerFailure(message: 'Failed to get brands.'));
     }
   }
 

@@ -9,14 +9,15 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/error/failures.dart';
 
 class GetCarsUsecase implements UseCase<List<CarEntity>, NoParams> {
-  final CarsRepository repository; // Dependency on the repository interface
+  final CarsRepository carsRepository; // Dependency on the repository interface
 
-  GetCarsUsecase(this.repository);
+  GetCarsUsecase(this.carsRepository);
 
   @override
-  Future<Either<Failure,List< CarEntity>> > call(NoParams) async {
+  Future<Either<Failure, List<CarEntity>>> call(_) async {
 
-    return await repository.getCars(); // Delegates to the repository
+print('car use case-----------');
+    return await carsRepository.getCars(); // Delegates to the repository
   }
 }
 

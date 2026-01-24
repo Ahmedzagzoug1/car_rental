@@ -19,8 +19,16 @@ class ServerFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
-class CacheFailure extends Failure {}
+class CacheFailure extends Failure {
 
+}
+class  OfflineFailure extends Failure{
+  final String message;
+  const OfflineFailure(this.message);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [message];
+}
 // User-specific failures (can be more granular)
 class UserNotFoundFailure extends Failure {
   final String message;

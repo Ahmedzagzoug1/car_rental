@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:faker/faker.dart';
 
 class TimeModel {
  final String pickupDate;

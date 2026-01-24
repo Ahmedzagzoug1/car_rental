@@ -1,3 +1,4 @@
+import 'package:car_rental/core/error/exceptions.dart';
 import 'package:car_rental/core/error/failures.dart';
 import 'package:car_rental/features/home/data/data_source/cars_data_source/car_remote_data_source.dart';
 import 'package:car_rental/features/home/data/models/brand_model.dart';
@@ -12,7 +13,7 @@ class CarsRepositoryImplement implements CarsRepository{
 
   CarsRepositoryImplement(this.carRemoteDataSource);
   @override
-  Future<Either<Failure,CarEntity>> findCar() {
+  Future<Either<Failure,CarEntity>> findCar(getCarParams) {
     // TODO: implement findCar
     throw UnimplementedError();
 
@@ -20,18 +21,18 @@ class CarsRepositoryImplement implements CarsRepository{
 
 
   @override
-  Future<Either<Failure,List<CarEntity>>> getCars() async{
+  Future<Either<Failure, List<CarEntity>>> getCars() async {
     try {
-      List<CarModel>cars = await carRemoteDataSource.getCars();
-      List<CarEntity> car_entities = cars.map((carModel) =>
-          carModel.toCarHomeEntity()).toList();
+      final cars = await carRemoteDataSource.getCars();
+      final carEntities = cars.map((carModel) =>( carModel as CarModel).toDomain()).toList();
 
-      return Right(car_entities);
-    }catch (e) {
-      return Left(ServerFailure(message: 'Failed to get Cars.'));
+      return Right(carEntities);
+    } on ServerException catch(e) {
+      return Left(ServerFailure(message: e.toString()));
+    } on Exception { // Catch any other unexpected exceptions
+      return Left(ServerFailure(message: 'An unexpected error occurred.'));
     }
   }
-
 }
 /*
 * // lib/features/user/data/repositories/user_repository_impl.dart

@@ -15,7 +15,7 @@ class CarDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    carModel=CarModel.generateFakeCarData()[0];
+//    carModel=CarModel.generateFakeCarData()[0];
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(child:  Icon(Icons.arrow_back_ios),
@@ -44,10 +44,10 @@ class CarDetails extends StatelessWidget {
                       ),
                     ),
             
-                CarDetailsWidget( carModel: CarModel.generateFakeCarData()[0],),
+              //  CarDetailsWidget( carModel: CarModel(),),
                     SizedBox(height: 20.h,),
             
-                    HostDetails(hostModel: HostModel.fakeHosts[0],),
+                //    HostDetails(hostModel: HostModel.fakeHosts[0],),
                     SizedBox(height: 20.h,),
             
                     DateDetails(),

@@ -2,7 +2,6 @@ import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/map_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/pickup_menu.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SelectLocation extends StatelessWidget {

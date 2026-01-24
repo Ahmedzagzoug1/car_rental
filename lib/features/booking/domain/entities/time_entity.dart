@@ -1,6 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:faker/faker.dart';
 
 class TimeEntity extends Equatable {
  final String pickupDate;

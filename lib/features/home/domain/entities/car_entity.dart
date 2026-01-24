@@ -15,5 +15,5 @@ class CarEntity extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object?> get props => throw [name,rating,availability,price,image];
+  List<Object?> get props =>  [name,rating,availability,price,image];
 }

@@ -19,7 +19,7 @@ class GetBrandsUsecase implements UseCase<List<BrandEntity>,NoParams>{
 
 
   @override
-  Future<Either<Failure,List< BrandEntity>> > call(NoParams) async {    // TODO: implement call
+  Future<Either<Failure,List< BrandEntity>> > call(_) async {
     return await brandRepository.getBrands(); // Delegates to the repository
   }
 }
