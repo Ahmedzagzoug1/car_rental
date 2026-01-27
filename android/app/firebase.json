@@ -1,0 +1,13 @@
+{"flutter":{"platforms":{"android":{"default":{
+  "projectId":"car-rental-c3a92","appId":"1:892666697069:android:bc874e0b119c017f3bf664",
+  "fileOutput":"android/app/google-services.json"}},"dart":
+{
+  "lib/firebase_options.dart":
+  {"projectId":"car-rental-c3a92","configurations":{
+    "android":"1:892666697069:android:bc874e0b119c017f3bf664",
+    "ios":"1:892666697069:ios:b781e32180c791df3bf664","web":"1:892666697069:web:9ac9f11b7c13f7953bf664",
+    "windows":"1:892666697069:web:37440d8426f7f6db3bf664"}}}}},
+  "emulators":{"dataconnect":{"dataDir":"dataconnect/.dataconnect/pgliteData"}},
+  "dataconnect":{"source":"dataconnect"},"firestore":
+{"database":"(default)","location":"nam5","rules":"y","indexes":"n"},
+  "storage":{"rules":"n"},"database":{"rules":"i"}}

@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
@@ -41,18 +44,18 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBGZgwz65Phem5HcZyFAUf9eksC5UPBIgI',
-    appId: '1:356033349652:web:afee0163dbaabfeddc7f01',
-    messagingSenderId: '356033349652',
-    projectId: 'car-rental-98504',
-    authDomain: 'car-rental-98504.firebaseapp.com',
-    storageBucket: 'car-rental-98504.firebasestorage.app',
-    measurementId: 'G-4XBRYY4Y5D',
+    apiKey: 'AIzaSyDcB-sXol9jyqio-AGw3CH_BTVaJJC18pk',
+    appId: '1:892666697069:web:9ac9f11b7c13f7953bf664',
+    messagingSenderId: '892666697069',
+    projectId: 'car-rental-c3a92',
+    authDomain: 'car-rental-c3a92.firebaseapp.com',
+    storageBucket: 'car-rental-c3a92.firebasestorage.app',
+    measurementId: 'G-LZQNWEB9N3',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAYtRXXPVwmO6xNn7LwGespno5VKIzeW-I',
-    appId: '1:892666697069:android:1c4b99df0c4c66503bf664',
+    appId: '1:892666697069:android:bc874e0b119c017f3bf664',
     messagingSenderId: '892666697069',
     projectId: 'car-rental-c3a92',
     storageBucket: 'car-rental-c3a92.firebasestorage.app',
@@ -67,22 +70,13 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.elsaghier.carRental',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAtbQRVIOVKPViHRFZgEquWOJvSwqrE5W8',
-    appId: '1:356033349652:ios:75f13a821ab21e01dc7f01',
-    messagingSenderId: '356033349652',
-    projectId: 'car-rental-98504',
-    storageBucket: 'car-rental-98504.firebasestorage.app',
-    iosBundleId: 'com.elsaghier.carRental',
-  );
-
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBGZgwz65Phem5HcZyFAUf9eksC5UPBIgI',
-    appId: '1:356033349652:web:f96cbcb0fb9c1390dc7f01',
-    messagingSenderId: '356033349652',
-    projectId: 'car-rental-98504',
-    authDomain: 'car-rental-98504.firebaseapp.com',
-    storageBucket: 'car-rental-98504.firebasestorage.app',
-    measurementId: 'G-Z18DB3SMLF',
+    apiKey: 'AIzaSyDcB-sXol9jyqio-AGw3CH_BTVaJJC18pk',
+    appId: '1:892666697069:web:37440d8426f7f6db3bf664',
+    messagingSenderId: '892666697069',
+    projectId: 'car-rental-c3a92',
+    authDomain: 'car-rental-c3a92.firebaseapp.com',
+    storageBucket: 'car-rental-c3a92.firebasestorage.app',
+    measurementId: 'G-YJ3B12Z5ND',
   );
 }

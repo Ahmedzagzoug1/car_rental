@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
         child: ElevatedButton(onPressed:onPressed,
 
             style: Theme.of(context).elevatedButtonTheme.style,
-            child: Text(this.title )
+            child: Text(title )
         ),
       ),
     );

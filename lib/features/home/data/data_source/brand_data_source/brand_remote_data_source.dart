@@ -8,10 +8,9 @@ class BrandRemoteDataSource {
   Future<List<BrandModel>> getBrands() async {
     final snapshot = await _firestore.collection('brand').get();
 
-    // ناخد الداتا كـ List<Map>
-    final data = snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
 
-    // parsing في isolate
+    final data = snapshot.docs.map((doc) => doc.data()).toList();
+
     final brands = await compute(parseBrands, data);
 
     print("Brands count: ${brands.length}");
@@ -19,7 +18,6 @@ class BrandRemoteDataSource {
   }
 }
 
-/// Top-level function لازم تكون sync
 List<BrandModel> parseBrands(List<Map<String, dynamic>> data) {
   return data.map((e) => BrandModel.formJson(e)).toList();
 }

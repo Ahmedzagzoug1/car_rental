@@ -5,7 +5,7 @@ class TimeEntity extends Equatable {
  final String pickupTime;
  final String returnDate;
  final String returnTime;
-        TimeEntity({  required this.pickupDate,required this.pickupTime,
+    const    TimeEntity({  required this.pickupDate,required this.pickupTime,
           required this.returnDate,required this.returnTime });
 
   @override

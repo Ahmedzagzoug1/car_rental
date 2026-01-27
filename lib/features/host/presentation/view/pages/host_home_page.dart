@@ -16,7 +16,7 @@ class _HostHomePageState extends State<HostHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomAppbar(
+          const CustomAppbar(
 
           ),
           SizedBox(height: 10.h,),

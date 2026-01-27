@@ -1,11 +1,9 @@
-import 'package:car_rental/core/shared_components/data/models/base_host_model.dart';
-import 'package:car_rental/features/host/data/model/host_car_model.dart';
-import 'package:car_rental/features/host/domain/usecases/get_host_cars_usecase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RemoteHostCarsDataSource{
 
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  /*8
   Future<List<BaseHostModel>> getHostCars(GetHostCarParams getHostCarParams) async {
     // host id
     String hostId=getHostCarParams.hostId;
@@ -19,6 +17,6 @@ class RemoteHostCarsDataSource{
 
       return BaseHostModel.fromJson(doc.data() as Map<String, dynamic>);
     }).toList();
-  }
+  }*/
   //order model
   }

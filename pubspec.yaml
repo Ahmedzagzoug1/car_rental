@@ -47,10 +47,28 @@ dependencies:
   cloud_firestore: ^5.6.12
   dartz: ^0.10.1
   provider: ^6.1.5
+  mockito: ^5.5.0
   connectivity_plus: ^6.1.4
   flutter_bloc: ^9.1.1
   intl: ^0.20.2
-  mockito: ^5.5.0
+  get_it: ^8.2.0
+  geolocator: ^14.0.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  geocoding: ^4.0.0
+
+  firebase_auth: ^5.7.0
+  flutter_secure_storage: ^9.2.2
+  path_provider: ^2.1.5
+  hydrated_bloc: ^10.1.1
+  json_annotation: ^4.9.0
+  intl_phone_field: ^3.2.0
+  pin_code_fields: ^8.0.1
+  image_picker: ^1.2.1
+  http: ^1.6.0
+  google_ml_kit: ^0.20.0
+  permission_handler: ^12.0.1
+  freezed: ^3.2.3
 
 dev_dependencies:
   flutter_test:

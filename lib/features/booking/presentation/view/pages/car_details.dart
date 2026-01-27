@@ -1,14 +1,14 @@
 import 'package:car_rental/core/resources/color_manager.dart';
-import 'package:car_rental/features/booking/data/model/car_model.dart';
 import 'package:car_rental/features/booking/data/model/host_model.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/book_now_widget.dart';
-import 'package:car_rental/features/booking/presentation/view/widgets/car_details_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_view_pager.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/date_details.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/distance_details.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/host_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../core/shared_components/data/models/car_model.dart';
 class CarDetails extends StatelessWidget {
   CarModel? carModel;
    CarDetails({super.key, this.carModel});
@@ -40,8 +40,7 @@ class CarDetails extends StatelessWidget {
                     SizedBox(
                       height: 251.h,
             
-                    child: CarViewPager(imagesUrl: carModel!.imagesUrl,
-                      ),
+                    child: CarViewPager(),
                     ),
             
               //  CarDetailsWidget( carModel: CarModel(),),
@@ -52,7 +51,7 @@ class CarDetails extends StatelessWidget {
             
                     DateDetails(),
                     SizedBox(height: 20.h,),
-                    DistanceDetails()
+                    DistanceDetails(pickupLocations: [],)
                   ]
             
                 ),

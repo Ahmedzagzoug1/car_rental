@@ -26,7 +26,7 @@ class HostProfile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // User Profile Section
-              Row(
+              const Row(
                 children: [
                   CircleAvatar(
                     radius: 35,
@@ -34,19 +34,19 @@ class HostProfile extends StatelessWidget {
                       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80',
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Felicia Lopez',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
+                      SizedBox(height: 4),
+                      Text(
                         'Joined Sep 2020',
                         style: TextStyle(
                           color: Colors.grey,

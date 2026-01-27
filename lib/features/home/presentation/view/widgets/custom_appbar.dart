@@ -20,9 +20,9 @@ class CustomAppbar extends StatelessWidget {
             height: 32.h,
             child: Row(
               children: [
-Icon(CupertinoIcons.location_solid),
+const Icon(Icons.location_on_rounded),
                 Text('Location',style: Theme.of(context).textTheme.headlineMedium,),
-                Icon(CupertinoIcons.arrow_down)
+                const Icon(Icons.keyboard_arrow_down_rounded)
               ],
             ),
           ),
@@ -50,6 +50,7 @@ Icon(CupertinoIcons.location_solid),
 
                    ),
                  ),
+                RSizedBox(width: 5.r,),
                 Image.asset(ImageAssets.profileImage,height: 36.h,
                   width: 32.w,),
               ],

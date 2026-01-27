@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
-import 'package:car_rental/features/home/data/models/car_model.dart';
+import 'package:car_rental/features/host/domain/entities/host_car_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CarItemWidget extends StatelessWidget {
-  final CarModel car;
-  CarItemWidget({super.key,required this.car});
+  final HostCarEntity car;
+  const CarItemWidget({super.key,required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +48,15 @@ class CarItemWidget extends StatelessWidget {
                         fit: BoxFit.fill,
                         imageUrl: car.image,
                         progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                     ),
                   ),
                   Positioned(
                     right: AppSize.s12.sp,
                     top: AppSize.s12.sp,
-                    child: CircleAvatar(backgroundColor: ColorManager.Gray,
+                    child: CircleAvatar(backgroundColor: ColorManager.grey,
                         child : Center(child: Icon(Icons.favorite_border, color:ColorManager.white,))),
                   )
                 ],
@@ -74,14 +74,14 @@ class CarItemWidget extends StatelessWidget {
                         Row(
                           children: [
                             Icon(Icons.star, color: ColorManager.green, size: AppSize.s16.sp),
-                            Text(car.rate.toString()),
+                            Text(car.rating.toString()),
                           ],
                         ),
 
                       ],
                     ),
                     const RSizedBox.vertical(AppSize.s4),
-                    Text(car.availability, style: Theme.of(context).textTheme.displayMedium),
+                    Text(car.carNumber, style: Theme.of(context).textTheme.displayMedium),
                     const  RSizedBox.vertical(AppSize.s4),
                     Row(
                       children: [

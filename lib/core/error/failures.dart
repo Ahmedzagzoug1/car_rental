@@ -3,45 +3,79 @@
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
-  const Failure([this.properties = const <dynamic>[]]);
 
-  final List<dynamic> properties;
-
-  @override
-  List<Object?> get props => [properties];
-}
-
-// General failures
-class ServerFailure extends Failure {
-  final String? message;
-  const ServerFailure({this.message});
+  final String message;
+  const Failure(this.message);
 
   @override
   List<Object?> get props => [message];
 }
+
+class ServerFailure extends Failure {
+ const ServerFailure() : super('Server Failure');
+
+
+
+}
 class CacheFailure extends Failure {
+ const CacheFailure():super('Cache Failure');
+
 
 }
 class  OfflineFailure extends Failure{
-  final String message;
-  const OfflineFailure(this.message);
-  @override
-  // TODO: implement props
-  List<Object?> get props => [message];
-}
-// User-specific failures (can be more granular)
-class UserNotFoundFailure extends Failure {
-  final String message;
-  const UserNotFoundFailure(this.message);
+  const OfflineFailure():super('Offline Failure');
 
-  @override
-  List<Object?> get props => [message];
+}
+class NotFoundFailure extends Failure {
+  const NotFoundFailure():super('Not Found Failure');
+
 }
 
 class InvalidInputFailure extends Failure {
-  final String message;
-  const InvalidInputFailure(this.message);
+  const InvalidInputFailure():super('Invalid Input Failure');
 
-  @override
-  List<Object?> get props => [message];
+
+}
+class EmptyCacheFailure extends Failure {
+  const EmptyCacheFailure(): super('Empty Cache Failure');
+
+
+}
+class AuthFailure extends Failure {
+  const AuthFailure(): super('auth Failure');
+
+
+}
+
+
+
+class EmailAlreadyInUseFailure extends Failure {
+  const EmailAlreadyInUseFailure():super('Email Already InUse Failure');
+
+}
+
+class ImageNotSelectedFailure extends Failure {
+  const ImageNotSelectedFailure() : super('Image not selected');
+}
+
+class OcrProcessingFailure extends Failure {
+  const OcrProcessingFailure() : super('No Ocr Processing found');
+}
+class LicenseParsingFailure extends Failure {
+  const LicenseParsingFailure()
+      : super('Could not extract license data clearly');
+}
+class MissingLicenseFieldsFailure extends Failure{
+  const MissingLicenseFieldsFailure(String field) : super('Missing $field in license ');
+
+}
+
+
+
+class WeakPasswordFailure extends Failure {
+  const WeakPasswordFailure( ):super('Weak Password Failure');
+
+}
+class InvalidEmailFailure extends Failure{
+  const InvalidEmailFailure():super('Invalid Email Failure');
 }

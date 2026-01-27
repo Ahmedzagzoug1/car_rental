@@ -1,9 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:label="car_rental"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+m
         <activity
             android:name=".MainActivity"
             android:exported="true"
