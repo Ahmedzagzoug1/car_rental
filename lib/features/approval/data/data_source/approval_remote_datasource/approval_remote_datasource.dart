@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:car_rental/core/error/exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -17,14 +16,13 @@ abstract class ApprovalRemoteDatasource{
 
   Future<String> uploadImage(String filePath);
   Future<String> pickImagePath();
-  Future<String> recognizeTextFromImage(String imagePath);
+  //Future<String> recognizeTextFromImage(String imagePath);
 
 
 }
 
 class ApprovalRemoteDatasourceImpl implements ApprovalRemoteDatasource{
 final _firebaseAuth=sl<FirebaseAuth>();
-final TextRecognizer _textRecognizer=sl<TextRecognizer>();
 
 
 
@@ -104,17 +102,19 @@ Future<String> pickImagePath() async {
 
   return image.path;
 }
-
+/*
 
 @override
 Future<String> recognizeTextFromImage(String imagePath) async {
 try{
-  final inputImage = InputImage.fromFilePath(imagePath);
+
+ final inputImage = InputImage.fromFilePath(imagePath);
 
   final RecognizedText recognizedText =
   await _textRecognizer.processImage(inputImage);
 
   return recognizedText.text;
+
 }catch(e){
   throw OcrProcessingException();
 }
@@ -124,6 +124,6 @@ try{
 void dispose() {
   _textRecognizer.close();
 }
-
+*/
 
 }

@@ -70,7 +70,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -85,7 +84,6 @@ class ServicesLocators{
       sl.registerLazySingleton<FirebaseAuth>(()=> FirebaseAuth.instance);
       sl.registerLazySingleton<FlutterSecureStorage>(()=>const FlutterSecureStorage());
       sl.registerLazySingleton<ImagePicker>(()=> ImagePicker());
-      sl.registerLazySingleton<TextRecognizer>(()=> TextRecognizer());
 
 
 //data layer

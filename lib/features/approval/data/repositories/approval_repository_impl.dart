@@ -64,12 +64,13 @@ class ApprovalRepositoryImpl implements ApprovalRepository{
 
   @override
   Future<Either<Failure, String>> recognizeTextFromImage(String imagePath) async{
-    try {
-      final text = await approvalRemoteDatasource.recognizeTextFromImage(imagePath);
+   /* try {
+      final text = await approvalRemoteDatasource.(imagePath);
       return Right(text);
     } on OcrProcessingException {
       return const Left(OcrProcessingFailure());
-    }
+    }*/
+    throw Exception();
   }
 
 

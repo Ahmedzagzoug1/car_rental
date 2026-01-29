@@ -66,7 +66,6 @@ dependencies:
   pin_code_fields: ^8.0.1
   image_picker: ^1.2.1
   http: ^1.6.0
-  google_ml_kit: ^0.20.0
   permission_handler: ^12.0.1
   freezed: ^3.2.3
 

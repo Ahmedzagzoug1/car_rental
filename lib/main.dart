@@ -24,6 +24,7 @@ void main() async {
     );
     print("Firebase initialized in: ${DateTime.now().difference(start).inMilliseconds} ms");
   } else {
+    Firebase.app();
     print(" Firebase already initialized");
   }
   //init Hive
