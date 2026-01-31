@@ -1,24 +1,55 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entities/user_entity.dart';
 
-part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
-@freezed
-class UserModel with _$UserModel {
-  const factory UserModel({
-    required String id,
-    required String name,
-    required String email,
-    String? phone,
-    String? profileImage,
-    @Default(false) bool isEmailVerified,
-    @Default(false) bool drivingLicenseVerified,
-    @Default(false) bool isHost,
-    required DateTime createdAt,
-  }) = _UserModel;
+@JsonSerializable()
+@HiveType(typeId: 8)
+class UserModel {
+  @HiveField(0)
+  final String id;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  @HiveField(1)
+  final String name;
+
+  @HiveField(2)
+  final String email;
+
+  @HiveField(3)
+  final String? phone;
+
+  @HiveField(4)
+  final String? profileImage;
+
+  @HiveField(5)
+  final bool isEmailVerified;
+
+  @HiveField(6)
+  final bool drivingLicenseVerified;
+
+  @HiveField(7)
+  final bool isHost;
+
+  @HiveField(8)
+  final DateTime createdAt;
+
+  const UserModel({
+    required this.id,
+    required this.name,
+    required this.email,
+    this.phone,
+    this.profileImage,
+    this.isEmailVerified = false,
+    this.drivingLicenseVerified = false,
+    this.isHost = false,
+    required this.createdAt,
+  });
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(

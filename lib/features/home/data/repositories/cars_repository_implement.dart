@@ -1,7 +1,7 @@
 import 'package:car_rental/core/error/exceptions.dart';
 import 'package:car_rental/core/error/failures.dart';
-import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_local_data_source.dart';
-import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/local_data_source//cars_local_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/remote_data_source/cars_remote_data_source.dart';
 import 'package:car_rental/features/home/data/models/car_model.dart';
 import 'package:car_rental/features/home/domain/entities/car_entity.dart';
 

@@ -55,9 +55,8 @@ import 'package:car_rental/features/approval/domain/repositories/approval_reposi
 import 'package:car_rental/features/approval/domain/usecases/send_otp_usecase.dart';
 import 'package:car_rental/features/approval/domain/usecases/verify_otp_usecase.dart';
 import 'package:car_rental/features/approval/presentation/cubits/otp_cubit/otp_cubit.dart';
-import 'package:car_rental/features/home/data/data_source/brand_data_source/brand_remote_data_source.dart';
-import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_local_data_source.dart';
-import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/local_data_source/brands_local_data_source.dart';
+import 'package:car_rental/features/home/data/models/brand_model.dart';
 import 'package:car_rental/features/home/data/repositories/brand_repository_implement.dart';
 import 'package:car_rental/features/home/data/repositories/cars_repository_implement.dart';
 import 'package:car_rental/features/home/domain/repositories/brand_repository.dart';
@@ -73,6 +72,9 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../features/home/data/data_source/local_data_source/cars_local_data_source.dart';
+import '../../features/home/data/data_source/remote_data_source/brands_remote_data_source.dart';
+import '../../features/home/data/data_source/remote_data_source/cars_remote_data_source.dart';
 import '../../features/home/data/models/car_model.dart';
 
 final  sl=GetIt.instance;
@@ -95,6 +97,7 @@ class ServicesLocators{
       sl.registerLazySingleton<BrandRemoteDataSource>(()=>BrandRemoteDataSource());
       sl.registerLazySingleton<CarsRemoteDataSource>(()=>CarsRemoteDataSource());
 
+
       //booking
       sl.registerLazySingleton<CreateBookingRemoteDataSource>(()=>CreateBookingRemoteDataSource());
       sl.registerLazySingleton<LocationRemoteDataSource>(()=>LocationRemoteDataSourceImpl());
@@ -108,6 +111,8 @@ sl<ImagePicker>()));
         //home
        sl.registerLazySingleton<CarsLocalDataSource>(
             ()=>CarsLocalDataSourceImpl(carBox:  sl<Box<CarModel>>()));
+    sl.registerLazySingleton<BrandsLocalDataSource>(
+            ()=>BrandsLocalDataSourceImpl(brandBox:  sl<Box<BrandModel>>()));
        //booking
         sl.registerLazySingleton<CarDetailsLocalDataSource>(
                 ()=>CarDetailsLocalDataSourceImpl( carBox: sl<Box<CarModel>>()));

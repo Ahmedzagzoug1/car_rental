@@ -1,18 +1,41 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'user_entity.freezed.dart';
+class UserEntity extends Equatable {
+  final String id;
+  final String name;
+  final String email;
+  final String? phone;
+  final String? profileImage;
+  final bool isEmailVerified;
+  final bool drivingLicenseVerified;
+  final bool isHost;
+  final DateTime createdAt;
 
-@freezed
-class UserEntity with _$UserEntity {
-  const factory UserEntity({
-    required String id,
-    required String name,
-    required String email,
-    String? phone,
-    String? profileImage,
-    @Default(false) bool isEmailVerified,
-    @Default(false) bool drivingLicenseVerified,
-    @Default(false) bool isHost,
-    required DateTime createdAt,
-  }) = _UserEntity;
+  const UserEntity({
+    required this.id,
+    required this.name,
+    required this.email,
+    this.phone,
+    this.profileImage,
+    this.isEmailVerified = false,
+    this.drivingLicenseVerified = false,
+    this.isHost = false,
+    required this.createdAt,
+  });
+
+  @override
+  List<Object?> get props => [
+    id,
+    name,
+    email,
+    phone,
+    profileImage,
+    isEmailVerified,
+    drivingLicenseVerified,
+    isHost,
+    createdAt,
+  ];
 }
+
+
+

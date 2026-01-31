@@ -1,3 +1,5 @@
+import 'package:car_rental/core/shared_components/shared_pages/error_page.dart';
+import 'package:car_rental/core/shared_components/shared_pages/loading_page.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:flutter/material.dart';
@@ -196,9 +198,11 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
       
           );
     }else if(state is LocationLoading){
-      return const CircularProgressIndicator();
+      return const LoadingPage();
   }else{
-      return const Center(child: Text('an expected error !!'),);
+      return  ErrorPage(message: 'there are an error', onRetry: (){
+
+      });
 
     }
        }

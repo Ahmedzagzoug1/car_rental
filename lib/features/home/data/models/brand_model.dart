@@ -1,21 +1,20 @@
 import 'package:car_rental/features/home/domain/entities/brand_entity.dart';
+import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'brand_model.g.dart';
 
-class BrandModel extends BrandEntity {
+@JsonSerializable()
+@HiveType(typeId: 6)
 
-  const BrandModel({required super.brandName,required super.imageSrc});
-factory BrandModel.formJson(Map<String,dynamic> json){
-  return BrandModel(
-    brandName: json['brand_name'],
-    imageSrc: json['image_source']
-  );
-  }
-  Map<String,dynamic> toJson(BrandModel brandModel){
-  return {
-    'brand_name':brandModel.brandName,
-    'image_source':brandModel.imageSrc
-  };
-  }
-  BrandEntity toBrandEntity(){
-  return BrandEntity(brandName: brandName, imageSrc: imageSrc);
-  }
+class BrandModel  {
+  @HiveField(0)
+  final String brandName;
+  @HiveField(1)
+  final String imageSrc;
+
+  const BrandModel({required this.brandName, required this.imageSrc});
+  factory BrandModel.fromJson(Map<String, dynamic> json) =>
+      _$BrandModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BrandModelToJson(this);
 }

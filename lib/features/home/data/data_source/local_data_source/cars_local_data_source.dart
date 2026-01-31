@@ -2,6 +2,8 @@
 import 'package:car_rental/features/home/data/models/car_model.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../../core/error/exceptions.dart';
+
 abstract class CarsLocalDataSource {
   Future<List<CarModel>> getCachedCars();
   Future<void> cacheCars(List<CarModel> cars);
@@ -14,35 +16,34 @@ abstract class CarsLocalDataSource {
 class CarsLocalDataSourceImpl implements CarsLocalDataSource {
   final Box<CarModel> carBox;
 
-  CarsLocalDataSourceImpl( {required this.carBox});
+  CarsLocalDataSourceImpl({required this.carBox});
 
   @override
   Future<void> cacheCar(CarModel car) async {
-    await carBox.clear();
-   await carBox.put(car.id, car);
+    await carBox.put(car.id, car);
   }
 
   @override
   Future<CarModel?> getCachedCar(carId) async {
-    return  carBox.get(carId);
-  }
-
-  @override
-  Future<void> clearCachedCars() async {
-    await carBox.clear();
+    final car = carBox.get(carId);
+    if (car != null) return car;
+    throw NotFoundException();
   }
 
   @override
   Future<void> cacheCars(List<CarModel> cars) async {
     await carBox.clear();
-    for (final car in cars) {
-      await carBox.put(car.id, car);
-    }
+    final Map<dynamic, CarModel> carMap = {
+      for (var car in cars) car.id: car
+    };
+    await carBox.putAll(carMap);
   }
 
   @override
-  Future<List<CarModel>> getCachedCars() async{
-    print('cached car...');
-    return carBox.isEmpty ? [] : carBox.values.toList();
+  Future<List<CarModel>> getCachedCars() async {
+    if (carBox.isEmpty) {
+      throw EmptyCacheException();
+    }
+    return carBox.values.toList();
   }
 }

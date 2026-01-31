@@ -99,8 +99,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ElevatedButton(
                         onPressed: ()async {
-                       await   CarsRemoteDataSource().addFiveCars();
-                       print('add cars successfully----------');
                         },
                         style: Theme.of(context).elevatedButtonTheme.style,
                         child: const Text('Host & Earn'),
