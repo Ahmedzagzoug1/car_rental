@@ -2,7 +2,7 @@ import 'package:car_rental/core/resources/assets_manager.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/services/service_locators.dart';
-import 'package:car_rental/features/home/data/data_source/cars_data_source/cars_remote_data_source.dart';
+import 'package:car_rental/core/shared_components/shared_pages/loading_page.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_appbar.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_cars_listview.dart';
 import 'package:car_rental/features/home/presentation/view/widgets/custom_top_brand_list.dart';
@@ -32,7 +32,12 @@ class _HomePageState extends State<HomePage> {
       child: BlocProvider<CarsHomeCubit>(
         create: (context) => sl()..getCars(),
 
-        child: Scaffold(
+        child: BlocBuilder<CarsHomeCubit, CarsHomeState>(
+  builder: (context, state) {
+   if (state is CarsHomeLoading){
+      return LoadingPage();
+    }else{
+ return   Scaffold(
           floatingActionButton: FloatingActionButton(
             backgroundColor: ColorManager.green,
             child: Image.asset(ImageAssets.floatingIcon, color: ColorManager.white),
@@ -158,7 +163,10 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-        ),
+        );
+   }
+  },
+),
       ),
     );
   }

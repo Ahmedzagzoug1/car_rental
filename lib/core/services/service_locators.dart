@@ -1,9 +1,20 @@
+// External Packages
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
+
+// App Core & Shared
 import 'package:car_rental/app/cubits/app_mode/app_mode_cubit.dart';
 import 'package:car_rental/core/shared_components/permissions/data/permission_repository_impl.dart';
 import 'package:car_rental/core/shared_components/permissions/domain/repositories/permission_repository.dart';
 import 'package:car_rental/core/shared_components/permissions/domain/usecases/open_app_settings_usecase.dart';
 import 'package:car_rental/core/shared_components/permissions/domain/usecases/request_permission_usecase.dart';
 import 'package:car_rental/core/shared_components/permissions/presentation/cubits/permission_cubit/permission_cubit.dart';
+
+// Feature: Auth
 import 'package:car_rental/features/auth/data/data_sources/remote_data_source/auth_remote_data_source.dart';
 import 'package:car_rental/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:car_rental/features/auth/domain/repositories/auth_repository.dart';
@@ -18,12 +29,30 @@ import 'package:car_rental/features/auth/domain/usecases/user/save_user_data.dar
 import 'package:car_rental/features/auth/domain/usecases/user/upgrade_to_host.dart';
 import 'package:car_rental/features/auth/presentation/cubits/signin_cubit/signin_cubit.dart';
 import 'package:car_rental/features/auth/presentation/cubits/signup_cubit/signup_cubit.dart';
-import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart' ;
+
+// Feature: Home
+import 'package:car_rental/features/home/data/data_source/local_data_source/brands_local_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/local_data_source/cars_local_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/remote_data_source/brands_remote_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/remote_data_source/cars_remote_data_source.dart';
+import 'package:car_rental/features/home/data/models/brand_model.dart';
+import 'package:car_rental/features/home/data/models/car_model.dart';
+import 'package:car_rental/features/home/data/repositories/brand_repository_implement.dart';
+import 'package:car_rental/features/home/data/repositories/cars_repository_implement.dart';
+import 'package:car_rental/features/home/domain/repositories/brand_repository.dart';
+import 'package:car_rental/features/home/domain/repositories/cars_repository.dart';
+import 'package:car_rental/features/home/domain/usecases/get_brands_usecase.dart';
+import 'package:car_rental/features/home/domain/usecases/get_cars_usecase.dart';
+import 'package:car_rental/features/home/presentation/cubit/brand_cubit/brand_cubit.dart';
+import 'package:car_rental/features/home/presentation/cubit/cars_home_cubit/cars_home_cubit.dart';
+
+// Feature: Booking
+import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/local_data_source/location_local_data_source.dart';
+import 'package:car_rental/features/booking/data/data_source/local_data_source/time_local_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/car_details_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/create_booking_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/location_remote_data_source.dart';
-import 'package:car_rental/features/booking/data/data_source/local_data_source/time_local_data_source.dart';
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 import 'package:car_rental/features/booking/data/model/time_model.dart';
 import 'package:car_rental/features/booking/data/repositories/car_details_repository_impl.dart';
@@ -49,33 +78,14 @@ import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+
+// Feature: Approval
 import 'package:car_rental/features/approval/data/data_source/approval_remote_datasource/approval_remote_datasource.dart';
 import 'package:car_rental/features/approval/data/repositories/approval_repository_impl.dart';
 import 'package:car_rental/features/approval/domain/repositories/approval_repository.dart';
 import 'package:car_rental/features/approval/domain/usecases/send_otp_usecase.dart';
 import 'package:car_rental/features/approval/domain/usecases/verify_otp_usecase.dart';
 import 'package:car_rental/features/approval/presentation/cubits/otp_cubit/otp_cubit.dart';
-import 'package:car_rental/features/home/data/data_source/local_data_source/brands_local_data_source.dart';
-import 'package:car_rental/features/home/data/models/brand_model.dart';
-import 'package:car_rental/features/home/data/repositories/brand_repository_implement.dart';
-import 'package:car_rental/features/home/data/repositories/cars_repository_implement.dart';
-import 'package:car_rental/features/home/domain/repositories/brand_repository.dart';
-import 'package:car_rental/features/home/domain/repositories/cars_repository.dart';
-import 'package:car_rental/features/home/domain/usecases/get_brands_usecase.dart';
-import 'package:car_rental/features/home/domain/usecases/get_cars_usecase.dart';
-import 'package:car_rental/features/home/presentation/cubit/brand_cubit/brand_cubit.dart';
-import 'package:car_rental/features/home/presentation/cubit/cars_home_cubit/cars_home_cubit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
-import 'package:image_picker/image_picker.dart';
-
-import '../../features/home/data/data_source/local_data_source/cars_local_data_source.dart';
-import '../../features/home/data/data_source/remote_data_source/brands_remote_data_source.dart';
-import '../../features/home/data/data_source/remote_data_source/cars_remote_data_source.dart';
-import '../../features/home/data/models/car_model.dart';
 
 final  sl=GetIt.instance;
 class ServicesLocators{
@@ -94,8 +104,8 @@ class ServicesLocators{
       sl.registerLazySingleton<AuthRemoteDataSource>(()=>AuthRemoteDataSourceImpl());
 
       //home
-      sl.registerLazySingleton<BrandRemoteDataSource>(()=>BrandRemoteDataSource());
-      sl.registerLazySingleton<CarsRemoteDataSource>(()=>CarsRemoteDataSource());
+      sl.registerLazySingleton<BrandRemoteDataSource>(()=>BrandRemoteDataSourceImpl());
+      sl.registerLazySingleton<CarsRemoteDataSource>(()=>CarsRemoteDataSourceImpl());
 
 
       //booking
@@ -109,10 +119,12 @@ sl<ImagePicker>()));
 
     //local data source
         //home
+    print(sl.isRegistered<Box<CarModel>>());
+    print(sl.isRegistered<Box<int>>());
        sl.registerLazySingleton<CarsLocalDataSource>(
-            ()=>CarsLocalDataSourceImpl(carBox:  sl<Box<CarModel>>()));
+            ()=>CarsLocalDataSourceImpl(carBox:  sl<Box<CarModel>>(), carsCacheBox: sl<Box<int>>()));
     sl.registerLazySingleton<BrandsLocalDataSource>(
-            ()=>BrandsLocalDataSourceImpl(brandBox:  sl<Box<BrandModel>>()));
+            ()=>BrandsLocalDataSourceImpl(brandBox:  sl<Box<BrandModel>>(),brandCacheBox: sl<Box<int>>()));
        //booking
         sl.registerLazySingleton<CarDetailsLocalDataSource>(
                 ()=>CarDetailsLocalDataSourceImpl( carBox: sl<Box<CarModel>>()));
@@ -129,7 +141,7 @@ sl<ImagePicker>()));
 
     //home
       sl.registerLazySingleton<BrandRepository>(
-              () => BrandRepositoryImplement(brandRemoteDataSource:sl<BrandRemoteDataSource>()),
+              () => BrandRepositoryImplement(brandRemoteDataSource:sl<BrandRemoteDataSource>(),brandsLocalDataSource: sl<BrandsLocalDataSource>()),
       );
       sl.registerLazySingleton<CarsRepository>(()=>CarsRepositoryImplement(carsRemoteDataSource:  sl<CarsRemoteDataSource>(),
           carsLocalDataSource: sl<CarsLocalDataSource>()));

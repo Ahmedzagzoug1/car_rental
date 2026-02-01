@@ -1,5 +1,6 @@
 
 
+import 'package:car_rental/core/cache/hive/hive_type_ids.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -7,7 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../../../core/utils/timestamp_converter.dart';
 import '../../../host/domain/entities/host_entity.dart';
 part 'host_model.g.dart';
-@HiveType(typeId: 3)
+@HiveType(typeId: HiveTypeIds.host)
 @JsonSerializable()
 class HostModel extends HostEntity {
   @override

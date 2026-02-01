@@ -7,15 +7,17 @@ import '../../models/brand_model.dart';
 
 abstract class BrandsLocalDataSource {
   Future<List<BrandModel>> getCachedBrands();
-  Future<void> cacheBrands(List<BrandModel> rands);
-
+  Future<void> cacheBrands(List<BrandModel> brands);
+  Future<int> getLastCacheTimestamp();
 }
 
 
 class BrandsLocalDataSourceImpl implements BrandsLocalDataSource {
   final Box<BrandModel> brandBox;
+final Box brandCacheBox;
+  static const _brandsCacheTimeKey = 'BRANDS_CACHE_TIME';
 
-  BrandsLocalDataSourceImpl({required this.brandBox});
+  BrandsLocalDataSourceImpl({required this.brandBox , required this.brandCacheBox});
 
 
   @override
@@ -25,13 +27,16 @@ class BrandsLocalDataSourceImpl implements BrandsLocalDataSource {
       for (var brand in brands) brand.brandName: brand
     };
     await brandBox.putAll(carMap);
+await brandCacheBox.put(_brandsCacheTimeKey, DateTime.now().millisecondsSinceEpoch);
   }
 
   @override
   Future<List<BrandModel>> getCachedBrands() async {
-    if (brandBox.isEmpty) {
-      throw EmptyCacheException();
-    }
+
     return brandBox.values.toList();
+  }
+  @override
+  Future<int> getLastCacheTimestamp() async {
+    return brandCacheBox.get(_brandsCacheTimeKey, defaultValue: 0);
   }
 }

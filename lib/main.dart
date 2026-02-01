@@ -1,5 +1,6 @@
 
 import 'package:car_rental/app/my_app.dart';
+import 'package:car_rental/core/cache/hive/hive_initializer.dart';
 import 'package:car_rental/core/observer/bloc_obsorver.dart';
 import 'package:car_rental/core/services/service_locators.dart';
 import 'package:car_rental/features/booking/data/model/host_model.dart';
@@ -17,15 +18,9 @@ import 'features/home/data/models/car_model.dart';
 import 'firebase_options.dart';
 void main() async {
    WidgetsFlutterBinding.ensureInitialized();
-await  Future.wait([
-   Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-  ),
 
-    initHive()
-  ]);
-
-
+ await  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform) ;
+  await initHive();
 
 // init getIt
   await ServicesLocators().init();
@@ -34,27 +29,31 @@ await  Future.wait([
 
   runApp(const MyApp(),);
 }
- Future<void>  initHive()async{
+/* Future<void>  initHive()async{
   await Hive.initFlutter();
-await Hive.deleteBoxFromDisk('cars');
-  Hive.registerAdapter(TimeModelAdapter());
-  Hive.registerAdapter(PickupLocationModelAdapter());
-  Hive.registerAdapter(CarModelAdapter());
+  await Hive.deleteFromDisk();
+await Hive.deleteFromDisk();
+  await Hive.deleteBoxFromDisk('timeBox');
+  await Hive.deleteBoxFromDisk('locationBox');
+  await Hive.deleteBoxFromDisk('hostBox');
+  await Hive.deleteBoxFromDisk('cars');
+  await Hive.deleteBoxFromDisk('brands');
+  await Hive.deleteBoxFromDisk('cacheMeta');
+  final timeBox = await Hive.openBox<TimeModel>('timeBox');
+  final locationBox = await Hive.openBox<PickupLocationModel>('locationBox');
+  final HostBox = await Hive.openBox<HostModel>('hostBox');
 
-  Hive.registerAdapter(HostModelAdapter());
-
-
-  final timeBox = await Hive.openBox<TimeModel>('bookingBox');
-  final locationBox = await Hive.openBox<PickupLocationModel>('location');
   final carBox = await Hive.openBox<CarModel>('cars');
   final brandBox = await Hive.openBox<BrandModel>('brands');
-  final HostBox = await Hive.openBox<HostModel>('hostBox');
+  final cacheMetaBox = await Hive.openBox<int>('cacheMeta');
 
   sl.registerLazySingleton<Box<TimeModel>>(() => timeBox);
 
   sl.registerLazySingleton<Box<PickupLocationModel>>(() => locationBox);
   sl.registerLazySingleton<Box<CarModel>>(() => carBox);
   sl.registerLazySingleton<Box<BrandModel>>(() => brandBox);
+  sl.registerLazySingleton<Box<int>>(() => cacheMetaBox);
 
   sl.registerLazySingleton<Box<HostModel>>(() => HostBox);
 }
+*/
