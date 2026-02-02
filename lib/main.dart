@@ -29,31 +29,3 @@ void main() async {
 
   runApp(const MyApp(),);
 }
-/* Future<void>  initHive()async{
-  await Hive.initFlutter();
-  await Hive.deleteFromDisk();
-await Hive.deleteFromDisk();
-  await Hive.deleteBoxFromDisk('timeBox');
-  await Hive.deleteBoxFromDisk('locationBox');
-  await Hive.deleteBoxFromDisk('hostBox');
-  await Hive.deleteBoxFromDisk('cars');
-  await Hive.deleteBoxFromDisk('brands');
-  await Hive.deleteBoxFromDisk('cacheMeta');
-  final timeBox = await Hive.openBox<TimeModel>('timeBox');
-  final locationBox = await Hive.openBox<PickupLocationModel>('locationBox');
-  final HostBox = await Hive.openBox<HostModel>('hostBox');
-
-  final carBox = await Hive.openBox<CarModel>('cars');
-  final brandBox = await Hive.openBox<BrandModel>('brands');
-  final cacheMetaBox = await Hive.openBox<int>('cacheMeta');
-
-  sl.registerLazySingleton<Box<TimeModel>>(() => timeBox);
-
-  sl.registerLazySingleton<Box<PickupLocationModel>>(() => locationBox);
-  sl.registerLazySingleton<Box<CarModel>>(() => carBox);
-  sl.registerLazySingleton<Box<BrandModel>>(() => brandBox);
-  sl.registerLazySingleton<Box<int>>(() => cacheMetaBox);
-
-  sl.registerLazySingleton<Box<HostModel>>(() => HostBox);
-}
-*/

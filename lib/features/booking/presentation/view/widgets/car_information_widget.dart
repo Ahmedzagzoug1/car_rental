@@ -46,7 +46,7 @@ final car=state.carDetailsEntity;
                 ),
               ),
               Text(
-                  '\$${car.price.toStringAsFixed(2)}/h',
+                  '\$${car.pricePerHour.toStringAsFixed(2)}/h',
                   style: Theme.of(context).textTheme.titleLarge
               ),
             ],),

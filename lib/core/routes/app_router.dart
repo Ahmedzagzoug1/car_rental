@@ -51,14 +51,18 @@ class AppRouter {
       case homeRoute:
         return MaterialPageRoute(builder: (_) => const HomePage());
       case carDetailsRoute:
-        return
-          MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-              value: context.read<CarDetailsCubit>(),
-              child:  CarDetails(),
+      // 1. استخرج الـ arguments وحولها لـ Map
+        final args = settings.arguments as Map<String, dynamic>;
+        // 2. اسحب الـ id من الـ Map
+        final carId = args['id'];
 
-
-          ),settings: settings,);
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: context.read<CarDetailsCubit>()..getCarDetails(carId),
+            child: CarDetails(carId: carId),
+          ),
+          settings: settings,
+        );
 
 
       case signinWithEmailRoute:

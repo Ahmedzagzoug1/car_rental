@@ -126,8 +126,9 @@ sl<ImagePicker>()));
     sl.registerLazySingleton<BrandsLocalDataSource>(
             ()=>BrandsLocalDataSourceImpl(brandBox:  sl<Box<BrandModel>>(),brandCacheBox: sl<Box<int>>()));
        //booking
+    //TODO : solve multi types of hive's boxes
         sl.registerLazySingleton<CarDetailsLocalDataSource>(
-                ()=>CarDetailsLocalDataSourceImpl( carBox: sl<Box<CarModel>>()));
+                ()=>CarDetailsLocalDataSourceImpl( sl<Box>()));
         sl.registerLazySingleton<BookingTimeLocalDataSource>(
                 ()=>BookingTimeLocalDataSourceImpl(box: sl<Box<TimeModel>>()));
       sl.registerLazySingleton<LocationLocalDataSource>(
@@ -148,8 +149,7 @@ sl<ImagePicker>()));
       //booking
       sl.registerLazySingleton<CarDetailsRepository>(()=>CarDetailsRepositoryImpl(
       carDetailsRemoteDataSource: sl<CarDetailsRemoteDataSource>(),
-      carDetailsLocalDataSource: sl<CarDetailsLocalDataSource>(),
-      locationRemoteDataSource: sl<LocationRemoteDataSource>()));
+      carDetailsLocalDataSource: sl<CarDetailsLocalDataSource>()));
       sl.registerLazySingleton<BookingRepository>(()=>BookingRepositoryImplementation(
           createBookingRemoteDataSource: sl<CreateBookingRemoteDataSource>()));
     sl.registerLazySingleton<LocationRepository>(()=>LocationRepositoryImpl(
@@ -193,7 +193,6 @@ sl<ImagePicker>()));
       sl.registerLazySingleton<SaveTimeUsecase>(() => SaveTimeUsecase(timeRepository: sl<TimeRepository>()));
       sl.registerLazySingleton<GetTimeUsecase>(() => GetTimeUsecase(timeRepository: sl<TimeRepository>()));
       sl.registerLazySingleton<ClearTimeUsecase>(() => ClearTimeUsecase(timeRepository: sl<TimeRepository>()));
-      sl.registerLazySingleton<GetHostUsecase>(()=>GetHostUsecase(carDetailsRepository: sl<CarDetailsRepository>()));
       sl.registerLazySingleton<CalculatePaymentUseCase>(()=>CalculatePaymentUseCase());
 
       //approval
@@ -216,7 +215,6 @@ sl<ImagePicker>()));
         sl.registerFactory<BrandCubit>(()=>BrandCubit());
         //booking
     sl.registerFactory<CarDetailsCubit>(()=>CarDetailsCubit(sl<GetCarDetailsUseCase>()));
-    sl.registerFactory<HostCubit>(()=>HostCubit(sl<GetHostUsecase>()));
         sl.registerFactory<LocationCubit>(()=>LocationCubit(getPickupLocationsUsecase: sl<GetPickupLocationsUsecase>(),
         getUserLocationUseCase: sl<GetUserLocationUseCase>(),savePickupLocationUsecase: sl<SavePickupLocationUsecase>()));
         sl.registerFactory<TimeCubit>(()=>TimeCubit(sl<GetTimeUsecase>(),

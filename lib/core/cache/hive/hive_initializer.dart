@@ -12,18 +12,18 @@ import 'hive_config.dart';
 Future<void> initHive() async {
   await Hive.initFlutter();
   registerHiveAdapters();
-
+//this box to save version of hive
   var metaBox = await Hive.openBox<int>('__meta__');
   final savedVersion = metaBox.get('version');
 
   if (savedVersion != HiveConfig.hiveVersion) {
     await Hive.deleteFromDisk();
 
-    // لازم تعيد فتح الـ metaBox بعد المسح
+    //we must open box if we remove hive box
     metaBox = await Hive.openBox<int>('__meta__');
     await metaBox.put('version', HiveConfig.hiveVersion);
   }
-  // افتح باقي الـ Boxes
+  //open other boxes
   final timeBox = await Hive.openBox<TimeModel>('timeBox');
   final locationBox =
   await Hive.openBox<PickupLocationModel>('locationBox');
@@ -31,7 +31,8 @@ Future<void> initHive() async {
   final carBox = await Hive.openBox<CarModel>('cars');
   final brandBox = await Hive.openBox<BrandModel>('brands');
   final cacheMetaBox = await Hive.openBox<int>('cacheMeta');
-  print('start  register hive????????????????????????????????????????');
+  final carDetailsBox = await Hive.openBox('carDetailsBox');
+
 
   // سجل في GetIt
   sl.registerLazySingleton<Box<TimeModel>>(() => timeBox);
@@ -40,6 +41,5 @@ Future<void> initHive() async {
   sl.registerLazySingleton<Box<CarModel>>(() => carBox);
   sl.registerLazySingleton<Box<BrandModel>>(() => brandBox);
   sl.registerLazySingleton<Box<int>>(() => cacheMetaBox);
-  print('finish  register hive????????????????????????????????????????');
-
+  sl.registerLazySingleton<Box>(() => carDetailsBox);
 }
