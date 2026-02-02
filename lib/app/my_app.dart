@@ -49,10 +49,7 @@ class _MyAppState extends State<MyApp> {
                BlocProvider<PermissionCubit>(create: (context)=>sl<PermissionCubit>()),
                BlocProvider<AppModeCubit>(create: (context)=>sl<AppModeCubit>()),
                BlocProvider<TimeCubit>(create: (context)=>sl<TimeCubit>()),
-               BlocProvider<HostCubit>(create: (_)=> HostCubit(sl<GetHostUsecase>())),
-               BlocProvider<LocationCubit>(create: (_)=>LocationCubit(getUserLocationUseCase: sl<GetUserLocationUseCase>(),
-                   savePickupLocationUsecase:  sl<SavePickupLocationUsecase>(),
-                   getPickupLocationsUsecase:  sl<GetPickupLocationsUsecase>())),
+
                BlocProvider<CarDetailsCubit>(create: (_)=> CarDetailsCubit(sl<GetCarDetailsUseCase>())),
                BlocProvider<BookingCubit>(
                  create: (context) => sl<BookingCubit>(),

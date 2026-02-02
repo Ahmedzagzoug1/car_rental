@@ -131,7 +131,6 @@ class _SignupFormState extends State<SignupForm> {
 
                 GestureDetector(
                   onTap: ()async {
-                    await seedCars();
 
                     //  Navigator.of(context).pushReplacementNamed(ForgetPwScreen.routeName);
                   },

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../domain/usecases/get_host_usecase.dart';
 
 part 'host_state.dart';
-
+/*
 class HostCubit extends Cubit<HostState> {
 
  final GetHostUsecase getHostUsecase;
@@ -36,4 +36,4 @@ String joinDateFromTimestamp(DateTime td) {
   final formatted = DateFormat('MMM yyyy').format(td);
   print(formatted);
   return "Joined $formatted";
-}
+*/

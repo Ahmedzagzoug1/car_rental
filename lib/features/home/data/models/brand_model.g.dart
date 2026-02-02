@@ -8,7 +8,7 @@ part of 'brand_model.dart';
 
 class BrandModelAdapter extends TypeAdapter<BrandModel> {
   @override
-  final int typeId = 6;
+  final int typeId = 5;
 
   @override
   BrandModel read(BinaryReader reader) {
@@ -48,12 +48,12 @@ class BrandModelAdapter extends TypeAdapter<BrandModel> {
 // **************************************************************************
 
 BrandModel _$BrandModelFromJson(Map<String, dynamic> json) => BrandModel(
-      brandName: json['brandName'] as String,
-      imageSrc: json['imageSrc'] as String,
+      brandName: json['brand_name'] as String,
+      imageSrc: json['image_source'] as String,
     );
 
 Map<String, dynamic> _$BrandModelToJson(BrandModel instance) =>
     <String, dynamic>{
-      'brandName': instance.brandName,
-      'imageSrc': instance.imageSrc,
+      'brand_name': instance.brandName,
+      'image_source': instance.imageSrc,
     };

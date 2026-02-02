@@ -186,12 +186,12 @@ Navigator.pop(context);
 
                 children: [
                   PaymentDetailRow(
-                    label: '\$${carEntity?.price.toStringAsFixed(2)} x ${carEntity
+                    label: '\$${carEntity?. pricePerHour.toStringAsFixed(2)} x ${carEntity
                         ?.trips} days',
-                    value: '\$${carEntity?.price.toStringAsFixed(2)}',
+                    value: '\$${carEntity?.pricePerHour.toStringAsFixed(2)}',
                   ),
                   PaymentDetailRow(label: 'Trip fee',
-                      value: '\$${carEntity?.price.toStringAsFixed(2)}'),
+                      value: '\$${carEntity?.pricePerHour.toStringAsFixed(2)}'),
                    PaymentDetailRow(
                       label: 'Discount', value: '-'),
                   const RPadding(
@@ -202,7 +202,7 @@ Navigator.pop(context);
                     label: 'Total Amount',
                     labelStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: ColorManager.black),
                     valueStyle: Theme.of(context).textTheme.headlineLarge,
-                    value: '\$${carEntity?.price.toStringAsFixed(2)}',
+                    value: '\$${carEntity?.pricePerHour.toStringAsFixed(2)}',
 
                   ),
                 ],

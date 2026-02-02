@@ -5,7 +5,5 @@ import '../../../../core/error/failures.dart';
 import '../entities/car_details_entity.dart';
 
 abstract class CarDetailsRepository{
-  Future<Either<Failure, CarDetailsEntity>> getCarDetails(carId);
-  Future<Either<Failure, HostEntity>> getHost(carId);
-
+  Future<Either<Failure, CarDetailsEntity>> getCarDetails(String carId);
 }

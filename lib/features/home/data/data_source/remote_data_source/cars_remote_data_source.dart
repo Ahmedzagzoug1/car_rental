@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:car_rental/features/home/data/models/car_model.dart';
 
 import '../../../../../core/services/service_locators.dart';
-class CarsRemoteDataSource {
+abstract class CarsRemoteDataSource {
+  Future<List<CarModel>> getCars();
+}
+class  CarsRemoteDataSourceImpl implements CarsRemoteDataSource{
   final FirebaseFirestore _firestore = sl<FirebaseFirestore>();
 
   Future<List<CarModel>> getCars() async {

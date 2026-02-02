@@ -1,35 +1,87 @@
 
-import 'package:car_rental/features/home/data/models/car_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:car_rental/core/error/exceptions.dart';
+import 'package:car_rental/core/shared_components/data/models/host_model.dart';
+import 'package:car_rental/features/booking/data/model/car_details_model.dart';
+import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
+
 import 'package:hive/hive.dart';
 
 abstract class CarDetailsLocalDataSource {
-  Future<CarModel?> getCachedCar(carId);
-  Future<void> cacheCar(CarModel carModel);
-}
+  //car
+  Future<void> cacheCarDetails(String carId, CarDetailsModel carDetails);
+  Future<CarDetailsModel?> getCachedCarDetails(String carId);
+
+ //  host
+  Future<void> cacheHost(String carId, HostModel host);
+   Future<HostModel?> getCachedHost(String carId);
+
+  //locations
+  Future<void> cacheLocations(String carId, List<PickupLocationModel> locations);
+  Future<List<PickupLocationModel>>? getCachedLocations(String carId);
+
+  //clear full cache
+  Future<void> clearCache();
+  }
+
 
 
 class CarDetailsLocalDataSourceImpl implements CarDetailsLocalDataSource {
-  final Box<CarModel> carBox;
+  final Box carDetailsBox;
 
-  CarDetailsLocalDataSourceImpl({required this.carBox});
+  static const String _carDetailsPrefix = "car_details_";
+  static const String _hostPrefix = "host_";
+  static const String _locationPrefix = "locations_";
 
-  @override
-  Future<void> cacheCar(CarModel car) async {
-    await carBox.clear();
-   await carBox.put(car.id, car);
-  }
+  CarDetailsLocalDataSourceImpl(this.carDetailsBox);
 
   @override
-  Future<CarModel?> getCachedCar(carId) async {
-    debugPrint('$carId getcache');
-     final car= carBox.get(carId);
-      print('${car!.price} in the cache' );
-      return car;
+  Future<void> cacheHost(String carId, HostModel host) async {
+
+    await carDetailsBox.put('$_hostPrefix$carId', host.toJson());
   }
 
-  Future<void> clearCachedCars() async {
-    await carBox.clear();
+  @override
+  Future<HostModel?> getCachedHost(String carId)async {
+    final data =await carDetailsBox.get('$_hostPrefix$carId');
+    if (data != null) {
+      return HostModel.fromJson(Map<String, dynamic>.from(data));
+    }
+    throw NotFoundException();
   }
 
+  @override
+  Future<void> cacheLocations(String carId, List<PickupLocationModel> locations) async {
+    final List<Map<String, dynamic>> data = locations.map((e) => e.toJson()).toList();
+    await carDetailsBox.put('$_locationPrefix$carId', data);
+  }
+
+  @override
+  Future<List<PickupLocationModel>>? getCachedLocations(String carId) async{
+    final List<dynamic>? data =await carDetailsBox.get('$_locationPrefix$carId');
+    if (data != null) {
+      return data
+          .map((e) => PickupLocationModel.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    }
+    throw NotFoundException();
+  }
+
+  @override
+  Future<void> clearCache() async {
+    await carDetailsBox.clear();
+  }
+
+  @override
+  Future<void> cacheCarDetails(String carId, CarDetailsModel carDetails) async{
+  await carDetailsBox.put('$_carDetailsPrefix$carId', carDetails.toJson());
+  }
+
+  @override
+  Future<CarDetailsModel?> getCachedCarDetails(String carId) async{
+    final data =await carDetailsBox.get('$_carDetailsPrefix$carId');
+    if (data != null) {
+      return CarDetailsModel.fromJson(Map<String, dynamic>.from(data));
+    }
+    throw NotFoundException();
+  }
 }

@@ -1,3 +1,6 @@
+import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,161 +10,152 @@ import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 
 class HostDetails extends StatelessWidget {
-  const HostDetails({super.key});
+  final HostEntity hostEntity;
+  HostDetails({super.key, required this.hostEntity});
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: ColorManager.green100,
-      child: BlocBuilder<HostCubit, HostState>(
-        builder: (context, state) {
-          if (state is HostLoaded) {
-            final hostEntity = state.hostEntity;
-
-            return SizedBox(
-              height: AppSize.s200.h,
-
-                child: Padding(
-                  padding:  EdgeInsets.all(8.0.r),
-                  child: Column(
-                   // mainAxisSize: MainAxisSize.min,
-                    spacing: AppSize.s12,
+    String joinTime=context.read<CarDetailsCubit>().joinDateFromTimestamp(
+        hostEntity.joinTime);
+          return Padding(
+            padding: EdgeInsets.all(AppPadding.p8.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Host',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineLarge,
+                ),
+                SizedBox(height: AppSize.s12.h),
+                Container(
+                  padding: EdgeInsets.all(AppPadding.p16.r),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    borderRadius: BorderRadius.circular(AppSize.s20.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(AppSize.s0_2),
+                        spreadRadius: AppSize.s1.r,
+                        blurRadius: AppSize.s5.r,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Host',
-                        style: Theme.of(context).textTheme.headlineLarge,
+                      //image and review
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: AppSize.s30.r,
+                            backgroundColor: Colors.white,
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                imageUrl: hostEntity.imageUrl,
+                                width: AppSize.s60.w,
+                                height: AppSize.s60.h,
+                                fit: BoxFit.cover,
+                                placeholder: (context,
+                                    url) => const CircularProgressIndicator(),
+                                errorWidget: (context, url,
+                                    error) => const Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: AppSize.s8.h),
+                          Row(
+                            children: [
+                              const Icon(
+                                  Icons.star, color: Colors.green, size: 14),
+                              SizedBox(width: AppSize.s4.w),
+                              Text(
+                                '${hostEntity.rate}',
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .displaySmall,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      SizedBox(height: AppSize.s8.h),
+                      SizedBox(width: AppSize.s12.w),
 
-                           SizedBox(
-
-                             child: Container(
-                               height: AppSize.s100.h,
-                       padding: EdgeInsets.all(AppPadding.p8.r),
-                       decoration: BoxDecoration(
-                       color: Colors.green.shade50,
-                       borderRadius: BorderRadius.circular(AppSize.s20.r),
-                       boxShadow: [
-                       BoxShadow(
-                       color: Colors.grey.withOpacity(AppSize.s0_2.r),
-                       spreadRadius: AppSize.s1.r,
-                       blurRadius: AppSize.s5.r,
-                       offset: Offset(0, AppSize.s3.r),
-                       ),
-                       ],
-                       ),
-                             child:
-                             Column(
-                               children: [
-                   Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      //host details
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              hostEntity.name,
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .headlineMedium,
+                            ),
+                            Row(
                               children: [
-                                   Column(
-                                     children: [
-                                       // Host Profile Picture
-
-                                       CircleAvatar(
-                                         child: CachedNetworkImage(
-                                          imageUrl: hostEntity.imageUrl,
-                                          width: AppSize.s52.w,
-                                          height: AppSize.s52.h,
-                                          fit: BoxFit.contain,
-                                          placeholder: (context, url) => const CircularProgressIndicator(),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error, size: AppSize.s52),
-                                                                       ),
-                                       ),
-                                      const SizedBox(height: AppSize.s8,),
-                                       Row(
-                                         children: [
-                                           const Icon(Icons.star, color: Colors.green, size: 10),
-                                           SizedBox(width: AppSize.s4.w),
-                                           Text(
-                                             '${hostEntity.rate}',
-                                             style: Theme.of(context).textTheme.displaySmall,
-                                           ),
-                                           SizedBox(width: AppSize.s8.w),
-
-                                         ],
-                                       ),
-                                     ],
-                                   ),
-
-
-                                SizedBox(width: AppSize.s8.w),
-                                // Host Details
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      hostEntity.name,
-                                      style:Theme.of(context).textTheme.headlineMedium,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.star, color: Colors.orange, size: 16),
-                                        Text(
-                                          hostEntity.starHost,
-                                          style: Theme.of(context).textTheme.bodySmall,
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      '${hostEntity.trips} Trips • Join ${joinDateFromTimestamp(hostEntity.joinTime)}',
-                                      style:Theme.of(context).textTheme.displaySmall,
-                                    ),
-                                    Text(
-                                      'Typically responds in ${hostEntity.responseTime}',
-                                      style:  Theme.of(context).textTheme.displaySmall,
-                                    ),
-                                  ],
-                                ),
-                                // Call & Chat Icons
-      SizedBox(height: AppSize.s20.h,),
-                                Row(
-
-                                  children: [
-                                    CircleAvatar(
-                                      radius: AppSize.s20.r,
-                                      backgroundColor: Colors.green.shade100,
-                                      child: Icon(Icons.phone, color: Colors.green, size: AppSize.s24.r),
-                                    ),
-                                    const SizedBox(width: AppSize.s12,),
-                                    CircleAvatar(
-                                      radius: AppSize.s20.r,
-                                      backgroundColor: Colors.green.shade100,
-                                      child: Icon(Icons.chat_bubble_outline, color: Colors.green, size: AppSize.s24.r),
-                                    ),
-                                  ],
+                                const Icon(Icons.stars, color: Colors.orange,
+                                    size: 16),
+                                SizedBox(width: AppSize.s4.w),
+                                Text(
+                                  hostEntity.starHost,
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodySmall,
                                 ),
                               ],
                             ),
+                            Text(
+                              '${hostEntity
+                                  .trips} Trips • Join $joinTime',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .displaySmall,
+                            ),
+                            Text(
+                              'Responds in ${hostEntity.responseTime}',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .displaySmall,
+                            ),
+                          ],
+                        ),
+                      ),
 
+                      //icon contact
+                      Column(
+                        children: [
+                          _buildActionIcon(Icons.phone),
+                          SizedBox(height: AppSize.s12.h),
+                          _buildActionIcon(Icons.chat_bubble_outline),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
 
-                               ],
-                             ),
-                             ),
+          );
 
-                           )
-                             ],),
-                )
-           );
-          } else if (state is HostLoading) {
-            return Center(child: CircularProgressIndicator(color: ColorManager.primary));
-          } else if(state is HostInitial) {
-            print( 'inital ');
-      return const Text('initial');
-
-          }else{
-              return Text(
-                (state as HostFailure).errMessage,
-                style: TextStyle(color: ColorManager.error),
-              );
-            }
-          }
-
-      ),
-    );
   }
-}
+
+    Widget _buildActionIcon(IconData icon) {
+      return CircleAvatar(
+        radius: AppSize.s18.r,
+        backgroundColor: Colors.green.shade100,
+        child: Icon(icon, color: Colors.green, size: AppSize.s20.r),
+      );
+    }
+    }
+

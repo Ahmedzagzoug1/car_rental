@@ -12,7 +12,7 @@ class ErrorPage extends StatelessWidget {
         child: Column(
           children: [
             Text(message),
-            ElevatedButton(onPressed: onRetry, child: Text("حاول مرة أخرى")),
+            ElevatedButton(onPressed: onRetry, child: Text("try another one")),
           ],
         ),
       ),

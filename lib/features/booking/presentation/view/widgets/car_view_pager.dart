@@ -9,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class CarViewPager extends StatefulWidget {
-  const CarViewPager({super.key });
+  CarDetailsEntity carEntity;
+  CarViewPager({super.key,required this.carEntity});
+
 
   @override
   State<CarViewPager> createState() => _CarViewPagerState();
@@ -29,10 +31,7 @@ class _CarViewPagerState extends State<CarViewPager> {
   @override
   Widget build(BuildContext context) {
 
-          return BlocBuilder<CarDetailsCubit, CarDetailsState>(
-  builder: (context, state) {
-    if(state is CarDetailsLoaded){
-      CarDetailsEntity car=state.carDetailsEntity;
+
       return SizedBox(
         height: 251.h,
         child: Stack(
@@ -41,11 +40,11 @@ class _CarViewPagerState extends State<CarViewPager> {
             Positioned.fill(
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: car.imagesUrl.length,
+                itemCount: widget.carEntity.imagesUrl.length,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
                     fit: BoxFit.fill,
-                    imageUrl: car.imagesUrl[index],
+                    imageUrl: widget.carEntity.imagesUrl[index],
                     progressIndicatorBuilder: (context, url, progress) =>
                     const Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) =>
@@ -61,7 +60,7 @@ class _CarViewPagerState extends State<CarViewPager> {
                 padding: EdgeInsets.only(bottom: AppSize.s20.h),
                 child: SmoothPageIndicator(
                   controller: _pageController,
-                  count: car.imagesUrl.length,
+                  count: widget.carEntity.imagesUrl.length,
                   effect:  WormEffect(
                       activeDotColor: ColorManager.green,
                       dotColor: ColorManager.white,
@@ -76,14 +75,7 @@ class _CarViewPagerState extends State<CarViewPager> {
           ],
         ),
       );
-  }
 
-         else if (state is CarDetailsFailure) {
-          return Center(child: Text(state.errMessage));
-        } else {
-          return const Center(child: Text('Unexpected error occurred'));
-        }
-      },
-    );
+
   }
 }

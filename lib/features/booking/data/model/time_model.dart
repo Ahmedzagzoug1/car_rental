@@ -1,3 +1,4 @@
+import 'package:car_rental/core/cache/hive/hive_type_ids.dart';
 import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -6,7 +7,7 @@ part 'time_model.g.dart';
 
 @JsonSerializable()
 
-@HiveType(typeId: 1)
+@HiveType(typeId: HiveTypeIds.time)
 class TimeModel extends TimeEntity {
   @override
   @HiveField(0)

@@ -10,6 +10,9 @@ class HostCarDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+    );
+    /*
 return BlocBuilder<HostCubit,HostState>(builder: (context,state){
   if(state is HostLoading){
     return const CircularProgressIndicator();
@@ -144,6 +147,6 @@ return BlocBuilder<HostCubit,HostState>(builder: (context,state){
    return const Text('undefind error!');
   }
 });
-
+*/
   }
 }
