@@ -13,10 +13,12 @@ abstract class CarDetailsRemoteDataSource{
   Future<List<PickupLocationModel>> getLocations(carId);
   Future<CarDetailsModel> getCarDetails(carId);
 }
-class CarDetailsRemoteDataSourceImpl implements CarDetailsRemoteDataSource{
-final  FirebaseFirestore _firebaseFirestore=sl<FirebaseFirestore>();
+class CarDetailsRemoteDataSourceImpl implements CarDetailsRemoteDataSource {
+  final FirebaseFirestore firebaseFirestore ;
 
-Future<HostModel> getHost( carId) async {
+  CarDetailsRemoteDataSourceImpl({required  this.firebaseFirestore});
+
+  Future<HostModel> getHost( carId) async {
   try {
     final carDoc= await getCar(carId);
     //get host
@@ -60,7 +62,7 @@ final data =hostDoc.data() as Map<String, dynamic>;
 
 Future<QueryDocumentSnapshot<Map<String, dynamic>>> getCar(carId) async{
   try {
-    final carSnapShot = await _firebaseFirestore.collection('car')
+    final carSnapShot = await firebaseFirestore.collection('car')
         .where('id', isEqualTo: carId)
         .limit(1)
         .get();

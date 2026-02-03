@@ -111,7 +111,7 @@ class ServicesLocators{
       //booking
       sl.registerLazySingleton<CreateBookingRemoteDataSource>(()=>CreateBookingRemoteDataSource());
       sl.registerLazySingleton<LocationRemoteDataSource>(()=>LocationRemoteDataSourceImpl());
-      sl.registerLazySingleton<CarDetailsRemoteDataSource>(()=>CarDetailsRemoteDataSourceImpl());
+      sl.registerLazySingleton<CarDetailsRemoteDataSource>(()=>CarDetailsRemoteDataSourceImpl(firebaseFirestore: sl<FirebaseFirestore>()));
 
       //approval
     sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl(
