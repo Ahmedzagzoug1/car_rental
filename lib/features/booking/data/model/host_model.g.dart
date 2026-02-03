@@ -68,8 +68,7 @@ class HostModelAdapter extends TypeAdapter<HostModel> {
 HostModel _$HostModelFromJson(Map<String, dynamic> json) => HostModel(
       name: json['name'] as String,
       starHost: json['star_host'] as String,
-      joinTime:
-          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+      joinTime: const TimestampConverter().fromJson(json['join_time']),
       trips: (json['trips'] as num).toInt(),
       imageUrl: json['image_url'] as String,
       rate: (json['rate'] as num).toDouble(),
@@ -80,7 +79,7 @@ HostModel _$HostModelFromJson(Map<String, dynamic> json) => HostModel(
 Map<String, dynamic> _$HostModelToJson(HostModel instance) => <String, dynamic>{
       'name': instance.name,
       'star_host': instance.starHost,
-      'createdAt': const TimestampConverter().toJson(instance.joinTime),
+      'join_time': const TimestampConverter().toJson(instance.joinTime),
       'trips': instance.trips,
       'image_url': instance.imageUrl,
       'rate': instance.rate,
