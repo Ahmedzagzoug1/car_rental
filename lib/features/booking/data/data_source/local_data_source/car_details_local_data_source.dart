@@ -1,7 +1,7 @@
 
 import 'package:car_rental/core/error/exceptions.dart';
-import 'package:car_rental/core/shared_components/data/models/host_model.dart';
 import 'package:car_rental/features/booking/data/model/car_details_model.dart';
+import 'package:car_rental/features/booking/data/model/host_model.dart';
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 
 import 'package:hive/hive.dart';

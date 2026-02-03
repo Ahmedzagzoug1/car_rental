@@ -1,10 +1,10 @@
 import 'package:car_rental/core/error/exceptions.dart';
 import 'package:car_rental/core/error/failures.dart';
-import 'package:car_rental/core/shared_components/data/models/host_model.dart';
 import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/car_details_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/location_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/model/car_details_model.dart';
+import 'package:car_rental/features/booking/data/model/host_model.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
@@ -65,7 +65,7 @@ return const Left(ServerFailure());
   if (cachedHost != null) return cachedHost as HostEntity;
   throw NotFoundException();
   } catch (_) {
-  final HostModel remoteHost = (await carDetailsRemoteDataSource.getHost(carId)) as HostModel;
+  final HostModel remoteHost = await carDetailsRemoteDataSource.getHost(carId);
   await carDetailsLocalDataSource.cacheHost(carId, remoteHost );
   return remoteHost as HostEntity;
   }
