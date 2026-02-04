@@ -2,16 +2,13 @@ import 'package:car_rental/core/error/exceptions.dart';
 import 'package:car_rental/core/error/failures.dart';
 import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/car_details_remote_data_source.dart';
-import 'package:car_rental/features/booking/data/data_source/remote_data_source/location_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/model/car_details_model.dart';
 import 'package:car_rental/features/booking/data/model/host_model.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:car_rental/features/booking/domain/repositories/car_details_repository.dart';
-import 'package:car_rental/features/home/data/models/car_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 
 class CarDetailsRepositoryImpl implements CarDetailsRepository{
   final CarDetailsRemoteDataSource carDetailsRemoteDataSource;
@@ -34,14 +31,17 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
   _getLocations(carId),
   ]);
 
-  final hostEntity = results[0] as HostEntity;
-  final locationsList = results[1] as List<PickupLocationEntity>;
+  final HostModel hostModel = results[0] as HostModel  ;
+  final locationsListModel = results[1] as List<PickupLocationModel>;
+  final hostEntity=hostModel.toDomain();
+  final locationsListEntity=locationsListModel.map((locationsListModel)=>locationsListModel.toDomain()).toList();
 
   // 3. Map to Domain Entity
-  return Right(carModel!.toDomain(hostEntity, locationsList));
-  } catch (e) {
-return const Left(ServerFailure());
-  }
+  return Right(carModel!.toDomain(hostEntity, locationsListEntity));
+  } catch (e,stackTrace) {
+    print('ERROR: $e');
+    print('STACKTRACE: $stackTrace');
+    return const Left(ServerFailure());  }
   }
 
   /// Helper method to handle Car Base Model Cache/Remote logic
@@ -58,26 +58,27 @@ return const Left(ServerFailure());
 
 
   /// Helper method for Host with Cache-aside pattern
-  Future<HostEntity> _getHost(String carId) async {
+  Future<HostModel> _getHost(String carId) async {
   try {
   // Assuming getCachedHost returns HostModel
-  final cachedHost =await carDetailsLocalDataSource.getCachedHost(carId);
-  if (cachedHost != null) return cachedHost as HostEntity;
+  final  cachedHost =await carDetailsLocalDataSource.getCachedHost(carId);
+
+  if (cachedHost != null) return cachedHost ;
   throw NotFoundException();
-  } catch (_) {
+  }  on NotFoundException {
   final HostModel remoteHost = await carDetailsRemoteDataSource.getHost(carId);
-  await carDetailsLocalDataSource.cacheHost(carId, remoteHost );
-  return remoteHost as HostEntity;
+
+  await carDetailsLocalDataSource.cacheHost(carId, remoteHost  );
+  return remoteHost;
   }
   }
 
   /// Helper method for Locations with Cache-aside pattern
-  Future<List<PickupLocationEntity>> _getLocations(String carId) async {
+  Future<List<PickupLocationModel>> _getLocations(String carId) async {
   try {
-  final cachedLocs =await carDetailsLocalDataSource.getCachedLocations(carId);
-  if (cachedLocs != null) return cachedLocs;
-  throw NotFoundException();
-  } catch (_) {
+  final cachedLocs = carDetailsLocalDataSource.getCachedLocations(carId);
+     return cachedLocs;
+  } on NotFoundException{
   final remoteLocs = await carDetailsRemoteDataSource.getLocations(carId);
   await carDetailsLocalDataSource.cacheLocations(carId, remoteLocs);
   return remoteLocs;

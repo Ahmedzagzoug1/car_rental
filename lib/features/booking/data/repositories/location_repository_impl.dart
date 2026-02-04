@@ -53,7 +53,7 @@ final LocationLocalDataSource  locationLocalDataSource;
       final PickupLocationModel position = await locationRemoteDataSource
           .getCurrentLocation();
 
-      return Right(position);
+      return Right(position.toDomain());
     } on ServerException {
       return const Left(ServerFailure());
     } on Exception {
