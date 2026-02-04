@@ -11,22 +11,22 @@ class HostModel {
  factory HostModel.fromJson(Map<String, dynamic> json) {
   return HostModel(
    name: json['name'] as String,
-   starHost: json['starHost'] as String,
-   joinTime: json['joinTime'] as String,
+   starHost: json['star_host'] as String,
+   joinTime: json['join_time'] as String,
    trips: json['trips'] as int,
-   imageUrl: json['imageUrl'] as String,
-   responseTime: json['responseTime'] as String,
+   imageUrl: json['image_url'] as String,
+   responseTime: json['response_time'] as String,
    rate: (json['rate'] as num).toDouble(),
   );
  }
  Map<String, dynamic> toJson() {
   return {
    'name': name,
-   'starHost': starHost,
-   'joinTime': joinTime,
+   'star_host': starHost,
+   'join_time': joinTime,
    'trips': trips,
-   'imageUrl': imageUrl,
-   'responseTime': responseTime,
+   'image_url': imageUrl,
+   'response_time': responseTime,
    'rate': rate,
   };
  }

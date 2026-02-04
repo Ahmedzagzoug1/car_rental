@@ -20,7 +20,7 @@ class HostModel  {
   final String starHost;
 
   @HiveField(2)
-  @JsonKey(name: 'createdAt')
+  @JsonKey(name: 'join_time')
   @TimestampConverter()
   final DateTime joinTime;
 

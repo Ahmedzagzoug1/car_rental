@@ -1,12 +1,9 @@
 import 'package:car_rental/core/error/exceptions.dart';
 import 'package:car_rental/core/error/failures.dart';
-import 'package:car_rental/core/shared_components/data/models/host_model.dart' hide HostModel;
 import 'package:car_rental/features/booking/data/data_source/local_data_source/car_details_local_data_source.dart';
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/car_details_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/model/car_details_model.dart';
-
 import 'package:car_rental/features/booking/data/model/host_model.dart';
-import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
