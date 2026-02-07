@@ -33,7 +33,7 @@ class DistanceDetails extends StatelessWidget {
         return SelectedWidget(
           textHeadline: 'Pickup & Return',
           iconData: Icons.location_on,
-          toggleText: title,
+          textClick: title,
           content: isLoading ? 'Loading...' : 'Change',
           onTap: isLoading
               ? null

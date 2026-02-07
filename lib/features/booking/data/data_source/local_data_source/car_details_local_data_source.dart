@@ -3,6 +3,7 @@ import 'package:car_rental/core/error/exceptions.dart';
 import 'package:car_rental/features/booking/data/model/car_details_model.dart';
 import 'package:car_rental/features/booking/data/model/host_model.dart';
 import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:hive/hive.dart';
 
@@ -63,14 +64,23 @@ class CarDetailsLocalDataSourceImpl implements CarDetailsLocalDataSource {
     try {
       final List<dynamic> data = await carDetailsBox.get(
           '$_locationPrefix$carId');
-      if (data.isEmpty) throw NotFoundException();
-      return data
-          .map((e) =>
-          PickupLocationModel.fromJson(Map<String, dynamic>.from(e)))
-          .toList();
-    }catch(_){
-      throw NotFoundException();
+      if (data == null || (data is List && data.isEmpty)) {
+        throw EmptyCacheException();
+      }
 
+      // 2. التحويل (Mapping)
+      return (data as List)
+          .map((e) => PickupLocationModel.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+
+    } on EmptyCacheException {
+      // بنعيد رمي نفس الخطأ عشان الـ Repo يفهم إن الكاش فاضي فيروح للريموت
+      rethrow;
+    } catch (e, stack) {
+      // لو حصل Error تاني (زي Mapping Error) اطبعه عشان تعرف تحله
+      debugPrint("Mapping Error in getCachedLocations: $e");
+      debugPrint(stack.toString());
+      throw NotFoundException();
     }
   }
 

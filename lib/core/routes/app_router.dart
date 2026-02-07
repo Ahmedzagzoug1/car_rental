@@ -8,6 +8,7 @@ import 'package:car_rental/features/approval/presentation/pages/approved_page.da
 import 'package:car_rental/features/approval/presentation/pages/driver_license_screen.dart';
 import 'package:car_rental/features/approval/presentation/pages/otp_page.dart';
 import 'package:car_rental/features/approval/presentation/pages/profile_photo_page.dart';
+import 'package:car_rental/features/booking/presentation/view/pages/trip_data_page.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_car_details.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_home_page.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_profile.dart';
@@ -70,7 +71,7 @@ class AppRouter {
       case signupRoute:
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       case selectTimeRoute:
-        return MaterialPageRoute(builder: (_) => const SelectTime());
+        return MaterialPageRoute(builder: (_) => const TripDataPage());
       case selectLocationRoute:
         return MaterialPageRoute(builder: (_) => const PickUpLocationPage());
 

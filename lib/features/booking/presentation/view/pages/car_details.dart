@@ -2,6 +2,7 @@ import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/shared_components/shared_pages/error_page.dart';
 import 'package:car_rental/core/shared_components/shared_pages/loading_page.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/book_now_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_view_pager.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/date_details.dart';
@@ -26,7 +27,7 @@ class CarDetails extends StatelessWidget {
     }
     if (state is CarDetailsLoaded) {
       final carEntity = state.carDetailsEntity;
-      return Scaffold(
+      return  Scaffold(
         appBar: AppBar(
           leading: InkWell(child: Icon(Icons.arrow_back_ios),
               onTap: () {
@@ -68,13 +69,14 @@ class CarDetails extends StatelessWidget {
 
                   ),
                 ),
-              ),
+      ),
+
             ),
             SizedBox(
                 height: 91.h,
                 child: BookNowWidget(originalPrice: 20, pricePerHour: 30,))
           ],
-        ),
+          )
       );
     } else {
       return ErrorPage(message: 'error', onRetry: () {

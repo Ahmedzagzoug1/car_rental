@@ -12,6 +12,7 @@ import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit
 import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,8 @@ class _MyAppState extends State<MyApp> {
 
            MultiBlocProvider(
              providers: [
+           BlocProvider<TripDateCubit>(
+           create: (context) => TripDateCubit(),),
                BlocProvider<PermissionCubit>(create: (context)=>sl<PermissionCubit>()),
                BlocProvider<AppModeCubit>(create: (context)=>sl<AppModeCubit>()),
                BlocProvider<TimeCubit>(create: (context)=>sl<TimeCubit>()),

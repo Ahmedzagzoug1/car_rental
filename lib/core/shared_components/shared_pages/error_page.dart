@@ -10,9 +10,10 @@ class ErrorPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(message),
-            ElevatedButton(onPressed: onRetry, child: Text("try another one")),
+            ElevatedButton(onPressed: onRetry, child: Text("try another time")),
           ],
         ),
       ),
