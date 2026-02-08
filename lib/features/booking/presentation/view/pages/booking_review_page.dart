@@ -1,5 +1,6 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/core/shared_components/shared_pages/error_page.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
@@ -22,63 +23,6 @@ import '../widgets/payment_detail_row.dart';
 }
 
 class _RequestBookState extends State<BookingReviewPage> {
-  // Initial date and time values
- /* DateTime _startDate = DateTime.now().add(const Duration(days: 1));
-  DateTime _endDate = DateTime.now().add(const Duration(days: 8));
-  TimeOfDay _startTime = const TimeOfDay(hour: 5, minute: 0); // 5:00 AM
-  TimeOfDay _endTime = const TimeOfDay(hour: 22, minute: 0); // 10:00 PM
-
-  // Function to calculate trip duration in days
-  int _calculateTripDays() {
-    final start = DateTime(_startDate.year, _startDate.month, _startDate.day);
-    final end = DateTime(_endDate.year, _endDate.month, _endDate.day);
-    return end.difference(start).inDays;
-  }
-
-  // Date picker function
-  Future<void> _selectDate(BuildContext context, bool isStart) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: isStart ? _startDate : _endDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2028),
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          _startDate = picked;
-          // Ensure end date is not before start date
-          if (_endDate.isBefore(_startDate)) {
-            _endDate = _startDate.add(const Duration(days: 1));
-          }
-        } else {
-          _endDate = picked;
-          // Ensure start date is not after end date
-          if (_startDate.isAfter(_endDate)) {
-            _startDate = _endDate.subtract(const Duration(days: 1));
-          }
-        }
-      });
-    }
-  }
-
-  // Time picker function
-  Future<void> _selectTime(BuildContext context, bool isStart) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: isStart ? _startTime : _endTime,
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          _startTime = picked;
-        } else {
-          _endTime = picked;
-        }
-      });
-    }
-  }
-*/
   @override
   Widget build(BuildContext context) {
 
@@ -98,22 +42,27 @@ class _RequestBookState extends State<BookingReviewPage> {
           icon:  Icon(Icons.arrow_back_ios, color: ColorManager.black),
           onPressed: () {
             Navigator.pop(context);
-Navigator.pop(context);
           },
         ),
       ),
-      body: BlocBuilder<BookingCubit, BookingState>(
-  builder: (context, state) {
-    if (state is BookingUpdated) {
-      final timeEntity = context
-          .read<BookingCubit>()
-          .selectedTime;
-      final carEntity = context
-          .read<BookingCubit>()
-          .selectedCar;
-      final locationEntity = context
-          .read<BookingCubit>()
-          .selectedLocation;
+      body:BlocConsumer<BookingCubit, BookingState>(
+          listener: (context, state) {
+            if (state is BookingFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errMessage), backgroundColor: Colors.red),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is BookingInitial || state is BookingLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (state is BookingFinished) {
+      final bookingEntity = state.bookingEntity;
+      final timeEntity =bookingEntity.timeEntity;
+      final carEntity =bookingEntity.carDetailsEntity;
+      final locationEntity = bookingEntity.pickupLocation;
       return SingleChildScrollView(
         padding: EdgeInsets.all(16.0.r),
         child: Column(
@@ -220,7 +169,9 @@ Navigator.pop(context);
         ),
       );
     } else {
-return const CircularProgressIndicator();
+return  ErrorPage(message: 'there are an expected error!\n please try again', onRetry: (){
+  Navigator.pop(context);
+});
     }
   }),
     );

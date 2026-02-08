@@ -10,8 +10,8 @@ class CarReviewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BookingCubit, BookingState>(
   builder: (context, state) {
-    if (state is BookingUpdated) {
-      final car = context.read<BookingCubit>().selectedCar;
+    if (state is BookingFinished) {
+      final car = state.bookingEntity.carDetailsEntity;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -49,7 +49,10 @@ class CarReviewWidget extends StatelessWidget {
     ),
     ],
     );
-    }else{
+    }else if(state is BookingLoading|| state is BookingInitial){
+      return const Center(child: CircularProgressIndicator());
+    }
+    else{
       return const Text('unexpected error');
     }
 

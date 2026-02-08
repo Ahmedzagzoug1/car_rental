@@ -1,6 +1,7 @@
 import 'package:car_rental/core/shared_components/shared_pages/error_page.dart';
 import 'package:car_rental/core/shared_components/shared_pages/loading_page.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,10 +45,18 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
   Widget build(BuildContext context) {
 
 
-       return BlocBuilder<LocationCubit, LocationState>(
-  builder: (context, state) {
-    if(state is LocationsLoaded) {
-      locations=state.pickupLocations;
+       return BlocConsumer<CarDetailsCubit, CarDetailsState>(
+           listener: (context, state) {
+             if (state is CarDetailsError) {
+               ScaffoldMessenger.of(context).showSnackBar(
+                 SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+               );
+             }
+           },
+           builder: (context, state) {
+
+    if(state is CarDetailsLoaded) {
+      locations=state .carDetailsEntity.locations??[];
       return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -71,7 +80,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                         initialCenter: LatLng(
                             locations[selectedLocationId].lat ,
                             locations[selectedLocationId].lng ),
-                        initialZoom: 14.0,
+                        initialZoom: 22.0,
                         // enable interactive features as needed
                         interactionOptions: const InteractionOptions(
                             flags: InteractiveFlag.all),
@@ -179,7 +188,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
             child: ElevatedButton(
               onPressed: () {
                 debugPrint("Saved location id: ${locations[selectedLocationId].title}");
-                context.read<BookingCubit>().setPickup(locations[selectedLocationId]);
+                context.read<LocationCubit>().selectedLocation(locations[selectedLocationId]);
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
@@ -197,11 +206,11 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
         ),
       
           );
-    }else if(state is LocationLoading){
-      return const LoadingPage();
+    }else if(state is LocationLoading || state is CarDetailsInitial){
+      return LoadingPage(message: 'please wait until loading locations');
   }else{
       return  ErrorPage(message: 'there are an error', onRetry: (){
-
+Navigator.pop(context);
       });
 
     }

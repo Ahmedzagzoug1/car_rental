@@ -15,25 +15,11 @@ class DistanceDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LocationCubit, LocationState>(
-      builder: (context, state) {
-        String title = 'Location';
-        List<PickupLocationEntity> pickupLocations = [];
-        bool isLoading = true;
-
-        if (state is LocationsLoaded) {
-          pickupLocations = state.pickupLocations;
-          isLoading = false;
-        }
-
-        if (state is SelectedLocation) {
-          title = state.selectedLocation.title;
-        }
-
+final isLoading=false;
         return SelectedWidget(
           textHeadline: 'Pickup & Return',
           iconData: Icons.location_on,
-          textClick: title,
+          textClick: 'Any location',
           content: isLoading ? 'Loading...' : 'Change',
           onTap: isLoading
               ? null
@@ -47,7 +33,5 @@ class DistanceDetails extends StatelessWidget {
             );
           },
         );
-      },
-    );
   }
 }

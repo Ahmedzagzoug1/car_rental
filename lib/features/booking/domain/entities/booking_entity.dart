@@ -1,37 +1,25 @@
+import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingEntity {
-  final String? id;
-  final DocumentReference carRef;
-  final DocumentReference userRef;
-  final DocumentReference hostRef;
-  final GeoPoint pickupLocation;
-  final String pickupAddress;
-  final GeoPoint dropOffLocation;
-  final String dropOffAddress;
-  final DateTime startDate;
-  final DateTime endDate;
-  final int days;
-  final int pricePerDay;
-  final int totalPrice;
-  final String status;
-  final Timestamp createdAt;
+final CarDetailsEntity carDetailsEntity;
+  final PickupLocationEntity pickupLocation;
+ final TimeEntity timeEntity;
+
 
   BookingEntity({
-     required this.id,required
-      this.carRef,
-      required  this.userRef,
-      required this.hostRef,
+
     required this.pickupLocation,
     required
-      this.pickupAddress,required
-      this.dropOffLocation,required
-      this.dropOffAddress,required
-      this.startDate,required
-      this.endDate,required
-      this.days,required
-      this.pricePerDay,required
-      this.totalPrice,required
-      this.status,required
-      this.createdAt});
+      this.timeEntity, required this.carDetailsEntity});
+copyWith({CarDetailsEntity? carDetailsEntity,
+  PickupLocationEntity? pickupLocation,
+  TimeEntity? timeEntity}) {
+return BookingEntity(
+  carDetailsEntity: carDetailsEntity ?? this.carDetailsEntity,
+  pickupLocation: pickupLocation ?? this.pickupLocation,
+  timeEntity: timeEntity ?? this.timeEntity);
+}
 }

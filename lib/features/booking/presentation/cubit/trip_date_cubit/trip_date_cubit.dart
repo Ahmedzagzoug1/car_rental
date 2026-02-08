@@ -32,9 +32,7 @@ class TripDateCubit extends Cubit<TripDateState> {
     ));
   }
   void reset(){
-    print("Reset clicked!"); // لو طبعت، يبقى الزرار شغال والمشكلة في الـ emit
     emit(_getInitialState());
-    print("New state emitted: ${_getInitialState().timeEntity.pickupDate}");
   }
   void updatePickupTime(double value) {
     int totalMinutes = (value * 15).toInt();

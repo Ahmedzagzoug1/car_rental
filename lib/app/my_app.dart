@@ -51,13 +51,12 @@ class _MyAppState extends State<MyApp> {
            create: (context) => TripDateCubit(),),
                BlocProvider<PermissionCubit>(create: (context)=>sl<PermissionCubit>()),
                BlocProvider<AppModeCubit>(create: (context)=>sl<AppModeCubit>()),
-               BlocProvider<TimeCubit>(create: (context)=>sl<TimeCubit>()),
 
                BlocProvider<CarDetailsCubit>(create: (_)=> CarDetailsCubit(sl<GetCarDetailsUseCase>())),
                BlocProvider<BookingCubit>(
                  create: (context) => sl<BookingCubit>(),
                ),
-
+BlocProvider<LocationCubit>(create: (context)=>sl<LocationCubit>())
              ],
              child: MaterialApp(
                 debugShowCheckedModeBanner: false,

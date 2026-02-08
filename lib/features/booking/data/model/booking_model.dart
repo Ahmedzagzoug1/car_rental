@@ -1,17 +1,16 @@
 import 'package:car_rental/features/booking/domain/entities/booking_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class BookingModel extends BookingEntity{
+class BookingModel {
 
 
 
-
+/*
   BookingModel({required super.id, required super.carRef, required super.userRef,
   required super.hostRef, required super.pickupLocation, required super.pickupAddress,
   required super.dropOffLocation, required super.dropOffAddress, required super.startDate,
   required super.endDate, required super.days, required super.pricePerDay, required super.totalPrice,
   required super.status, required super.createdAt});
-// createdAt = createdAt ?? Timestamp.now();
 
   Map<String, dynamic> toJson() {
     return {
@@ -19,15 +18,11 @@ class BookingModel extends BookingEntity{
       'userRef': userRef,
       'hostRef': hostRef,
       'pickupLocation': pickupLocation,
-      'pickupAddress': pickupAddress,
-      'dropoffLocation': dropOffLocation,
-      'dropoffAddress': dropOffAddress,
       'startDate': Timestamp.fromDate(startDate),
       'endDate': Timestamp.fromDate(endDate),
       'days': days,
       'pricePerDay': pricePerDay,
       'totalPrice': totalPrice,
-      'status': status,
       'createdAt': createdAt,
     };
   }
@@ -40,10 +35,7 @@ class BookingModel extends BookingEntity{
       carRef: map['carRef'] as DocumentReference,
       userRef: map['userRef'] as DocumentReference,
       hostRef: map['hostRef'] as DocumentReference,
-      pickupLocation: map['pickupLocation'] as GeoPoint,
       pickupAddress: map['pickupAddress'] as String,
-      dropOffLocation: map['dropoffLocation'] as GeoPoint,
-      dropOffAddress: map['dropoffAddress'] as String,
       startDate: tsStart.toDate(),
       endDate: tsEnd.toDate(),
       days: (map['days'] ?? 0) as int,
@@ -52,5 +44,5 @@ class BookingModel extends BookingEntity{
       status: (map['status'] ?? 'pending') as String,
       createdAt: map['createdAt'] as Timestamp? ?? Timestamp.now(),
     );
-  }
+  }*/
 }

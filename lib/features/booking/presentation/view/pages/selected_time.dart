@@ -82,7 +82,6 @@ class SelectTime extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     context.read<TimeCubit>().saveTime(state.timeEntity);
-                    context.read<BookingCubit>().setTime(timeEntity);
                     Navigator.pop(context);
                   },
                   child: const Text('Save'),

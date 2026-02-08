@@ -1,4 +1,5 @@
 // External Packages
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -215,10 +216,9 @@ sl<ImagePicker>()));
         sl.registerFactory<BrandCubit>(()=>BrandCubit());
         //booking
     sl.registerFactory<CarDetailsCubit>(()=>CarDetailsCubit(sl<GetCarDetailsUseCase>()));
-        sl.registerFactory<LocationCubit>(()=>LocationCubit(getPickupLocationsUsecase: sl<GetPickupLocationsUsecase>(),
-        getUserLocationUseCase: sl<GetUserLocationUseCase>(),savePickupLocationUsecase: sl<SavePickupLocationUsecase>()));
-        sl.registerFactory<TimeCubit>(()=>TimeCubit(sl<GetTimeUsecase>(),
-        sl<SaveTimeUsecase>()));
+        sl.registerFactory<LocationCubit>(()=>LocationCubit(
+            getUserLocationUseCase: sl<GetUserLocationUseCase>()));
+        sl.registerFactory<TripDateCubit>(()=>TripDateCubit());
         sl.registerFactory<SigninCubit>(()=>SigninCubit(sl<SignInWithEmailUsecase>()));
     sl.registerFactory<SignupCubit>(()=>SignupCubit(sl<SignUpWithEmailUseCase>()));
     sl.registerFactory<BookingCubit>(()=>BookingCubit());
