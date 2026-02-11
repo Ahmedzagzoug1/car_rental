@@ -10,8 +10,8 @@ class CarReviewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BookingCubit, BookingState>(
   builder: (context, state) {
-    if (state is BookingUpdated) {
-      final car = context.read<BookingCubit>().selectedCar;
+    if (state is BookingFinished) {
+      final car = state.bookingEntity.carDetailsEntity;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -22,7 +22,7 @@ class CarReviewWidget extends StatelessWidget {
         alignment: Alignment.topCenter,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(2.r),
-          child: Image.network(car!.imagesUrl.first),
+          child: Image.network(car.imagesUrl.first),
 
         ),
       ),),
@@ -32,24 +32,27 @@ class CarReviewWidget extends StatelessWidget {
       width: 113.w,
       child: Column(
       children: [
-      Text(car.name,style: Theme.of(context).textTheme.labelSmall,),
+      Text(car.name,style: Theme.of(context).textTheme.headlineLarge,),
       Row(
       children: [
       Icon(Icons.star,color: ColorManager.green,),
       Text('${car.rate} . ${car.trips} trips',
-      style: Theme.of(context).textTheme.headlineLarge,),
+      style: Theme.of(context).textTheme.displayMedium,),
 
       ],
       ),
         RSizedBox(height: 8,),
-        Text('\$ ${car.pricePerHour} /h',style: Theme.of(context).textTheme.bodyMedium, )
+        Text('\$ ${car.pricePerHour} /h',style: Theme.of(context).textTheme.headlineLarge, )
 
       ],
       ),
     ),
     ],
     );
-    }else{
+    }else if(state is BookingLoading|| state is BookingInitial){
+      return const Center(child: CircularProgressIndicator());
+    }
+    else{
       return const Text('unexpected error');
     }
 

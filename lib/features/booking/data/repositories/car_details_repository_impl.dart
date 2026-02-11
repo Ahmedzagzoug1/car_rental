@@ -4,6 +4,7 @@ import 'package:car_rental/features/booking/data/data_source/local_data_source/c
 import 'package:car_rental/features/booking/data/data_source/remote_data_source/car_details_remote_data_source.dart';
 import 'package:car_rental/features/booking/data/model/car_details_model.dart';
 import 'package:car_rental/features/booking/data/model/host_model.dart';
+import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
@@ -33,9 +34,10 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
 
   final HostModel hostModel = results[0] as HostModel  ;
   final locationsListModel = results[1] as List<PickupLocationModel>;
-  final hostEntity=hostModel.toDomain();
-  final locationsListEntity=locationsListModel.map((locationsListModel)=>locationsListModel.toDomain()).toList();
-
+  final HostEntity hostEntity=hostModel.toDomain();
+  final  locationsListEntity=locationsListModel.map((locationsListModel)=>locationsListModel.toDomain()).toList();
+if(locationsListEntity.isEmpty)
+  throw Exception();
   // 3. Map to Domain Entity
   return Right(carModel!.toDomain(hostEntity, locationsListEntity));
   } catch (e,stackTrace) {
@@ -47,9 +49,8 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
   /// Helper method to handle Car Base Model Cache/Remote logic
   Future<CarDetailsModel?> _getCarBaseModel(String carId) async {
   try {
-
-  return  await carDetailsLocalDataSource.getCachedCarDetails(carId);
-  } on NotFoundException {
+    return await carDetailsLocalDataSource.getCachedCarDetails(carId);
+  }catch(_) {
     final remoteCar = await carDetailsRemoteDataSource.getCarDetails(carId);
     await carDetailsLocalDataSource.cacheCarDetails(carId, remoteCar);
     return remoteCar;
@@ -63,9 +64,8 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
   // Assuming getCachedHost returns HostModel
   final  cachedHost =await carDetailsLocalDataSource.getCachedHost(carId);
 
-  if (cachedHost != null) return cachedHost ;
-  throw NotFoundException();
-  }  on NotFoundException {
+  return cachedHost ;
+  }catch(_) {
   final HostModel remoteHost = await carDetailsRemoteDataSource.getHost(carId);
 
   await carDetailsLocalDataSource.cacheHost(carId, remoteHost  );
@@ -76,9 +76,9 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
   /// Helper method for Locations with Cache-aside pattern
   Future<List<PickupLocationModel>> _getLocations(String carId) async {
   try {
-  final cachedLocs = carDetailsLocalDataSource.getCachedLocations(carId);
+  final cachedLocs =await carDetailsLocalDataSource.getCachedLocations(carId);
      return cachedLocs;
-  } on NotFoundException{
+   }catch(_) {
   final remoteLocs = await carDetailsRemoteDataSource.getLocations(carId);
   await carDetailsLocalDataSource.cacheLocations(carId, remoteLocs);
   return remoteLocs;

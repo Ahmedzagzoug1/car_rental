@@ -6,11 +6,11 @@ class SelectedWidget extends StatelessWidget {
  final  String textHeadline;
  final IconData iconData;
  final String content;
- final String toggleText;
+ final String textClick;
  void Function()? onTap;
    SelectedWidget({super.key, required this.textHeadline,
      required this.iconData,
-     required this.toggleText,
+     required this.textClick,
      required this.content,this.onTap});
 
   @override
@@ -20,7 +20,9 @@ class SelectedWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // title above the ticket
            Text(
+
             textHeadline,
             style: const TextStyle(
               fontSize: 20,
@@ -28,11 +30,7 @@ class SelectedWidget extends StatelessWidget {
             ),
           ),
           const RSizedBox(height: 10),
-          GestureDetector(
-            onTap: () {
-
-            },
-            child: Container(
+         Container(
               padding:  EdgeInsets.symmetric(horizontal: AppSize.s16.w, vertical: AppSize.s12.h),
               decoration: BoxDecoration(
                 border: Border.all(color: ColorManager.grey),
@@ -40,7 +38,8 @@ class SelectedWidget extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                   Icon(iconData, color: Colors.green),
+                  Icon(iconData, color: Colors.green),
+
                   const RSizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -52,7 +51,7 @@ class SelectedWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          toggleText,
+                          textClick,
                             style: Theme.of(context).textTheme.displayMedium
                         ),
                          Icon(Icons.arrow_forward_ios, size: 16, color: ColorManager.green),
@@ -63,7 +62,6 @@ class SelectedWidget extends StatelessWidget {
                 ],
               ),
             ),
-          ),
         ],
       ),
     );

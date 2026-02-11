@@ -1,9 +1,11 @@
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/core/shared_components/shared_pages/error_page.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.dart';
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_review_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,63 +24,6 @@ import '../widgets/payment_detail_row.dart';
 }
 
 class _RequestBookState extends State<BookingReviewPage> {
-  // Initial date and time values
- /* DateTime _startDate = DateTime.now().add(const Duration(days: 1));
-  DateTime _endDate = DateTime.now().add(const Duration(days: 8));
-  TimeOfDay _startTime = const TimeOfDay(hour: 5, minute: 0); // 5:00 AM
-  TimeOfDay _endTime = const TimeOfDay(hour: 22, minute: 0); // 10:00 PM
-
-  // Function to calculate trip duration in days
-  int _calculateTripDays() {
-    final start = DateTime(_startDate.year, _startDate.month, _startDate.day);
-    final end = DateTime(_endDate.year, _endDate.month, _endDate.day);
-    return end.difference(start).inDays;
-  }
-
-  // Date picker function
-  Future<void> _selectDate(BuildContext context, bool isStart) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: isStart ? _startDate : _endDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2028),
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          _startDate = picked;
-          // Ensure end date is not before start date
-          if (_endDate.isBefore(_startDate)) {
-            _endDate = _startDate.add(const Duration(days: 1));
-          }
-        } else {
-          _endDate = picked;
-          // Ensure start date is not after end date
-          if (_startDate.isAfter(_endDate)) {
-            _startDate = _endDate.subtract(const Duration(days: 1));
-          }
-        }
-      });
-    }
-  }
-
-  // Time picker function
-  Future<void> _selectTime(BuildContext context, bool isStart) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: isStart ? _startTime : _endTime,
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          _startTime = picked;
-        } else {
-          _endTime = picked;
-        }
-      });
-    }
-  }
-*/
   @override
   Widget build(BuildContext context) {
 
@@ -87,10 +32,8 @@ class _RequestBookState extends State<BookingReviewPage> {
       appBar: AppBar(
         title:  Text(
           'Request to Book',
-          style: TextStyle(
-            color: ColorManager.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge,
+
         ),
         backgroundColor: ColorManager.white,
         elevation: 0,
@@ -98,22 +41,27 @@ class _RequestBookState extends State<BookingReviewPage> {
           icon:  Icon(Icons.arrow_back_ios, color: ColorManager.black),
           onPressed: () {
             Navigator.pop(context);
-Navigator.pop(context);
           },
         ),
       ),
-      body: BlocBuilder<BookingCubit, BookingState>(
-  builder: (context, state) {
-    if (state is BookingUpdated) {
-      final timeEntity = context
-          .read<BookingCubit>()
-          .selectedTime;
-      final carEntity = context
-          .read<BookingCubit>()
-          .selectedCar;
-      final locationEntity = context
-          .read<BookingCubit>()
-          .selectedLocation;
+      body:BlocConsumer<BookingCubit, BookingState>(
+          listener: (context, state) {
+            if (state is BookingFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errMessage), backgroundColor: Colors.red),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is BookingInitial || state is BookingLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (state is BookingFinished) {
+      final bookingEntity = state.bookingEntity;
+      final timeEntity =bookingEntity.timeEntity;
+      final carEntity =bookingEntity.carDetailsEntity;
+      final locationEntity = bookingEntity.pickupLocation;
       return SingleChildScrollView(
         padding: EdgeInsets.all(16.0.r),
         child: Column(
@@ -122,15 +70,12 @@ Navigator.pop(context);
             const CarReviewWidget(),
             const RSizedBox(height: 24),
 
-            const Text(
+             Text(
               'Trip Date & Time',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             const RSizedBox(height: 12),
-            BlocBuilder<TimeCubit, TimeState>(
+            BlocBuilder<TripDateCubit, TripDateState>(
               builder: (context, state) {
                 return Container(
                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12
@@ -139,7 +84,7 @@ Navigator.pop(context);
                       color: ColorManager.emeraldGreen05,
                       borderRadius: BorderRadius.circular(12.r),
                     ),
-                    child: DisplayTimeAndDate(timeEntity: timeEntity!,)
+                    child: DisplayTimeAndDate(timeEntity: timeEntity,)
 
                 );
               },
@@ -147,36 +92,28 @@ Navigator.pop(context);
             const RSizedBox(height: 24),
 
             // Pickup & Return Section
-            const Text(
+             Text(
               'Pickup & Return',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+              style: Theme.of(context).textTheme.headlineLarge,
+      ),
             const RSizedBox(height: 12),
             Row(
               children: [
                 Icon(Icons.location_on, color: ColorManager.green),
                 const RSizedBox(width: 8),
                 Text(
-                  locationEntity?.title ?? 'No Location Founded',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorManager.black,
-                  ),
+                 '${ locationEntity.title} , ${ locationEntity.subtitle}' ,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
             ),
             const RSizedBox(height: 24),
 
             // Payment Details Section
-            const Text(
+             Text(
               'Payment Details',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
+
             ),
             const RSizedBox(height: 12), Container(
               color: ColorManager.charcoalBlack05,
@@ -210,19 +147,24 @@ Navigator.pop(context);
             ),),
             const RSizedBox(height: 8),
 
-            BottomWidget(price: '300',
-                subtitle: 'Total Amount',
-                onPressed: (){
-              Navigator.pushNamed(context, AppRouter.approvedPage);
-                },
-                btnText: 'Proceed to Pay')
+
           ],
         ),
       );
     } else {
-return const CircularProgressIndicator();
+return  ErrorPage(message: 'there are an expected error!\n please try again', onRetry: (){
+  Navigator.pop(context);
+});
     }
   }),
+        bottomNavigationBar: BottomWidget(price: '300',
+            subtitle: 'Total Amount',
+            onPressed: (){
+              Navigator.pushNamedAndRemoveUntil(context, AppRouter.approvedPage,(predict){
+                return false;
+              });
+            },
+            btnText: 'Proceed to Pay')
     );
   }
 

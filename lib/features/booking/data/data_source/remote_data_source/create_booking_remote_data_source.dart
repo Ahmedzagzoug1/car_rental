@@ -5,8 +5,10 @@ class CreateBookingRemoteDataSource{
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<String> createBooking(BookingModel booking) async {
+    /*
   final docRef = await firestore.collection('bookings').add(booking.toJson());
-  return docRef.id;
+  return docRef.id;*/
+    throw  Exception();
   }
 
 

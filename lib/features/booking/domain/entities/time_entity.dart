@@ -8,6 +8,18 @@ class TimeEntity extends Equatable {
     const    TimeEntity({  required this.pickupDate,required this.pickupTime,
           required this.returnDate,required this.returnTime });
 
+  TimeEntity  copyWith({
+    String? pickupDate,
+    String? pickupTime,
+    String? returnDate,
+    String? returnTime,
+}){
+      return TimeEntity(  pickupDate: pickupDate ?? this.pickupDate,
+          pickupTime: pickupTime ?? this.pickupTime,
+          returnDate: returnDate ?? this.returnDate,
+          returnTime: returnTime ?? this.returnTime,
+      );
+    }
   @override
   // TODO: implement props
   List<Object?> get props => [pickupDate,pickupTime,returnTime,returnDate];

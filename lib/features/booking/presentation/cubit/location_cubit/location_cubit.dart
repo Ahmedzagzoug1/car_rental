@@ -9,12 +9,11 @@ part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
   final GetUserLocationUseCase getUserLocationUseCase;
-final GetPickupLocationsUsecase getPickupLocationsUsecase;
-final SavePickupLocationUsecase savePickupLocationUsecase;
+
 
 late final List<PickupLocationEntity> pickuplocations;
   LocationCubit({required this.getUserLocationUseCase,
-  required this.savePickupLocationUsecase,required this.getPickupLocationsUsecase
+
   }) : super(LocationInitial());
 
 
@@ -35,28 +34,14 @@ pickuplocations=success as List<PickupLocationEntity>;
     }
   }
 
-   getLocations(carId)async{
-  emit(LocationLoading());
-   try {
-     final locations = await getPickupLocationsUsecase(carId);
-     locations.fold((failure){
-     emit(LocationError(failure.toString()));
-   },
-             (success){
-
-     emit(LocationsLoaded(pickupLocations: success));
-     print('locations loaded-');
-             }
-     );
-   } catch (e) {
-     emit(LocationError(e.toString()));
-   }
-  }
   selectedLocation(selectedLocation)async{
     try{
       emit(SelectedLocation(selectedLocation: selectedLocation));
     } catch (e) {
       emit(LocationError(e.toString()));
     }
+  }
+  resetLocation(){
+   emit(LocationInitial());
   }
 }
