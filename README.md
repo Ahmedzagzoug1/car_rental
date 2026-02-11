@@ -80,8 +80,51 @@ lib/
  └── main.dart
 ```
 
+---
 
 ---
+
+## 🚀 Installation & Setup
+
+Follow these steps to get the project up and running on your local machine.
+
+### 📋 Prerequisites
+* **Flutter SDK:** Latest Stable Version.
+* **Firebase Account:** To set up the backend services.
+
+### 🛠 Steps
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Ahmedzagzoug1/car_rental
+2. Navigate to the project directory:
+
+   ```bash
+   cd your-repo-name
+3.Install dependencies:
+  ```bash
+  flutter pub get
+```
+4.Firebase Setup:
+
+Go to Firebase Console.
+
+Create a new project for the app.
+
+Add an Android app and download google-services.json to android/app/.
+
+Add an iOS app and download GoogleService-Info.plist to ios/Runner/.
+
+Enable Authentication (Email/Password) and Cloud Firestore in the console.
+
+5.Run the application:
+
+
+   ```bash
+   flutter run
+   ```
+
+
 
 ## Implemented Features 
  
@@ -92,7 +135,6 @@ lib/
  
 Email & password authentication
 
-OTP verification required before payment
 
 User approval flow integrated with booking logic
 
@@ -104,14 +146,11 @@ Browse available cars
 
 View car details
 
-Location-based data display
 
 ---
 
 ##  Booking
 Create booking requests
-
-Booking requires admin approval before confirmation
 
 Booking flow connected to approval feature
 
@@ -138,10 +177,6 @@ Integrated with booking state
 ##  Host
 Any user can become a host using a role field in Firebase
 
-Hosts can add cars to the platform
-
-Role-based logic handled through backend data
-
 ---
 
 ## Tech Stack
@@ -155,8 +190,6 @@ State Management
 Cubit (flutter_bloc)
 
 equatable
-
-hydrated_bloc
 
 Backend
 Firebase Authentication
@@ -191,7 +224,6 @@ http
 Media & Permissions
 image_picker
 
-google_ml_kit
 
 permission_handler
 
@@ -209,12 +241,14 @@ Managed state, navigation, and data flow
 
 Applied clean code and scalable patterns
 
+Add unit test package like hive_test , firebase test and mockito
+
 ---
 
 ## Future Improvements
 The following enhancements are planned to further improve the project:
 
-✅ Add unit & widget testing
+✅ Add Integration & widget testing
 
 🧑‍💼 Complete and extend Host features
 
