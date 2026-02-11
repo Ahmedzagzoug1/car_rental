@@ -7,6 +7,7 @@ import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/boo
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,10 +25,11 @@ class BookNowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding:  EdgeInsets.symmetric(horizontal: AppSize.s20.w, vertical: AppSize.s12.h),
       decoration: BoxDecoration(
-        color: ColorManager.grey,
+        color: ColorManager.black,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(AppSize.s16.r),topRight: Radius.circular(AppSize.s16.r)),
         boxShadow: [
@@ -48,15 +50,11 @@ class BookNowWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 '\$${pricePerHour.toStringAsFixed(2)}/h', // Current price
-                 style: Theme.of(context).textTheme.displayMedium,
+                 style: Theme.of(context).textTheme.titleLarge?.copyWith(color: ColorManager.white),
               ),
               Text(
                 '\$${originalPrice.toStringAsFixed(2)}', // Original (crossed-out) price
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 16.0,
-                  decoration: TextDecoration.lineThrough,
-                ),
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(color: ColorManager.midGray)
               ),
             ],
           ),
@@ -79,7 +77,7 @@ else if (state is BookingFailure) {
     return CustomButton(title: 'Book Now',
                 onPressed: () {
 
-                  final timeState = context.read<TimeCubit>().state;
+                  final timeState = context.read<TripDateCubit>().state;
                   final carState = context.read<CarDetailsCubit>().state;
                   final locState = context.read<LocationCubit>().state;
 

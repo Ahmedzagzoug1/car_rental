@@ -4,6 +4,7 @@ import 'package:car_rental/core/shared_components/shared_pages/loading_page.dart
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/book_now_widget.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/car_information_widget.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_view_pager.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/date_details.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/distance_details.dart';
@@ -55,8 +56,9 @@ class CarDetails extends StatelessWidget {
 
                           child: CarViewPager(carEntity: carEntity),
                         ),
+                        SizedBox(height: 20.h,),
 
-                       //  CarDetailsWidget( carEntity: carEntity,),
+                    const    CarInformationWidget(),
                         SizedBox(height: 20.h,),
 
                         HostDetails(hostEntity: carEntity.host!),
@@ -64,7 +66,7 @@ class CarDetails extends StatelessWidget {
 
                         DateDetails(),
                         SizedBox(height: 20.h,),
-                        DistanceDetails(pickupLocations: [],)
+                        DistanceDetails()
                       ]
 
                   ),

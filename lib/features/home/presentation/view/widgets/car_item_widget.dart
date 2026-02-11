@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 
 import 'package:car_rental/features/home/domain/entities/car_entity.dart';
@@ -16,8 +17,10 @@ class CarItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  InkWell(
       onTap: () async {
-        // reset the date information
+        // reset the date information and location
         context.read<TripDateCubit>().reset();
+        context.read<LocationCubit>().resetLocation();
+
         Navigator.pushNamed(context, AppRouter.carDetailsRoute,
 
             arguments:{'id':

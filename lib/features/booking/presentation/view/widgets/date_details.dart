@@ -20,10 +20,10 @@ class DateDetails extends StatelessWidget {
         return SelectedWidget(
           textHeadline: 'Trips Date',
           iconData: Icons.calendar_today,
-          content: (state is TripDateSaved)
+          content: (state is TimeInitial)
               ? 'Any time'
               : '${timeEntity.pickupDate} to ${timeEntity.returnDate}',
-          textClick: (state is TripDateSaved) ? 'Add Dates' : 'Change',
+          textClick: (state is TimeInitial) ? 'Add Dates' : 'Change',
           onTap: ()  {
         Navigator.pushNamed(
               context,

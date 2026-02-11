@@ -41,4 +41,7 @@ pickuplocations=success as List<PickupLocationEntity>;
       emit(LocationError(e.toString()));
     }
   }
+  resetLocation(){
+   emit(LocationInitial());
+  }
 }

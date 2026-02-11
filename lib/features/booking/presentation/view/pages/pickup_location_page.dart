@@ -35,12 +35,6 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
       print('controller not ready');
     }
   }
-/*
-  Map<String, dynamic> _getSelectedLocation() {
-    return locations.firstWhere((loc) => loc["id"] == selectedLocationId,
-        orElse: () => locations.first);
-  }
-*/
   @override
   Widget build(BuildContext context) {
 
@@ -80,7 +74,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
                         initialCenter: LatLng(
                             locations[selectedLocationId].lat ,
                             locations[selectedLocationId].lng ),
-                        initialZoom: 22.0,
+                        initialZoom: 16.0,
                         // enable interactive features as needed
                         interactionOptions: const InteractionOptions(
                             flags: InteractiveFlag.all),
@@ -207,7 +201,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
       
           );
     }else if(state is LocationLoading || state is CarDetailsInitial){
-      return LoadingPage(message: 'please wait until loading locations');
+      return LoadingPage(message: 'please wait until loading map');
   }else{
       return  ErrorPage(message: 'there are an error', onRetry: (){
 Navigator.pop(context);

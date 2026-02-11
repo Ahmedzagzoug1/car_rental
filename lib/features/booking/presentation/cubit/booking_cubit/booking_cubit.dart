@@ -6,7 +6,9 @@ import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'booking_state.dart';
 
@@ -32,7 +34,7 @@ class BookingCubit extends Cubit<BookingState> {
       {required dynamic timeState, required dynamic carState, required dynamic locState}) {
     emit(BookingLoading());
     try {
-      if (timeState is TimeSelected && carState is CarDetailsLoaded &&
+      if (timeState is TripDateChanged && carState is CarDetailsLoaded &&
           locState is SelectedLocation) {
         final entity = BookingEntity(
           timeEntity: timeState.timeEntity,
@@ -43,10 +45,11 @@ class BookingCubit extends Cubit<BookingState> {
         emit(BookingFinished(entity));
       } else {
         List<String> missing = [];
-        if (timeState is! TimeSelected) missing.add("Time");
+
+        if (timeState is! TripDateChanged) missing.add("Time");
         if (locState is! SelectedLocation) missing.add("Location");
         if (carState is! CarDetailsLoaded) missing.add("Car Details");
-
+debugPrint('${timeState.toString()}');
         emit(BookingFailure("Please complete: ${missing.join(', ')}"));
       }
     } catch (e) {

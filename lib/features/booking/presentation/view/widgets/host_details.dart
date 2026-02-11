@@ -133,10 +133,10 @@ class HostDetails extends StatelessWidget {
                       ),
 
                       //icon contact
-                      Column(
+                      Row(
                         children: [
                           _buildActionIcon(Icons.phone),
-                          SizedBox(height: AppSize.s12.h),
+                          SizedBox(height: AppSize.s12.w),
                           _buildActionIcon(Icons.chat_bubble_outline),
                         ],
                       ),

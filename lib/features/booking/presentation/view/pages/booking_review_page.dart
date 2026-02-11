@@ -5,6 +5,7 @@ import 'package:car_rental/core/shared_components/shared_widgets/bottom_widget.d
 import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart';
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:car_rental/features/booking/presentation/view/widgets/car_review_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,10 +32,8 @@ class _RequestBookState extends State<BookingReviewPage> {
       appBar: AppBar(
         title:  Text(
           'Request to Book',
-          style: TextStyle(
-            color: ColorManager.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge,
+
         ),
         backgroundColor: ColorManager.white,
         elevation: 0,
@@ -71,15 +70,12 @@ class _RequestBookState extends State<BookingReviewPage> {
             const CarReviewWidget(),
             const RSizedBox(height: 24),
 
-            const Text(
+             Text(
               'Trip Date & Time',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             const RSizedBox(height: 12),
-            BlocBuilder<TimeCubit, TimeState>(
+            BlocBuilder<TripDateCubit, TripDateState>(
               builder: (context, state) {
                 return Container(
                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12
@@ -88,7 +84,7 @@ class _RequestBookState extends State<BookingReviewPage> {
                       color: ColorManager.emeraldGreen05,
                       borderRadius: BorderRadius.circular(12.r),
                     ),
-                    child: DisplayTimeAndDate(timeEntity: timeEntity!,)
+                    child: DisplayTimeAndDate(timeEntity: timeEntity,)
 
                 );
               },
@@ -96,36 +92,28 @@ class _RequestBookState extends State<BookingReviewPage> {
             const RSizedBox(height: 24),
 
             // Pickup & Return Section
-            const Text(
+             Text(
               'Pickup & Return',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+              style: Theme.of(context).textTheme.headlineLarge,
+      ),
             const RSizedBox(height: 12),
             Row(
               children: [
                 Icon(Icons.location_on, color: ColorManager.green),
                 const RSizedBox(width: 8),
                 Text(
-                  locationEntity?.title ?? 'No Location Founded',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: ColorManager.black,
-                  ),
+                 '${ locationEntity.title} , ${ locationEntity.subtitle}' ,
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
             ),
             const RSizedBox(height: 24),
 
             // Payment Details Section
-            const Text(
+             Text(
               'Payment Details',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
+
             ),
             const RSizedBox(height: 12), Container(
               color: ColorManager.charcoalBlack05,
@@ -159,12 +147,7 @@ class _RequestBookState extends State<BookingReviewPage> {
             ),),
             const RSizedBox(height: 8),
 
-            BottomWidget(price: '300',
-                subtitle: 'Total Amount',
-                onPressed: (){
-              Navigator.pushNamed(context, AppRouter.approvedPage);
-                },
-                btnText: 'Proceed to Pay')
+
           ],
         ),
       );
@@ -174,6 +157,14 @@ return  ErrorPage(message: 'there are an expected error!\n please try again', on
 });
     }
   }),
+        bottomNavigationBar: BottomWidget(price: '300',
+            subtitle: 'Total Amount',
+            onPressed: (){
+              Navigator.pushNamedAndRemoveUntil(context, AppRouter.approvedPage,(predict){
+                return false;
+              });
+            },
+            btnText: 'Proceed to Pay')
     );
   }
 

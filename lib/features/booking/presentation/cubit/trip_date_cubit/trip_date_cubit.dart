@@ -24,7 +24,8 @@ class TripDateCubit extends Cubit<TripDateState> {
 
 
   void updateReturnTime(double value) {
-    final time = _formatSliderValue(value);
+    final double cleanedValue = value.roundToDouble().clamp(0.0, 95.0);
+    final time = _formatSliderValue(cleanedValue);
     emit(TripDateChanged(
       state.timeEntity.copyWith(returnTime: time),
       rangeStart: state.rangeStart,
@@ -35,6 +36,7 @@ class TripDateCubit extends Cubit<TripDateState> {
     emit(_getInitialState());
   }
   void updatePickupTime(double value) {
+
     int totalMinutes = (value * 15).toInt();
     final timeString = DateFormat('hh:mm a').format(
         DateTime(2024, 1, 1, totalMinutes ~/ 60, totalMinutes % 60)
