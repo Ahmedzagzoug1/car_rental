@@ -16,7 +16,7 @@ This project demonstrates strong understanding of **Flutter architecture**, **ro
       <p style="text-align:center">Home Screen</p>
     </td>
     <td>
-      <img src="screen_shots/images/car_details.png" width="300"/><br>
+      <img src="screen_shots/images/car_details_image.png" width="300"/><br>
       <p style="text-align:center">Car Details</p>
     </td>
   </tr>
