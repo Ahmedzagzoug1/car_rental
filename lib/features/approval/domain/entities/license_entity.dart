@@ -1,10 +1,10 @@
-class DriverLicenseData {
+class LicenseEntity {
   final String fullName;
   final String country;
-  final DateTime dateOfBirth;
-  final DateTime expirationDate;
+  final String dateOfBirth;
+  final String expirationDate;
 
-  DriverLicenseData({
+  LicenseEntity({
     required this.fullName,
     required this.country,
     required this.dateOfBirth,

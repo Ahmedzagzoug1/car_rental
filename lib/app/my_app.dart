@@ -62,7 +62,7 @@ BlocProvider<LocationCubit>(create: (context)=>sl<LocationCubit>())
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',
                 theme: getApplicationTheme(),
-               initialRoute:AppRouter.homeRoute,
+               initialRoute:AppRouter.approvedPage,
                 onGenerateRoute: AppRouter.onGenerateRoute,
               ),
            ));

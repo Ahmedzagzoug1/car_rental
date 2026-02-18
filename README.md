@@ -41,12 +41,6 @@ This project demonstrates strong understanding of **Flutter architecture**, **ro
   </tr>
  </table>
 
----
-
-## Demo Video
-[![Watch Video](screen_shots/thumbnails/video_demo.png)](https://youtube.com/shorts/V5OSkzx9zUk?feature=share)
-
- ----
 ##  Architecture
 The project follows **Clean Architecture** with a clear separation of concerns:
 
