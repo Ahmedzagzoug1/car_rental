@@ -9,27 +9,37 @@ This project demonstrates strong understanding of **Flutter architecture**, **ro
 ---
 ## Screenshots
 
-### Home Screen
-![Home](screen_shots/images/home.png)
-
-### Car Details
-![Car Details](screen_shots/images/car_details.png)
-
-### Location Selection
-![Location](screen_shots/images/location.png)
-
-### Request Booking
-![Request Booking](screen_shots/images/request_booking.png)
-
-### Time Selection
-![Time Selection](screen_shots/images/time_selecting.png)
-
----
-
-## Demo Video
-[![Watch Video](screen_shots/thumbnails/video_demo.png)](https://youtube.com/shorts/V5OSkzx9zUk?feature=share)
-
----
+<table>
+  <tr>
+    <td>
+      <img src="screen_shots/images/home_image.png" width="300"/><br>
+      <p style="text-align:center">Home Screen</p>
+    </td>
+    <td>
+      <img src="screen_shots/images/car_details_image.png" width="300"/><br>
+      <p style="text-align:center">Car Details</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="screen_shots/images/location.png" width="300"/><br>
+      <p style="text-align:center">Location Screen</p>
+    </td>
+    <td>
+      <img src="screen_shots/images/request booking.png" width="300"/><br>
+      <p style="text-align:center">request booking</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="screen_shots/images/time_selecting image.png" width="400"/><br>
+      <p style="text-align:center">Time Selection</p>
+    </td>
+    <td>
+      &nbsp; <!-- مكان فاضي لو عدد الصور فردي -->
+    </td>
+  </tr>
+ </table>
 
 ##  Architecture
 The project follows **Clean Architecture** with a clear separation of concerns:
