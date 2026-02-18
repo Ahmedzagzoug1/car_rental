@@ -1,4 +1,6 @@
 // External Packages
+import 'package:car_rental/features/approval/domain/usecases/upload_image_to_ocr_usecase.dart';
+import 'package:car_rental/features/approval/presentation/cubits/ocr_cubit/ocr_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -199,6 +201,7 @@ sl<ImagePicker>()));
       //approval
     sl.registerLazySingleton<SendOtpUsecase>(()=>SendOtpUsecase(sl<ApprovalRepository>()));
     sl.registerLazySingleton<VerifyOtpUsecase>(()=>VerifyOtpUsecase( sl<ApprovalRepository>()));
+    sl.registerLazySingleton<UploadImageToOcrUsecase>(()=>UploadImageToOcrUsecase( sl<ApprovalRepository>()));
 
     //core
     //permission
@@ -225,6 +228,7 @@ sl<ImagePicker>()));
     sl.registerFactory<CalculatePaymentCubit>(()=>CalculatePaymentCubit(sl<CalculatePaymentUseCase>()));
 //approval
     sl.registerFactory<OtpCubit>(()=>OtpCubit(sl<SendOtpUsecase>(), sl<VerifyOtpUsecase>()));
+    sl.registerFactory<OcrCubit>(()=>OcrCubit(sl<UploadImageToOcrUsecase>()));
 
 
  //core

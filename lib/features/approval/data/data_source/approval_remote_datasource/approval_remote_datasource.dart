@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:car_rental/core/error/exceptions.dart';
+import 'package:car_rental/features/approval/data/model/license_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -16,8 +18,7 @@ abstract class ApprovalRemoteDatasource{
 
   Future<String> uploadImage(String filePath);
   Future<String> pickImagePath();
-  //Future<String> recognizeTextFromImage(String imagePath);
-
+  Future<LicenseModel> uploadImageToOcr();
 
 }
 
@@ -76,6 +77,7 @@ ApprovalRemoteDatasourceImpl(this.picker);
 
 @override
 Future<String> uploadImage(String filePath) async {
+    final filePath=await pickImagePath();
     const apiKey='ff546ae7a015175a04a2c5d885be4d39';
   final url = Uri.parse("https://api.imgbb.com/1/upload?key=$apiKey");
   http.MultipartRequest request = http.MultipartRequest('POST', url);
@@ -102,6 +104,38 @@ Future<String> pickImagePath() async {
 
   return image.path;
 }
+Future<LicenseModel> uploadImageToOcr() async {
+
+ final filePath=await pickImagePath();
+
+  var uri = Uri.parse("http://10.0.2.2:8000/ocr-finalize");
+  var request = http.MultipartRequest("POST", uri);
+
+  request.files.add(
+    await http.MultipartFile.fromPath(
+      "file",
+      filePath,
+    ),
+  );
+
+  var response = await request.send();
+
+  if (response.statusCode == 200) {
+    final responseBody = await response.stream.bytesToString();
+    final Map<String, dynamic> json = jsonDecode(responseBody);
+    if (json['status'] == 'success') {
+      final Map<String, dynamic> licenseJson = json['ui_fields'];
+      return LicenseModel.fromJson(licenseJson);
+    } else {
+      debugPrint('${json['status']}');
+      throw ServerException();
+    }
+  }else{
+    throw ServerException();
+
+  }
+  }
+}
 /*
 
 @override
@@ -126,4 +160,3 @@ void dispose() {
 }
 */
 
-}

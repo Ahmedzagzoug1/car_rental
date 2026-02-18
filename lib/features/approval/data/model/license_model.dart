@@ -1,28 +1,31 @@
+import 'package:car_rental/features/approval/domain/entities/license_entity.dart';
+
 class LicenseModel{
   final String fullName ;
   final String country;
   final String expirationDate;
   final String dateOfBirth;
-  final String licenseImageUrl;
   LicenseModel({required this.fullName,required this.country,
-    required this.dateOfBirth, required this.expirationDate,required this.licenseImageUrl});
+    required this.dateOfBirth, required this.expirationDate});
   factory LicenseModel.fromJson(Map<String, dynamic> json) {
     return LicenseModel(
-      fullName: json['fullName'] as String,
+      fullName: json['full_name'] as String,
       country: json['country'] as String,
-      expirationDate: json['expirationDate'] as String,
-      dateOfBirth: json['dateOfBirth'] as String,
-      licenseImageUrl: json['licenseImageUrl'] as String,
+      expirationDate: json['expiration_date'] as String,
+      dateOfBirth: json['date_of_birth'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'fullName': fullName,
+      'full_name': fullName,
       'country': country,
-      'expirationDate': expirationDate,
-      'dateOfBirth': dateOfBirth,
-      'licenseImageUrl': licenseImageUrl,
+      'expiration_date': expirationDate,
+      'date_of_birth': dateOfBirth,
     };
+  }
+  LicenseEntity toDomain(){
+    return LicenseEntity(fullName: fullName, country: country,
+        dateOfBirth:dateOfBirth , expirationDate: expirationDate);
   }
 }

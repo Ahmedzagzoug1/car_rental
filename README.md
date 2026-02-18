@@ -7,6 +7,29 @@ The application simulates a full car rental flow, focusing on architecture quali
 This project demonstrates strong understanding of **Flutter architecture**, **role-based logic**, and **real-world app flows**, while keeping the payment layer mocked (UI only).
 
 ---
+## Screenshots
+
+### Home Screen
+![Home](screen_shots/images/home.png)
+
+### Car Details
+![Car Details](screen_shots/images/car_details.png)
+
+### Location Selection
+![Location](screen_shots/images/location.png)
+
+### Request Booking
+![Request Booking](screen_shots/images/request_booking.png)
+
+### Time Selection
+![Time Selection](screen_shots/images/time_selecting.png)
+
+---
+
+## Demo Video
+[![Watch Video](screen_shots/thumbnails/video_demo.png)](https://youtube.com/shorts/V5OSkzx9zUk?feature=share)
+
+---
 
 ##  Architecture
 The project follows **Clean Architecture** with a clear separation of concerns:
