@@ -9,7 +9,7 @@ class UploadProfilePhotoUsecase {
 
   UploadProfilePhotoUsecase(this.repo);
 
-  Future<Either<Failure, String>> call(String filePath) {
-    return repo.uploadProfilePhoto(filePath:filePath);
+  Future<Either<Failure, String>> call() {
+    return repo.uploadProfilePhoto();
   }
 }

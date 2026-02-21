@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission_status.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../domain/entities/app_permission.dart';
@@ -16,7 +19,19 @@ class PermissionRepositoryImpl implements PermissionRepository {
         break;
 
       case AppPermission.storage:
-        status = await Permission.storage.request();
+        if (Platform.isAndroid) {
+          final androidInfo = await DeviceInfoPlugin().androidInfo;
+
+          // API 33 is Android 13
+          if (androidInfo.version.sdkInt >= 33) {
+            status = await Permission.photos.request();
+          } else {
+            status = await Permission.storage.request();
+          }
+        } else {
+          //ios or others
+          status = await Permission.storage.request();
+        }
         break;
       case AppPermission.location:
         status = await Permission.location.request();

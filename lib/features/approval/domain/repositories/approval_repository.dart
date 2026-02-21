@@ -10,7 +10,7 @@ abstract class ApprovalRepository{
   Future<Either<Failure, Unit>> sendOtp({
     required String phoneNumber,
   });
-  Future<Either<Failure, String>> uploadProfilePhoto({required String filePath});
+  Future<Either<Failure, String>> uploadProfilePhoto();
   Future<Either<Failure,String>> getFromGallery();
   Future<Either<Failure,LicenseEntity>> uploadImageToOcr();
 }
