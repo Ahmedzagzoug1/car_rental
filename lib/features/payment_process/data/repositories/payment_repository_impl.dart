@@ -1,32 +1,34 @@
+import 'package:car_rental/core/error/failures.dart';
+import 'package:car_rental/features/payment_process/data/data_source/payment_remote_data_source.dart';
+import 'package:car_rental/features/payment_process/data/model/payment_request_model.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_request_entity.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_response_entity.dart';
 import 'package:car_rental/features/payment_process/domain/repositories/payment_repository.dart';
+import 'package:dartz/dartz.dart';
+import '../../../../core/error/exceptions.dart';
 
-import '../../domain/entities/payment_result.dart';
 
 class PaymentRepositoryImpl implements PaymentRepository {
+  final PaymentRemoteDataSource remoteDataSource;
+
+  PaymentRepositoryImpl({required this.remoteDataSource});
+
   @override
-  Future<PaymentResult> executePayment(String userId, String paymentMethod) async {
+  Future<Either<Failure, PaymentResponseEntity>> getPaymentUrl(PaymentRequestEntity request) async {
     try {
-      if(paymentMethod == "credit_card") {
-        // call your Payment Gateway SDK
-    /*    bool success = await CreditCardGateway.charge(userId);
-        return PaymentResult(
-            success: success,
-            message: success ? "Payment successful" : "Payment failed"
-        );*/
-      }
+      // 1. تحويل الـ Entity لـ Model باستخدام الـ factory اللي إنت عملته
+      final requestModel = PaymentRequestModel.fromEntity(request);
 
-      if(paymentMethod == "fawry") {
-/*        bool success = await FawryGateway.pay(userId);
-        return PaymentResult(
-            success: success,
-            message: success ? "Payment successful" : "Payment failed"
-        );*/
-      }
+      final responseModel = await remoteDataSource.getPaymentKeys(requestModel);
 
-      return PaymentResult(success: false, message: "Payment method not supported");
-
-    } catch(e) {
-      return PaymentResult(success: false, message: e.toString());
+      return Right(responseModel.toEntity());
+      
+    } on ServerException {
+      return const Left(ServerFailure());
+    } on InvalidInputException {
+      return const Left(NotFoundFailure());
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
     }
   }
 }
