@@ -1,6 +1,7 @@
-import 'package:car_rental/features/approval/domain/entities/scan_source.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission.dart';
+import 'package:car_rental/core/shared_components/permissions/presentation/cubits/permission_cubit/permission_cubit.dart';
+import 'package:car_rental/features/approval/domain/entities/image_source.dart';
 import 'package:car_rental/features/approval/presentation/cubits/ocr_cubit/ocr_cubit.dart';
-import 'package:car_rental/features/approval/presentation/widgets/choice_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 class ScanLicenseButton extends StatelessWidget {
@@ -10,19 +11,9 @@ class ScanLicenseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final source = await showDialog<ScanSource>(
-          context: context,
-          builder: (_) => const ChoiceDialog(),
-        );
 
-        if (source == ScanSource.camera) {
-          /*   Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (_) => const SmartQrScanner(),
-            ),
-            );*/
-        } else if (source == ScanSource.gallery) {
+        ImageSource? imageSource=await  showImageSourceDialog(context);
+        if(imageSource==ImageSource.gallery){
           context.read<OcrCubit>().uploadImageToOcr();
         }
       },
@@ -51,6 +42,58 @@ class ScanLicenseButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+  Future<ImageSource?> showImageSourceDialog(BuildContext context) {
+    return showDialog<ImageSource>(
+      context: context,
+      builder: (context) {
+        return BlocListener<PermissionCubit, PermissionState>(
+          listener: (context, state) {
+            if (state is PermissionGranted) {
+              if (state.permission == AppPermission.camera) {
+                Navigator.of(context).pop(ImageSource.camera);
+              } else if (state.permission == AppPermission.storage) {
+                Navigator.of(context).pop(ImageSource.gallery);
+              }
+            }
+
+            if (state is PermissionDenied) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Permission is required'),
+                ),
+              );
+            }
+
+            if (state is PermissionPermanentlyDenied) {
+              context.read<PermissionCubit>().openAppSettingsUseCase();
+            }
+          },
+          child: AlertDialog(
+            title: const Text('Choose scan source'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.camera_alt),
+                  title: const Text('Camera'),
+                  onTap: () {
+                    context.read<PermissionCubit>().request(AppPermission.camera);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.photo),
+                  title: const Text('Gallery'),
+                  onTap: () {
+                    context.read<PermissionCubit>().request(AppPermission.storage);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

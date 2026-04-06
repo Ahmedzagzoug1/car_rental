@@ -10,13 +10,9 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/services/service_locators.dart';
 abstract class ApprovalRemoteDatasource{
-  Future< String> SendOtp({required String phoneNumber});
-  Future< Unit> verifyPhoneCode({
-    required String verificationId,
-    required String smsCode,
-  });
-
-  Future<String> uploadImage(String filePath);
+  Future<bool> sendWhatsAppOTP({required String phoneNumber});
+  Future<bool> verifyMyCustomCode({required String userEnteredCode});
+  Future<String> uploadImage();
   Future<String> pickImagePath();
   Future<LicenseModel> uploadImageToOcr();
 
@@ -76,7 +72,7 @@ ApprovalRemoteDatasourceImpl(this.picker);
   }
 
 @override
-Future<String> uploadImage(String filePath) async {
+Future<String> uploadImage() async {
     final filePath=await pickImagePath();
     const apiKey='ff546ae7a015175a04a2c5d885be4d39';
   final url = Uri.parse("https://api.imgbb.com/1/upload?key=$apiKey");
@@ -88,12 +84,15 @@ Future<String> uploadImage(String filePath) async {
 
   if (response.statusCode == 200) {
 
-     String url=data['url'] ??'';
+     String url=data['data']['url'] ??'';
     return url;
   } else {
     throw ImageNotUploadException();
   }
 }
+
+
+
 @override
 Future<String> pickImagePath() async {
   final image = await picker.pickImage(source: ImageSource.gallery);
@@ -135,28 +134,30 @@ Future<LicenseModel> uploadImageToOcr() async {
 
   }
   }
+Future<bool> sendWhatsAppOTP({required String phoneNumber}) async {
+  final url = Uri.parse('http://10.0.2.2:3000/send-otp');
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "phoneNumber": phoneNumber,
+        "message": "كود التحقق الخاص بك هو: 5544" // سنقوم بجعل السيرفر يولد هذا الرقم تلقائياً لاحقاً
+      }),
+    );
+
+    return response.statusCode == 200;
+  } catch (e) {
+    print("Error: $e");
+    return false;
+  }
 }
-/*
 
-@override
-Future<String> recognizeTextFromImage(String imagePath) async {
-try{
-
- final inputImage = InputImage.fromFilePath(imagePath);
-
-  final RecognizedText recognizedText =
-  await _textRecognizer.processImage(inputImage);
-
-  return recognizedText.text;
-
-}catch(e){
-  throw OcrProcessingException();
+// 2. دالة التحقق من الكود (بديلة لـ verifyPhoneCode)
+  Future<bool> verifyMyCustomCode({required String userEnteredCode}) async {
+    // هنا سنرسل الكود الذي أدخله المستخدم للسيرفر ليتأكد إذا كان صح أم خطأ
+    // (سنحتاج لكتابة Endpoint جديد في Node.js لهذا الغرض)
+    return true;
+  }
 }
-
-}
-
-void dispose() {
-  _textRecognizer.close();
-}
-*/
-

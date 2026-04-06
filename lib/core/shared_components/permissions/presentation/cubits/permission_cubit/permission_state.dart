@@ -14,8 +14,11 @@ class PermissionLoading extends PermissionState {
 }
 
 class PermissionGranted extends PermissionState {
+  final AppPermission permission;
+
+  PermissionGranted({required this.permission});
   @override
-List<Object> get props => [];}
+List<Object> get props => [permission];}
 
 class PermissionDenied extends PermissionState {
   @override

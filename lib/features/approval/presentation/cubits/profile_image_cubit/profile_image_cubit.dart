@@ -9,12 +9,12 @@ class ProfileImageCubit extends Cubit<ProfileImageState> {
 
   ProfileImageCubit({required this.uploadProfilePhotoUsecase}) : super(ProfileImageInitial());
 
-  Future<void> uploadImage(String filePath) async {
+  Future<void> uploadImage() async {
     try {
       emit(ProfileImageLoading());
-      final uploadImage = await uploadProfilePhotoUsecase(filePath);
+      final uploadImage = await uploadProfilePhotoUsecase();
       uploadImage.fold((failure)=>emit(ProfileImageFailure(failure)),
-          (sucess)=>emit(ProfileImageloaded(sucess)));
+          (imageUrl)=>emit(ProfileImageloaded(imageUrl)));
     } catch (e) {
       emit(ProfileImageFailure(e.toString()));
     }

@@ -19,7 +19,7 @@ class PermissionCubit extends Cubit<PermissionState> {
 
     switch (status) {
       case AppPermissionStatus.granted:
-        emit(PermissionGranted());
+        emit(PermissionGranted(permission: permission));
         break;
 
       case AppPermissionStatus.denied:

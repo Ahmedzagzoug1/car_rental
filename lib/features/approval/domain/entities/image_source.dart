@@ -1,4 +1,4 @@
-enum ScanSource {
+enum ImageSource {
   camera,
   gallery,
 }

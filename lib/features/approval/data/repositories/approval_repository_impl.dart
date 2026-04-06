@@ -10,24 +10,21 @@ class ApprovalRepositoryImpl implements ApprovalRepository{
   final ApprovalRemoteDatasource approvalRemoteDatasource;
 
   ApprovalRepositoryImpl({required this.approvalRemoteDatasource});
-  late final String verificationId;
   @override
   Future<Either<Failure, Unit>> sendOtp({required String phoneNumber})async {
     try {
-      verificationId =
-      await approvalRemoteDatasource.SendOtp(phoneNumber: phoneNumber);
+
+      await approvalRemoteDatasource.sendWhatsAppOTP(phoneNumber: phoneNumber);
       return const Right(unit);
-    }on FirebaseAuthException {
-      return const Left(AuthFailure());
-    }on ServerException{
+    }on  ServerException{
     return const Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, String>> uploadProfilePhoto({required String filePath}) async{
+  Future<Either<Failure, String>> uploadProfilePhoto() async{
     try {
-   final String url=   await approvalRemoteDatasource.uploadImage(filePath);
+   final String url=   await approvalRemoteDatasource.uploadImage();
       return Right(url);
     }on ServerException{
       return const Left(ServerFailure());
@@ -38,9 +35,9 @@ class ApprovalRepositoryImpl implements ApprovalRepository{
   @override
   Future<Either<Failure, bool>> verifyOtp({required String otp}) async {
     try {
-      await approvalRemoteDatasource.verifyPhoneCode(
-          verificationId: verificationId, smsCode: otp);
-      return const Right(true);
+        final bool isSuccess=    await approvalRemoteDatasource.verifyMyCustomCode(
+          userEnteredCode:  otp);
+      return  Right(isSuccess);
     }on FirebaseAuthException {
       return const Left(AuthFailure());
     }on ServerException{
