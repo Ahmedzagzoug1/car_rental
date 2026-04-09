@@ -57,12 +57,12 @@ class CarsRepositoryImplement implements CarsRepository {
   }
 
   bool _isTTLFinished(int savedTimestamp) {
-    const int CACHE_DURATION_IN_HOURS = 2;
+    const int cacheDurationInHours = 2;
 
     final now = DateTime
         .now()
         .millisecondsSinceEpoch;
-    final duration = CACHE_DURATION_IN_HOURS * 60 * 60 * 1000;
+    const duration = cacheDurationInHours * 60 * 60 * 1000;
     return (now - savedTimestamp) > duration;
   }
 }

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../core/shared_components/shared_widgets/display_time_and_date.dart' show DisplayTimeAndDate;
-import '../../../domain/entities/time_entity.dart';
-import '../../cubit/time_cubit/time_cubit.dart';
+import 'package:car_rental/core/shared_components/shared_widgets/display_time_and_date.dart' show DisplayTimeAndDate;
+import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
+import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
 
 class SelectTime extends StatelessWidget {
   const SelectTime({super.key});

@@ -123,7 +123,6 @@ initDate();
                       currentDay.isAfter(pickupDate!) &&
                       currentDay.isBefore(returnDate!);
 
-                 ;
                   Color backgroundColor = Colors.transparent;
                   Color textColor = Colors.black;
                   BoxBorder? border;

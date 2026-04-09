@@ -27,7 +27,7 @@ class LicenseForm extends StatelessWidget {
           }
           if(state is OcrFailure){
            ScaffoldMessenger.of(context).showSnackBar(
-               SnackBar(content: Text('sorry, the ocr cannot work. please try again or fill the fields '))) ;
+               const SnackBar(content: Text('sorry, the ocr cannot work. please try again or fill the fields '))) ;
           }
           },
       builder: (context, state) {

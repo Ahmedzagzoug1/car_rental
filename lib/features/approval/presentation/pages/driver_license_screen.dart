@@ -8,7 +8,7 @@ import 'package:car_rental/features/approval/presentation/widgets/scan_license_b
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/entities/image_source.dart';
+import 'package:car_rental/features/approval/domain/entities/image_source.dart';
 
 class DriverLicenseScreen extends StatelessWidget {
   const DriverLicenseScreen({super.key});

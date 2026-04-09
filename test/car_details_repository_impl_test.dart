@@ -27,7 +27,7 @@ void main() {
       carDetailsLocalDataSource: mockLocalDataSource,
     );
   });
-  final tCarId = '123';
+  const tCarId = '123';
   final tHostModel = HostModel(name: 'Ahmed',
 
         starHost: 'Top Host',
@@ -40,9 +40,9 @@ void main() {
       );
      final tCarModel= CarDetailsModel(id: '123', name: 'car123', pricePerHour: 1500, rate: 4.5,
          trips: 10, imagesUrl: [ 'https://example.com/image.png', 'https://example.com/image.png']) ;
-  final  tLocationsList= [PickupLocationModel(title:  'Cairo Airport',
+  final  tLocationsList= [const PickupLocationModel(title:  'Cairo Airport',
       subtitle:  'Terminal 3', price: 150.0, lat: 30.121, lng: 31.405),
-    PickupLocationModel(title:  'Cairo Airport',
+    const PickupLocationModel(title:  'Cairo Airport',
         subtitle:  'Terminal 3', price: 150.0, lat: 30.121, lng: 31.405)] ;
 
 

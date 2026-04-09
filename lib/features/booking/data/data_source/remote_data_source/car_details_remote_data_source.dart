@@ -6,7 +6,7 @@ import 'package:car_rental/features/booking/data/model/pickup_location_model.dar
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../core/services/service_locators.dart';
+import 'package:car_rental/core/services/service_locators.dart';
 
 abstract class CarDetailsRemoteDataSource{
   Future<HostModel> getHost(carId);
@@ -18,6 +18,7 @@ class CarDetailsRemoteDataSourceImpl implements CarDetailsRemoteDataSource {
 
   CarDetailsRemoteDataSourceImpl({required  this.firebaseFirestore});
 
+  @override
   Future<HostModel> getHost( carId) async {
   try {
     final carDoc= await getCar(carId);

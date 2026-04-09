@@ -6,8 +6,8 @@ import 'package:car_rental/features/home/domain/repositories/brand_repository.da
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../data_source/local_data_source/brands_local_data_source.dart';
-import '../data_source/remote_data_source/brands_remote_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/local_data_source/brands_local_data_source.dart';
+import 'package:car_rental/features/home/data/data_source/remote_data_source/brands_remote_data_source.dart';
 
 class BrandRepositoryImplement implements BrandRepository{
  final BrandRemoteDataSource brandRemoteDataSource;
@@ -31,7 +31,7 @@ class BrandRepositoryImplement implements BrandRepository{
       debugPrint('Returning remote brands: ${remoteBrands.length}');
       return Right(remoteBrands.map((e) => e.toEntity()).toList());
 
-    } catch (e, st) {
+    } catch (e) {
       debugPrint('Error in getBrands: $e');
       // fallback to cache if any
       try {

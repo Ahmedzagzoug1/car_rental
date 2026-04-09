@@ -1,5 +1,7 @@
-import '../entities/payment_result.dart';
+import 'package:car_rental/core/error/failures.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_response_entity.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_type.dart';
 
+import 'package:dartz/dartz.dart';
 abstract class PaymentRepository {
-  Future<PaymentResult> executePayment(String userId, String paymentMethod);
-}
+Future<Either<Failure, PaymentResponseEntity>> getPaymentUrl(PaymentType paymentType);}

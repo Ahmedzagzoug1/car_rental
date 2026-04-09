@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<CarsHomeCubit, CarsHomeState>(
   builder: (context, state) {
    if (state is CarsHomeLoading){
-      return LoadingPage();
+      return const LoadingPage();
     }else{
  return   Scaffold(
           floatingActionButton: FloatingActionButton(

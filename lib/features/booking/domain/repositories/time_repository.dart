@@ -1,6 +1,6 @@
 import 'package:car_rental/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
-import '../entities/time_entity.dart';
+import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 
 abstract class TimeRepository {
   Future<Either<Failure, Unit>> saveTime(TimeEntity time);

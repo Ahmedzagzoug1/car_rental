@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../core/utils/timestamp_converter.dart';
+import 'package:car_rental/core/utils/timestamp_converter.dart';
 part 'host_model.g.dart';
 @HiveType(typeId: HiveTypeIds.host)
 @JsonSerializable()

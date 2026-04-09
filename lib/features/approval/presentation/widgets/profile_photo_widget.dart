@@ -28,7 +28,7 @@ class ProfilePhotoWidget extends StatelessWidget {
                   color: Colors.grey[200],
                   shape: BoxShape.circle,
                 ),
-                child:(state.imageUrl == null || state.imageUrl.isEmpty) ?
+                child:(state.imageUrl.isEmpty) ?
                 Icon(
                     Icons.person,
                     size: 80,

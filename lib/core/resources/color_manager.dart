@@ -13,7 +13,7 @@ class ColorManager {
   static Color red =  Colors.red;
   static Color timerBackground =  const Color(0xFFF8F8F8);
   static Color midGray =  const Color(0xFF777777);
-  static  Color midGray50 = Color(0xF4777777);
+  static  Color midGray50 = const Color(0xF4777777);
 
   static Color lightSilver =  const Color(0xFFD9D9D9);
   static Color emeraldGreen =  const Color(0xFF32D34B);

@@ -15,7 +15,7 @@ class CarDetailsEntity extends Equatable{
   final HostEntity? host;
   final List<PickupLocationEntity>? locations;
 
-  CarDetailsEntity({
+  const CarDetailsEntity({
     required this.id,
     required this.name,
     required this.pricePerHour,

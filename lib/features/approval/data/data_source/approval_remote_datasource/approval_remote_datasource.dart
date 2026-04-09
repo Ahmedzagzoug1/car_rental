@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../core/services/service_locators.dart';
+import 'package:car_rental/core/services/service_locators.dart';
 abstract class ApprovalRemoteDatasource{
   Future<bool> sendWhatsAppOTP({required String phoneNumber});
   Future<bool> verifyMyCustomCode({required String userEnteredCode});
@@ -103,7 +103,8 @@ Future<String> pickImagePath() async {
 
   return image.path;
 }
-Future<LicenseModel> uploadImageToOcr() async {
+@override
+  Future<LicenseModel> uploadImageToOcr() async {
 
  final filePath=await pickImagePath();
 
@@ -134,7 +135,8 @@ Future<LicenseModel> uploadImageToOcr() async {
 
   }
   }
-Future<bool> sendWhatsAppOTP({required String phoneNumber}) async {
+@override
+  Future<bool> sendWhatsAppOTP({required String phoneNumber}) async {
   final url = Uri.parse('http://10.0.2.2:3000/send-otp');
 
   try {
@@ -155,6 +157,7 @@ Future<bool> sendWhatsAppOTP({required String phoneNumber}) async {
 }
 
 // 2. دالة التحقق من الكود (بديلة لـ verifyPhoneCode)
+  @override
   Future<bool> verifyMyCustomCode({required String userEnteredCode}) async {
     // هنا سنرسل الكود الذي أدخله المستخدم للسيرفر ليتأكد إذا كان صح أم خطأ
     // (سنحتاج لكتابة Endpoint جديد في Node.js لهذا الغرض)

@@ -36,8 +36,9 @@ class CarDetailsRepositoryImpl implements CarDetailsRepository{
   final locationsListModel = results[1] as List<PickupLocationModel>;
   final HostEntity hostEntity=hostModel.toDomain();
   final  locationsListEntity=locationsListModel.map((locationsListModel)=>locationsListModel.toDomain()).toList();
-if(locationsListEntity.isEmpty)
+if(locationsListEntity.isEmpty) {
   throw Exception();
+}
   // 3. Map to Domain Entity
   return Right(carModel!.toDomain(hostEntity, locationsListEntity));
   } catch (e,stackTrace) {

@@ -1,4 +1,3 @@
-import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 class PaymentDetailRow extends StatelessWidget {
   final String label;

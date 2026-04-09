@@ -13,8 +13,9 @@ PaymentRequestModel _$PaymentRequestModelFromJson(Map<String, dynamic> json) =>
       lastName: json['lastName'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      city: json['city'] as String,
-      country: json['country'] as String,
+      city: json['city'] as String?,
+      country: json['country'] as String?,
+      paymentType: json['paymentType'] as String,
     );
 
 Map<String, dynamic> _$PaymentRequestModelToJson(
@@ -27,4 +28,5 @@ Map<String, dynamic> _$PaymentRequestModelToJson(
       'phoneNumber': instance.phoneNumber,
       'city': instance.city,
       'country': instance.country,
+      'paymentType': instance.paymentType,
     };

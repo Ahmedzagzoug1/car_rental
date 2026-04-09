@@ -13,13 +13,14 @@ import 'package:car_rental/features/host/presentation/view/pages/host_car_detail
 import 'package:car_rental/features/host/presentation/view/pages/host_home_page.dart';
 import 'package:car_rental/features/host/presentation/view/pages/host_profile.dart';
 import 'package:car_rental/features/payment_process/presentation/view/pages/payment_options_page.dart';
+import 'package:car_rental/features/payment_process/presentation/view/pages/payment_web_view.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:car_rental/features/home/presentation/view/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/booking/presentation/view/pages/selected_time.dart';
+import 'package:car_rental/features/booking/presentation/view/pages/selected_time.dart';
 
 
 class AppRouter {
@@ -39,6 +40,7 @@ class AppRouter {
   static const String approvedPage = '/approvedPage';
   static const String profilePhotoPage = '/profilePhotoPage';
   static const String otpPage = '/otpPage';
+    static const String webViewRoute = '/webViewRoute';
   static const String driverLicense = '/driverLicense';
   static const String smartQrScanner = '/smartQrScanner';
 
@@ -95,6 +97,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const DriverLicenseScreen());
       case otpPage:
         return MaterialPageRoute(builder: (_) => const OtpPage());
+        case webViewRoute:
+        final url = settings.arguments as String;
+        return MaterialPageRoute(builder: (_) => PaymentWebView(url: url));
       default:
         return MaterialPageRoute(builder: (_) =>
      const   Scaffold(

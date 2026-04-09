@@ -3,7 +3,7 @@ class ErrorPage extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
 
-  const ErrorPage({required this.message, required this.onRetry});
+  const ErrorPage({super.key, required this.message, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ErrorPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(message),
-            ElevatedButton(onPressed: onRetry, child: Text("try another time")),
+            ElevatedButton(onPressed: onRetry, child: const Text("try another time")),
           ],
         ),
       ),

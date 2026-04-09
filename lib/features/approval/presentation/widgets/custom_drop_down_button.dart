@@ -11,7 +11,7 @@ class CustomDropDownButton extends StatelessWidget {
       child: DropdownButton<String>(
         isExpanded: true,
         value:mapOcrToDropdown(ocrCountry)??'select country',
-        hint: Text(hintText, style: TextStyle(color: Colors.grey)),
+        hint: Text(hintText, style: const TextStyle(color: Colors.grey)),
         icon: const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
         onChanged:onChanged,
         items: <String>['US', 'Eg', 'GB','select country']

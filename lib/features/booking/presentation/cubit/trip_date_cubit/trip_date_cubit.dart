@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 part 'trip_date_state.dart';
 

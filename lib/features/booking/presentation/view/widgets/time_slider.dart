@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class TimeSlider extends StatelessWidget {
   final String label, time;
   final Function(double) onChanged;
-  const TimeSlider({required this.label, required this.time, required this.onChanged});
+  const TimeSlider({super.key, required this.label, required this.time, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class TimeSlider extends StatelessWidget {
         children: [
           Text(label, style: Theme.of(context).textTheme.bodyMedium),
           SliderTheme(
-            data: SliderThemeData(thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10)),
+            data: const SliderThemeData(thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10)),
             child: Slider(
               value: parseTimeToDouble(time),
               max: 95,

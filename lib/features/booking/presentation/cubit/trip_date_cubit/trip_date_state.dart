@@ -12,12 +12,12 @@ abstract class TripDateState extends Equatable {
 }
 
 class TripDateInitial extends TripDateState {
-  TripDateInitial(super.timeEntity, {super.rangeStart, super.rangeEnd});
+  const TripDateInitial(super.timeEntity, {super.rangeStart, super.rangeEnd});
 }
 
 class TripDateChanged extends TripDateState {
-  TripDateChanged(super.timeEntity, {super.rangeStart, super.rangeEnd});
+  const TripDateChanged(super.timeEntity, {super.rangeStart, super.rangeEnd});
 }
 class TripDateSaved extends TripDateState{
-  TripDateSaved(super.timeEntity);
+  const TripDateSaved(super.timeEntity);
 }

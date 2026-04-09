@@ -2,10 +2,10 @@ import 'package:car_rental/features/auth/domain/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../core/error/failures.dart';
-import '../../data/models/user_model.dart';
-import '../../domain/repositories/auth_repository.dart';
-import '../data_sources/remote_data_source/auth_remote_data_source.dart';
+import 'package:car_rental/core/error/failures.dart';
+import 'package:car_rental/features/auth/data/models/user_model.dart';
+import 'package:car_rental/features/auth/domain/repositories/auth_repository.dart';
+import 'package:car_rental/features/auth/data/data_sources/remote_data_source/auth_remote_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;

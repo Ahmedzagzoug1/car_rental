@@ -5,8 +5,8 @@ import 'package:car_rental/features/booking/data/model/pickup_location_model.dar
 import 'package:car_rental/features/booking/data/model/time_model.dart';
 import 'package:car_rental/features/home/data/models/brand_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'hive_adapters.dart';
-import 'hive_config.dart';
+import 'package:car_rental/core/cache/hive/hive_adapters.dart';
+import 'package:car_rental/core/cache/hive/hive_config.dart';
 
 
 Future<void> initHive() async {

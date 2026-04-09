@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 class PaymentResponseEntity extends Equatable {
   final String? iframeUrl;
   final String? token;
-  final String? orderId;
+  final int? orderId;
   final String? paymentType;
   final String? redirectUrl;
 
-  PaymentResponseEntity({
+  const PaymentResponseEntity({
      this.iframeUrl,
      this.token,
     this.orderId,

@@ -49,7 +49,7 @@ class BookingCubit extends Cubit<BookingState> {
         if (timeState is! TripDateChanged) missing.add("Time");
         if (locState is! SelectedLocation) missing.add("Location");
         if (carState is! CarDetailsLoaded) missing.add("Car Details");
-debugPrint('${timeState.toString()}');
+debugPrint(timeState.toString());
         emit(BookingFailure("Please complete: ${missing.join(', ')}"));
       }
     } catch (e) {

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/usecases/calculate_payment_usecase.dart';
+import 'package:car_rental/features/booking/domain/usecases/calculate_payment_usecase.dart';
 
 part '../calculate_payment_cubit/calculate_payment_state.dart';
 

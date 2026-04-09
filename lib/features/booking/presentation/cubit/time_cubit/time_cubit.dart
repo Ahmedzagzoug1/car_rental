@@ -7,8 +7,8 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../core/services/service_locators.dart';
-import '../../../domain/repositories/time_repository.dart';
+import 'package:car_rental/core/services/service_locators.dart';
+import 'package:car_rental/features/booking/domain/repositories/time_repository.dart';
 
 part 'time_state.dart';
 

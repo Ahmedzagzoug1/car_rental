@@ -1,13 +1,16 @@
-import '../entities/payment_result.dart';
-import '../repositories/payment_repository.dart';
+import 'package:car_rental/core/error/failures.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_response_entity.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_type.dart';
+import 'package:dartz/dartz.dart';
 
-class ExecutePayment {
+import 'package:car_rental/features/payment_process/domain/repositories/payment_repository.dart';
+
+class GetPaymentUsecase {
   final PaymentRepository paymentRepository;
 
-  ExecutePayment(this.paymentRepository);
+  GetPaymentUsecase(this.paymentRepository);
 
-  Future<PaymentResult> call(String userId, String paymentMethod) async {
-    // هنا ممكن نضيف شروط اضافية قبل الدفع لو حبيت
-    return await paymentRepository.executePayment(userId, paymentMethod);
+ Future<Either<Failure, PaymentResponseEntity>> call(PaymentType paymentType) async {
+    return await paymentRepository.getPaymentUrl(paymentType);
   }
 }

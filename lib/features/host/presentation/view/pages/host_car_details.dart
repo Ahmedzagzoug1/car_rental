@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../booking/presentation/cubit/host_cubit/host_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 
 
 class HostCarDetails extends StatelessWidget {
@@ -10,7 +10,7 @@ class HostCarDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
     );
     /*
 return BlocBuilder<HostCubit,HostState>(builder: (context,state){

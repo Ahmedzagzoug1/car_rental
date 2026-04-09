@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
-import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
-import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
