@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../cubit/location_cubit/location_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({super.key});

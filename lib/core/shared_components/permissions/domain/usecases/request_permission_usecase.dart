@@ -1,6 +1,6 @@
-import '../entities/app_permission.dart';
-import '../entities/app_permission_status.dart';
-import '../repositories/permission_repository.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission_status.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/repositories/permission_repository.dart';
 
 class RequestPermissionUseCase {
   final PermissionRepository repository;

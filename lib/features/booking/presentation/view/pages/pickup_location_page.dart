@@ -12,7 +12,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:car_rental/core/resources/color_manager.dart';
 import 'package:car_rental/core/resources/value_manager.dart';
 
-import '../../cubit/booking_cubit/booking_cubit.dart';
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 
 class PickUpLocationPage extends StatefulWidget {
   const PickUpLocationPage({super.key});
@@ -201,7 +201,7 @@ class _PickUpLocationPageState extends State<PickUpLocationPage> {
       
           );
     }else if(state is LocationLoading || state is CarDetailsInitial){
-      return LoadingPage(message: 'please wait until loading map');
+      return const LoadingPage(message: 'please wait until loading map');
   }else{
       return  ErrorPage(message: 'there are an error', onRetry: (){
 Navigator.pop(context);

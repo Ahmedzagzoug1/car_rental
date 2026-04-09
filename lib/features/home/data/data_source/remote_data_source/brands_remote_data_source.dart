@@ -9,6 +9,7 @@ abstract class BrandRemoteDataSource {
 class  BrandRemoteDataSourceImpl implements BrandRemoteDataSource{
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  @override
   Future<List<BrandModel>> getBrands() async {
     debugPrint('start get branding----');
     try {

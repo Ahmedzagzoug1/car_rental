@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/payment_detail_row.dart';
+import 'package:car_rental/features/booking/presentation/view/widgets/payment_detail_row.dart';
    class BookingReviewPage extends StatefulWidget {
 
 
@@ -118,17 +118,17 @@ class _RequestBookState extends State<BookingReviewPage> {
             const RSizedBox(height: 12), Container(
               color: ColorManager.charcoalBlack05,
               child:
-              Padding(padding: EdgeInsets.all(16),
+              Padding(padding: const EdgeInsets.all(16),
                 child: Column(
 
                 children: [
                   PaymentDetailRow(
-                    label: '\$${carEntity?. pricePerHour.toStringAsFixed(2)} x ${carEntity
-                        ?.trips} days',
-                    value: '\$${carEntity?.pricePerHour.toStringAsFixed(2)}',
+                    label: '\$${carEntity. pricePerHour.toStringAsFixed(2)} x ${carEntity
+                        .trips} days',
+                    value: '\$${carEntity.pricePerHour.toStringAsFixed(2)}',
                   ),
                   PaymentDetailRow(label: 'Trip fee',
-                      value: '\$${carEntity?.pricePerHour.toStringAsFixed(2)}'),
+                      value: '\$${carEntity.pricePerHour.toStringAsFixed(2)}'),
                    PaymentDetailRow(
                       label: 'Discount', value: '-'),
                   const RPadding(
@@ -139,7 +139,7 @@ class _RequestBookState extends State<BookingReviewPage> {
                     label: 'Total Amount',
                     labelStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: ColorManager.black),
                     valueStyle: Theme.of(context).textTheme.headlineLarge,
-                    value: '\$${carEntity?.pricePerHour.toStringAsFixed(2)}',
+                    value: '\$${carEntity.pricePerHour.toStringAsFixed(2)}',
 
                   ),
                 ],

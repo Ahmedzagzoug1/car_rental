@@ -11,7 +11,7 @@ import 'package:car_rental/core/resources/value_manager.dart';
 
 class HostDetails extends StatelessWidget {
   final HostEntity hostEntity;
-  HostDetails({super.key, required this.hostEntity});
+  const HostDetails({super.key, required this.hostEntity});
 
 
   @override

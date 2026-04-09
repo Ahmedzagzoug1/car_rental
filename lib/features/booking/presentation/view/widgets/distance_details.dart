@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DistanceDetails extends StatelessWidget {
 
-  DistanceDetails({super.key});
+  const DistanceDetails({super.key});
 
   @override
   Widget build(BuildContext context) {

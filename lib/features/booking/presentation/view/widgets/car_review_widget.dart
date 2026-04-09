@@ -41,7 +41,7 @@ class CarReviewWidget extends StatelessWidget {
 
       ],
       ),
-        RSizedBox(height: 8,),
+        const RSizedBox(height: 8,),
         Text('\$ ${car.pricePerHour} /h',style: Theme.of(context).textTheme.headlineLarge, )
 
       ],

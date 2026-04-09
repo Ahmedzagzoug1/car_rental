@@ -3,7 +3,7 @@ import 'package:car_rental/features/approval/domain/usecases/send_otp_usecase.da
 import 'package:car_rental/features/approval/domain/usecases/verify_otp_usecase.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/entities/approval_entity.dart';
+import 'package:car_rental/features/approval/domain/entities/approval_entity.dart';
 
 part 'approval_state.dart';
 

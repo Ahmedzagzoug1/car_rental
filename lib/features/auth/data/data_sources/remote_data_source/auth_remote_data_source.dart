@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../../../../core/services/service_locators.dart';
+import 'package:car_rental/core/services/service_locators.dart';
 
 abstract class AuthRemoteDataSource {
   Future<UserModel> signUpWithEmail({

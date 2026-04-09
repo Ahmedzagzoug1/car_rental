@@ -4,8 +4,8 @@ import 'package:car_rental/core/shared_components/permissions/domain/entities/ap
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../domain/entities/app_permission.dart';
-import '../domain/repositories/permission_repository.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/repositories/permission_repository.dart';
 
 
 class PermissionRepositoryImpl implements PermissionRepository {

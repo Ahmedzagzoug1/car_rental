@@ -3,8 +3,8 @@ import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:car_rental/features/booking/domain/repositories/time_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../data_source/local_data_source/time_local_data_source.dart';
-import '../model/time_model.dart';
+import 'package:car_rental/features/booking/data/data_source/local_data_source/time_local_data_source.dart';
+import 'package:car_rental/features/booking/data/model/time_model.dart';
 
 class BookingTimeRepositoryImpl implements TimeRepository {
   final BookingTimeLocalDataSource localDataSource;

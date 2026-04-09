@@ -7,7 +7,7 @@ import 'package:car_rental/features/auth/presentation/cubits/signup_cubit/signup
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/shared_components/data/models/car_model.dart';
+import 'package:car_rental/core/shared_components/data/models/car_model.dart';
 
 
 class SignupForm extends StatefulWidget {

@@ -52,7 +52,7 @@ void main() {
       final result = await localDataSource.getCachedHost(tCarId);
 
       expect(result, isA<HostModel>());
-      expect(result?.name, 'Ahmed');
+      expect(result.name, 'Ahmed');
     });
 
     test('should throw NotFoundException when cache is empty', () async {

@@ -2,8 +2,8 @@
 import 'package:car_rental/features/home/data/models/car_model.dart';
 import 'package:hive/hive.dart';
 
-import '../../../../../core/error/exceptions.dart';
-import '../../models/brand_model.dart';
+import 'package:car_rental/core/error/exceptions.dart';
+import 'package:car_rental/features/home/data/models/brand_model.dart';
 
 abstract class BrandsLocalDataSource {
   Future<List<BrandModel>> getCachedBrands();

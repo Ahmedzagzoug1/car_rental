@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-import '../../../../../core/routes/app_router.dart';
+import 'package:car_rental/core/routes/app_router.dart';
 class PickupMenu extends StatefulWidget {
   const PickupMenu({super.key});
 

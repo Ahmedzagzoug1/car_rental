@@ -1,7 +1,7 @@
 
 import 'package:car_rental/features/host/domain/entities/host_car_entity.dart';
 
-import '../../../../core/shared_components/data/models/car_model.dart' show CarModel;
+import 'package:car_rental/core/shared_components/data/models/car_model.dart' show CarModel;
 
 extension CarModelMapper on CarModel {
   HostCarEntity toHostEntity() {

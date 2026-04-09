@@ -18,9 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../core/resources/theme_manager.dart';
-import '../core/routes/app_router.dart';
-import '../features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
+import 'package:car_rental/core/resources/theme_manager.dart';
+import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});

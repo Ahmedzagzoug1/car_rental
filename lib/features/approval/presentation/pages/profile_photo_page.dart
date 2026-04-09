@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../core/services/service_locators.dart';
+import 'package:car_rental/core/services/service_locators.dart';
 
 class ProfilePhotoPage extends StatelessWidget {
   const ProfilePhotoPage({super.key});
@@ -40,13 +40,13 @@ class ProfilePhotoPage extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          body: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 16),
-                const Align(
+                SizedBox(height: 16),
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Choose Profile Photo',
@@ -56,8 +56,8 @@ class ProfilePhotoPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Align(
+                SizedBox(height: 8),
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Please provide a clear photo of your face so your hosts can recognize you.',
@@ -67,12 +67,12 @@ class ProfilePhotoPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 48),
+                SizedBox(height: 48),
                 // Profile Photo Circle
-                const ProfilePhotoWidget(),
+                ProfilePhotoWidget(),
 
 
-                const SizedBox(height: 24),
+                SizedBox(height: 24),
               ],
             ),
           ),

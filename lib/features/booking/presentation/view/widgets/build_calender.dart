@@ -2,7 +2,7 @@ import 'package:car_rental/features/booking/domain/entities/time_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/color_manager.dart';
 class BuildCalender extends StatefulWidget {
   final TimeEntity timeEntity;
   const BuildCalender({super.key, required this.timeEntity});

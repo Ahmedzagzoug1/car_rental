@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 class DateColumn extends StatelessWidget {
   final String date, time;
-  const DateColumn({required this.date, required this.time});
+  const DateColumn({super.key, required this.date, required this.time});
 
   @override
   Widget build(BuildContext context) {

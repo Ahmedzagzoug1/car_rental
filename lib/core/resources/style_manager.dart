@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'font_manager.dart';
+import 'package:car_rental/core/resources/font_manager.dart';
 
 TextStyle _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
   return TextStyle(

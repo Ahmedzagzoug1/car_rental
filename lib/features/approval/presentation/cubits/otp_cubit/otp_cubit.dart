@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/usecases/send_otp_usecase.dart';
-import '../../../domain/usecases/verify_otp_usecase.dart';
+import 'package:car_rental/features/approval/domain/usecases/send_otp_usecase.dart';
+import 'package:car_rental/features/approval/domain/usecases/verify_otp_usecase.dart';
 
 part 'otp_state.dart';
 

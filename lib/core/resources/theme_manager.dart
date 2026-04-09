@@ -5,8 +5,8 @@ import 'package:car_rental/core/resources/value_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'color_manager.dart';
-import 'font_manager.dart';
+import 'package:car_rental/core/resources/color_manager.dart';
+import 'package:car_rental/core/resources/font_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(

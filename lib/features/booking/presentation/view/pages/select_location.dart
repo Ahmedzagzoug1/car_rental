@@ -11,8 +11,8 @@ class SelectLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Pickup & Return '),
-        leading: InkWell(child:  Icon(Icons.arrow_back_ios),
+        title: const Text('Select Pickup & Return '),
+        leading: InkWell(child:  const Icon(Icons.arrow_back_ios),
             onTap: (){Navigator.pop(context);}),
         backgroundColor: ColorManager.white,
         elevation: 0,
@@ -22,8 +22,8 @@ class SelectLocation extends StatelessWidget {
           SizedBox(
               height: 204.h,
       
-              child: MapWidget()),
-           PickupMenu(),
+              child: const MapWidget()),
+           const PickupMenu(),
           SizedBox(
             width: double.infinity,
             child: Padding(

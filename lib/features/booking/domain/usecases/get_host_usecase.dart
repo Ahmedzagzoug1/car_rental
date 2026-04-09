@@ -2,7 +2,7 @@ import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/domain/repositories/car_details_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failures.dart';
+import 'package:car_rental/core/error/failures.dart';
 /*
 class GetHostUsecase{
   final CarDetailsRepository carDetailsRepository;

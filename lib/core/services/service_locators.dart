@@ -4,11 +4,17 @@ import 'package:car_rental/features/approval/domain/usecases/upload_profile_phot
 import 'package:car_rental/features/approval/presentation/cubits/ocr_cubit/ocr_cubit.dart';
 import 'package:car_rental/features/approval/presentation/cubits/profile_image_cubit/profile_image_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/trip_date_cubit/trip_date_cubit.dart';
+import 'package:car_rental/features/payment_process/data/data_source/payment_remote_data_source.dart';
+import 'package:car_rental/features/payment_process/data/repositories/payment_repository_impl.dart';
+import 'package:car_rental/features/payment_process/domain/repositories/payment_repository.dart' show PaymentRepository;
+import 'package:car_rental/features/payment_process/domain/usecases/get_payment_usecase.dart';
+import 'package:car_rental/features/payment_process/presentation/cubit/cubit/payment_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 // App Core & Shared
@@ -71,7 +77,6 @@ import 'package:car_rental/features/booking/domain/repositories/time_repository.
 import 'package:car_rental/features/booking/domain/usecases/calculate_payment_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/clear_time_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_car_details.dart';
-import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_pickup_locations_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_time_usecase.dart';
 import 'package:car_rental/features/booking/domain/usecases/get_user_location.dart';
@@ -80,9 +85,7 @@ import 'package:car_rental/features/booking/domain/usecases/save_time_usecase.da
 import 'package:car_rental/features/booking/presentation/cubit/booking_cubit/booking_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/calculate_payment_cubit/calculate_payment_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/car_details_cubit/car_details_cubit.dart';
-import 'package:car_rental/features/booking/presentation/cubit/host_cubit/host_cubit.dart';
 import 'package:car_rental/features/booking/presentation/cubit/location_cubit/location_cubit.dart';
-import 'package:car_rental/features/booking/presentation/cubit/time_cubit/time_cubit.dart';
 
 // Feature: Approval
 import 'package:car_rental/features/approval/data/data_source/approval_remote_datasource/approval_remote_datasource.dart';
@@ -101,6 +104,7 @@ class ServicesLocators{
       sl.registerLazySingleton<FirebaseAuth>(()=> FirebaseAuth.instance);
       sl.registerLazySingleton<FlutterSecureStorage>(()=>const FlutterSecureStorage());
       sl.registerLazySingleton<ImagePicker>(()=> ImagePicker());
+      sl.registerLazySingleton<http.Client>(()=> http.Client());
 
 
 //data layer
@@ -121,6 +125,11 @@ class ServicesLocators{
       //approval
     sl.registerLazySingleton<ApprovalRemoteDatasource>(()=>ApprovalRemoteDatasourceImpl(
 sl<ImagePicker>()));
+
+        //payment
+              sl.registerLazySingleton<PaymentRemoteDataSource>(
+                ()=>PaymentRemoteDataSourceImpl(client: sl<http.Client>()));
+
 
     //local data source
         //home
@@ -164,7 +173,9 @@ sl<ImagePicker>()));
       //approval
     sl.registerLazySingleton<ApprovalRepository>(()=>ApprovalRepositoryImpl(
         approvalRemoteDatasource: sl<ApprovalRemoteDatasource>()));
-
+      //payment
+      sl.registerLazySingleton<PaymentRepository>(
+        ()=>PaymentRepositoryImpl(remoteDataSource: sl<PaymentRemoteDataSource>()));
 
       //core
         //permission
@@ -206,6 +217,10 @@ sl<ImagePicker>()));
     sl.registerLazySingleton<UploadImageToOcrUsecase>(()=>UploadImageToOcrUsecase( sl<ApprovalRepository>()));
     sl.registerLazySingleton<UploadProfilePhotoUsecase>(()=>UploadProfilePhotoUsecase(
         sl<ApprovalRepository>()));
+    //payment
+    sl.registerLazySingleton<GetPaymentUsecase>(
+      ()=>GetPaymentUsecase(sl<PaymentRepository>())
+    );
 
     //core
     //permission
@@ -230,12 +245,13 @@ sl<ImagePicker>()));
     sl.registerFactory<SignupCubit>(()=>SignupCubit(sl<SignUpWithEmailUseCase>()));
     sl.registerFactory<BookingCubit>(()=>BookingCubit());
     sl.registerFactory<CalculatePaymentCubit>(()=>CalculatePaymentCubit(sl<CalculatePaymentUseCase>()));
-//approval
+    //approval
     sl.registerFactory<OtpCubit>(()=>OtpCubit(sl<SendOtpUsecase>(), sl<VerifyOtpUsecase>()));
     sl.registerFactory<OcrCubit>(()=>OcrCubit(sl<UploadImageToOcrUsecase>()));
     sl.registerFactory<ProfileImageCubit>(()=>
         ProfileImageCubit(uploadProfilePhotoUsecase:  sl<UploadProfilePhotoUsecase>()));
-
+      //payment
+    sl.registerFactory<PaymentCubit>(()=>PaymentCubit(sl<GetPaymentUsecase>()));
 
  //core
     //permission

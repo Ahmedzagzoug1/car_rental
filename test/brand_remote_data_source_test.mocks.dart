@@ -1,7 +1,6 @@
 // The following line is needed to import the generated mocks.
 // Replace 'your_test_file_name' with the name of the file where this code is saved.
 // For example: 'brand_remote_data_source_test.mocks.dart'
-import 'brand_remote_data_source_test.mocks.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -11,13 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // First, we create mock classes for the Firestore dependencies.
 // The @GenerateMocks annotation tells the build runner to generate
 // the boilerplate code for these mocks.
-@GenerateMocks([
-  FirebaseFirestore,
-  CollectionReference,
-  QuerySnapshot,
-  QueryDocumentSnapshot,
-])
-import 'brand_remote_data_source_test.mocks.dart';
 import 'brand_remote_data_source_test.mocks.mocks.dart';
 
 // Mock class definitions for our test model and data source.

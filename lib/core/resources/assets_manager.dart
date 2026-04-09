@@ -1,3 +1,5 @@
+import 'package:car_rental/core/utils/card_validators.dart';
+
 const String IMAGE_PATH = "assets/images";
 
 class ImageAssets {
@@ -10,5 +12,12 @@ class ImageAssets {
   static const String messageIcon = "$IMAGE_PATH/message_icon.png";
   static const String tripIcon = "$IMAGE_PATH/trip_icon.png";
   static const String floatingIcon = "$IMAGE_PATH/floating_icon.png";
+  static  const Map<CardType , String> cardLogos = {
+    CardType.visa: "$IMAGE_PATH/visa_logo.png",
+    CardType.mastercard: "$IMAGE_PATH/mastercard_logo.png",
+    CardType.discover: "$IMAGE_PATH/discover_logo.png",
+    CardType.amex: "$IMAGE_PATH/amex_logo.png",
+  };
+
 
 }

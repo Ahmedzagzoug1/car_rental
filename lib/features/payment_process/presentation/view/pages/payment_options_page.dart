@@ -1,4 +1,13 @@
+import 'package:car_rental/core/routes/app_router.dart';
+import 'package:car_rental/core/services/service_locators.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_request_entity.dart';
+import 'package:car_rental/features/payment_process/domain/entities/payment_type.dart';
+import 'package:car_rental/features/payment_process/presentation/cubit/cubit/payment_cubit.dart';
+import 'package:car_rental/features/payment_process/presentation/view/widgets/card_form.dart';
+import 'package:car_rental/features/payment_process/presentation/view/widgets/wallet_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -12,84 +21,108 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Checkout'),
-        leading: const BackButton(),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                const Text(
-                  'Payment Options',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 12),
-
-                // Saved Card
-                _savedCardTile(),
-                const SizedBox(height: 8),
-
-                // Credit / Debit Card
-                _expandableTile(
-                  title: 'Credit / Debit Card',
-                  index: 0,
-                  child: _cardForm(),
-                ),
-
-                // Apple Pay
-                _expandableTile(
-                  title: 'Apple Pay',
-                  index: 1,
-                  child: _walletInfo('Apple Pay will be used for payment'),
-                ),
-
-                // PayPal
-                _expandableTile(
-                  title: 'PayPal',
-                  index: 2,
-                  child: _walletInfo('You will be redirected to PayPal'),
-                ),
-
-                // Net Banking
-                _expandableTile(
-                  title: 'Net Banking',
-                  index: 3,
-                  child: _walletInfo('Select your bank to continue'),
-                ),
-              ],
-            ),
+    return BlocProvider<PaymentCubit>(
+      create: (context) => sl<PaymentCubit>(),
+      
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Checkout'),
+            leading: const BackButton(),
           ),
+          body: BlocConsumer<PaymentCubit, PaymentState>(
+  listener: (context, state) {
+    if (state is PaymentSuccess) {
+      Navigator.pushNamed(context, AppRouter.webViewRoute, arguments: state.url);
+    } else if (state is PaymentFailure) {
+      ScaffoldMessenger.of(context).
+      showSnackBar(SnackBar(content: Text(state.errorMessage)));
+    }
+  },
+  builder: (context, state) {
+    // Determine if the checkout button should be enabled based on the current state
+    bool isEnabled = false;
+    if (state is PaymentInitial) {
+      isEnabled = state.isButtonEnabled;
+    }
 
-          // Checkout Button
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: SizedBox(
-              width: double.infinity,
-              height: 52,
-              child: ElevatedButton(
-                onPressed: _canCheckout() ? () {} : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  disabledBackgroundColor: Colors.green.withOpacity(.4),
-                ),
-                child: const Text(
-                  'Checkout',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    return Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    const Text(
+                      'Payment Options',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 12),
+
+                    // Saved Card we can add this later if we have time
+                    // we can also add the option to add a new card and save it for later use
+                    //   _savedCardTile(),
+                    //    const SizedBox(height: 8),
+
+                    // Credit / Debit Card
+                    _expandableTile(
+                      title: 'Credit / Debit Card',
+                      index: 0,
+                      child: const CardForm(),
+                    ),
+
+                    // wallet
+                    _expandableTile(
+                      title: 'wallet',
+                      index: 1,
+                      child: const WalletForm(),
+                    ),
+
+                    // koisk
+                    _expandableTile(
+                      title: 'koisk',
+                      index: 2,
+                      child: const Text(
+                          'You will be redirected to pay at the nearest kiosk'),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
-        ],
+
+              // Checkout Button
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: _canCheckout() ? () {
+                      if (state is PaymentLoading ||(state is PaymentInitial && !state.isButtonEnabled)) return; // Prevent multiple clicks during loading
+                        
+                        final paymentType =  context.read<PaymentCubit>().state is PaymentInitial
+                            ? (context.read<PaymentCubit>().state as PaymentInitial).selectedType
+                            : null;
+                        context.read<PaymentCubit>().getPaymentData();
+                    } : null,
+                    style: Theme.of(context).elevatedButtonTheme.style!,
+                    child: const Text(
+                      'Checkout',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+  },
+        ),
       ),
-    );
+    ));
   }
 
   bool _canCheckout() {
-    // هنا بتتحط شروطك الحقيقية (OTP, License, Approval)
+    
     return true;
   }
 
@@ -130,9 +163,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             leading: const Icon(Icons.payment),
             title: Text(title),
             trailing: Icon(
-              isOpen
-                  ? Icons.keyboard_arrow_up
-                  : Icons.keyboard_arrow_down,
+              isOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
             ),
           ),
           if (isOpen)
@@ -141,48 +172,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
               child: child,
             ),
         ],
-      ),
-    );
-  }
-
-  Widget _cardForm() {
-    return Column(
-      children: [
-        _input('Card Number'),
-        const SizedBox(height: 8),
-        _input('Name on Card'),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(child: _input('MM/YY')),
-            const SizedBox(width: 8),
-            Expanded(child: _input('CVV')),
-          ],
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          'Please ensure your card can be used for online transactions.',
-          style: TextStyle(fontSize: 12, color: Colors.grey),
-        ),
-      ],
-    );
-  }
-
-  Widget _walletInfo(String text) {
-    return Text(
-      text,
-      style: const TextStyle(color: Colors.grey),
-    );
-  }
-
-  Widget _input(String hint) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: hint,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        isDense: true,
       ),
     );
   }

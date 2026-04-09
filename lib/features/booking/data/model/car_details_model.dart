@@ -1,5 +1,4 @@
 import 'package:car_rental/core/cache/hive/hive_type_ids.dart';
-import 'package:car_rental/features/booking/data/model/pickup_location_model.dart';
 import 'package:car_rental/features/booking/domain/entities/car_details_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:car_rental/features/booking/domain/entities/pickup_location_entity.dart';

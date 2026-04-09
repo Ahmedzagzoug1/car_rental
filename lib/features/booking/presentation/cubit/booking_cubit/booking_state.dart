@@ -7,7 +7,7 @@ sealed class BookingState extends Equatable {
 
 final class BookingInitial extends BookingState {
 
-  BookingInitial();
+  const BookingInitial();
 
   @override
   List<Object> get props => [];
@@ -21,7 +21,7 @@ final class BookingLoading extends BookingState {
 final class BookingFinished extends BookingState {
   final BookingEntity bookingEntity;
 
-  BookingFinished(this.bookingEntity);
+  const BookingFinished(this.bookingEntity);
 
   @override
   List<Object> get props => [bookingEntity];
@@ -29,7 +29,7 @@ final class BookingFinished extends BookingState {
 final class BookingFailure extends BookingState {
   final String  errMessage;
 
-  BookingFailure(this.errMessage);
+  const BookingFailure(this.errMessage);
 
   @override
   List<Object> get props => [errMessage];

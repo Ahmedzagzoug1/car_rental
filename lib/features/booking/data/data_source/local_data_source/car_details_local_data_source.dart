@@ -64,12 +64,12 @@ class CarDetailsLocalDataSourceImpl implements CarDetailsLocalDataSource {
     try {
       final List<dynamic> data = await carDetailsBox.get(
           '$_locationPrefix$carId');
-      if (data == null || (data is List && data.isEmpty)) {
+      if ((data.isEmpty)) {
         throw EmptyCacheException();
       }
 
       // 2. التحويل (Mapping)
-      return (data as List)
+      return (data)
           .map((e) => PickupLocationModel.fromJson(Map<String, dynamic>.from(e)))
           .toList();
 

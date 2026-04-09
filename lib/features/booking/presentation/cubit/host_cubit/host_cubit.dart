@@ -3,7 +3,7 @@ import 'package:car_rental/features/booking/domain/entities/host_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
-import '../../../domain/usecases/get_host_usecase.dart';
+import 'package:car_rental/features/booking/domain/usecases/get_host_usecase.dart';
 
 part 'host_state.dart';
 /*

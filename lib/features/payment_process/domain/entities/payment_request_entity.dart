@@ -1,27 +1,34 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'payment_request_model.g.dart';
-@JsonSerializable()
-class PaymentRequestModel {
+class PaymentRequestEntity  extends Equatable {
     int amount;
     String firstName;
     String lastName;
     String email;
     String phoneNumber;
-    String city;
-    String country;
-
-    PaymentRequestModel({
+    String? city;
+    String? country;
+    String paymentType;
+    PaymentRequestEntity({
         required this.amount,
         required this.firstName,
         required this.lastName,
         required this.email,
         required this.phoneNumber,
-        required this.city,
-        required this.country,
+                required this.paymentType,
+         this.city,
+         this.country,
     });
-    factory PaymentRequestModel.fromJson(Map<String, dynamic> json) => 
-      _$PaymentRequestModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PaymentRequestModelToJson(this);
+    
+      @override
+      List<Object?> get props => [
+        amount,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        city,
+        country,
+        paymentType
+      ];
 }

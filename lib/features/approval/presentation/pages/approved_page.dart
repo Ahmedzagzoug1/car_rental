@@ -8,7 +8,7 @@ import 'package:car_rental/features/approval/presentation/widgets/approval_item.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/services/service_locators.dart';
+import 'package:car_rental/core/services/service_locators.dart';
 
 class ApprovedPage extends StatelessWidget {
   const ApprovedPage({super.key});

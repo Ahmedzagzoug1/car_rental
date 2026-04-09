@@ -24,20 +24,20 @@ class CarDetails extends StatelessWidget {
     return BlocBuilder<CarDetailsCubit,CarDetailsState>(
   builder: (context, state) {
     if (state is CarDetailsLoading) {
-      return LoadingPage(message: 'please wait  ',);
+      return const LoadingPage(message: 'please wait  ',);
     }
     if (state is CarDetailsLoaded) {
       final carEntity = state.carDetailsEntity;
       return  Scaffold(
         appBar: AppBar(
-          leading: InkWell(child: Icon(Icons.arrow_back_ios),
+          leading: InkWell(child: const Icon(Icons.arrow_back_ios),
               onTap: () {
                 Navigator.pop(context);
               }),
           actions: [
             IconButton(onPressed: () {
 
-            }, icon: Icon(Icons.favorite_outline_outlined))
+            }, icon: const Icon(Icons.favorite_outline_outlined))
           ],
           backgroundColor: ColorManager.white,
           elevation: 0,
@@ -64,7 +64,7 @@ class CarDetails extends StatelessWidget {
                         HostDetails(hostEntity: carEntity.host!),
                         SizedBox(height: 20.h,),
 
-                        DateDetails(),
+                        const DateDetails(),
                         SizedBox(height: 20.h,),
                         DistanceDetails()
                       ]
@@ -76,7 +76,7 @@ class CarDetails extends StatelessWidget {
             ),
             SizedBox(
                 height: 91.h,
-                child: BookNowWidget(originalPrice: 20, pricePerHour: 30,))
+                child: const BookNowWidget(originalPrice: 20, pricePerHour: 30,))
           ],
           )
       );

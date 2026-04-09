@@ -3,8 +3,8 @@ import 'package:car_rental/core/shared_components/permissions/domain/usecases/op
 import 'package:car_rental/core/shared_components/permissions/domain/usecases/request_permission_usecase.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/entities/app_permission.dart';
-import '../../../domain/entities/app_permission_status.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission.dart';
+import 'package:car_rental/core/shared_components/permissions/domain/entities/app_permission_status.dart';
 
 part 'permission_state.dart';
 

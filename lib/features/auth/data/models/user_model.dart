@@ -1,7 +1,7 @@
 import 'package:car_rental/core/cache/hive/hive_type_ids.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-import '../../domain/entities/user_entity.dart';
+import 'package:car_rental/features/auth/domain/entities/user_entity.dart';
 
 part 'user_model.g.dart';
 
